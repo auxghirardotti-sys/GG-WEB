@@ -1,0 +1,135 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { SERVICES } from '../../data/services';
+import { waLink } from '../../data/site';
+
+export function getStaticPaths() {
+  return SERVICES.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const others = SERVICES.filter((s) => s.slug !== service.slug);
+---
+
+<Base title={`${service.title} | Ghirardotti & Ghirardotti`} description={service.metaDescription}>
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-ink">
+    {service.heroImage && (
+      <img
+        src={service.heroImage}
+        alt=""
+        class="absolute inset-0 h-full w-full object-cover opacity-25"
+        loading="eager"
+      />
+    )}
+    <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40"></div>
+    <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+      <nav class="text-xs font-semibold text-zinc-400" aria-label="Migas de pan">
+        <a href="/" class="hover:text-white">Inicio</a>
+        <span class="mx-2">/</span>
+        <span class="text-zinc-300">Servicios</span>
+        <span class="mx-2">/</span>
+        <span class="text-white">{service.nav}</span>
+      </nav>
+      <h1 class="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl">
+        {service.heroTitle}
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-zinc-300">{service.heroSub}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={waLink}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-base font-bold text-white shadow-md transition-colors hover:bg-brand-dark"
+        >
+          Consultar por este servicio
+        </a>
+        <a
+          href="/contacto"
+          class="inline-flex items-center rounded-full border-2 border-white/40 px-7 py-3.5 text-base font-bold text-white transition-colors hover:bg-white/10"
+        >
+          Ir a contacto
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO + ASIDE -->
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.5fr_1fr] lg:py-20">
+      <div class="space-y-5">
+        {service.intro.map((p) => (
+          <p class="text-lg leading-relaxed">{p}</p>
+        ))}
+      </div>
+      <aside class="h-fit rounded-2xl border border-line bg-paper p-7">
+        <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft text-brand">
+          <Icon name={service.icon} class="h-6 w-6" />
+        </span>
+        <h2 class="mt-4 text-lg font-extrabold tracking-tight text-ink">
+          Atención directa de los socios
+        </h2>
+        <p class="mt-2 text-sm leading-relaxed">
+          Tu consulta la responde un socio del estudio, no un formulario. Escribinos y contanos tu
+          caso.
+        </p>
+        <a
+          href={waLink}
+          target="_blank"
+          rel="noopener"
+          class="mt-5 inline-flex items-center gap-2 rounded-full bg-wsp px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-wsp-dark"
+        >
+          WhatsApp directo
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ITEMS -->
+  <section class="bg-paper">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+      <h2 class="max-w-2xl text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+        {service.itemsTitle}
+      </h2>
+      <ul class="mt-10 grid gap-4 sm:grid-cols-2">
+        {service.items.map((item) => (
+          <li class="flex items-start gap-3 rounded-xl border border-line bg-white p-5">
+            <span class="mt-0.5 text-brand">
+              <Icon name="check" class="h-5 w-5" />
+            </span>
+            <span class="text-base font-medium text-ink">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- OTROS SERVICIOS -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <h2 class="text-xl font-extrabold tracking-tight text-ink">También te puede interesar</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {others.map((s) => (
+          <a
+            href={`/servicios/${s.slug}`}
+            class="group rounded-xl border border-line p-5 transition-colors hover:border-brand/40 hover:bg-brand-soft/40"
+          >
+            <span class="text-brand">
+              <Icon name={s.icon} class="h-5 w-5" />
+            </span>
+            <p class="mt-3 text-sm font-bold text-ink group-hover:text-brand">{s.title}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title={`¿Necesitás ${service.nav.toLowerCase() === 'outsourcing' ? 'tercerizar tu administración' : 'ayuda con este tema'}?`}
+  />
+</Base>

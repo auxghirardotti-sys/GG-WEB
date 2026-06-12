@@ -1,0 +1,241 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SERVICES } from '../data/services';
+import { SITE, waLink, TEAM, INDUSTRIES, DIFFERENTIALS } from '../data/site';
+import { fmtDate } from '../data/format';
+
+const posts = (await getCollection('novedades'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const stats = [
+  { value: '40+', label: 'años de trayectoria' },
+  { value: '3', label: 'generaciones al frente del estudio' },
+  { value: '12+', label: 'industrias asesoradas' },
+  { value: 'BOKS', label: 'red internacional de firmas' },
+];
+---
+
+<Base
+  title="Ghirardotti & Ghirardotti | Estudio Contable e Impositivo en San Isidro"
+  description={SITE.description}
+>
+  <!-- HERO -->
+  <section class="border-b border-line bg-white">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:py-24">
+      <div>
+        <p class="inline-flex items-center gap-2 rounded-full bg-brand-soft px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-brand">
+          Estudio contable e impositivo · San Isidro
+        </p>
+        <h1 class="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl">
+          Asesoría contable orientada a <span class="text-brand">soluciones</span>
+        </h1>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed">
+          Hace más de 40 años protegemos la utilidad y los activos de empresas de todos los tamaños.
+          Impuestos, auditoría, sociedades, agro y outsourcing — con la atención directa de los socios,
+          no de un mostrador.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-base font-bold text-white shadow-md shadow-brand/25 transition-colors hover:bg-brand-dark"
+          >
+            Hablar con un asesor
+          </a>
+          <a
+            href="#servicios"
+            class="inline-flex items-center rounded-full border-2 border-line px-7 py-3.5 text-base font-bold text-ink transition-colors hover:border-brand hover:text-brand"
+          >
+            Ver servicios
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        {stats.map((s) => (
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <p class="text-3xl font-extrabold tracking-tight text-brand">{s.value}</p>
+            <p class="mt-1 text-sm font-medium text-body">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="scroll-mt-20 bg-paper">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+      <div class="max-w-2xl">
+        <p class="text-xs font-bold uppercase tracking-widest text-brand">Servicios</p>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+          Todo lo que tu empresa necesita, en un solo estudio
+        </h2>
+        <p class="mt-3 text-base leading-relaxed">
+          Contadores públicos y abogados trabajando juntos sobre las cinco áreas que definen la salud
+          contable y fiscal de un negocio.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {SERVICES.map((s) => (
+          <a
+            href={`/servicios/${s.slug}`}
+            class="group flex flex-col rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg"
+          >
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft text-brand">
+              <Icon name={s.icon} class="h-6 w-6" />
+            </span>
+            <h3 class="mt-5 text-lg font-extrabold tracking-tight text-ink group-hover:text-brand">
+              {s.title}
+            </h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed">{s.card}</p>
+            <span class="mt-5 inline-flex items-center gap-1 text-sm font-bold text-brand">
+              Más info
+              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.6L10.2 5.3a.75.75 0 1 1 1.1-1.02l5.5 5.25a.75.75 0 0 1 0 1.04l-5.5 5.25a.75.75 0 1 1-1.1-1.02l4.15-3.95H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
+              </svg>
+            </span>
+          </a>
+        ))}
+
+        <div class="flex flex-col justify-center rounded-2xl bg-ink p-7 text-white">
+          <h3 class="text-lg font-extrabold tracking-tight">¿No sabés por dónde empezar?</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-300">
+            Contanos tu situación y te orientamos hacia el servicio que mejor la resuelve. Sin compromiso.
+          </p>
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noopener"
+            class="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-dark"
+          >
+            Escribinos
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIALES -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+      <div class="max-w-2xl">
+        <p class="text-xs font-bold uppercase tracking-widest text-brand">Por qué G&G</p>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+          El asesoramiento como valor agregado, no como trámite
+        </h2>
+      </div>
+      <div class="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2">
+        {DIFFERENTIALS.map((d) => (
+          <div class="flex gap-5">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand">
+              <Icon name={d.icon as any} class="h-6 w-6" />
+            </span>
+            <div>
+              <h3 class="text-lg font-extrabold tracking-tight text-ink">{d.title}</h3>
+              <p class="mt-1.5 text-sm leading-relaxed">{d.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="bg-paper">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div class="max-w-2xl">
+          <p class="text-xs font-bold uppercase tracking-widest text-brand">Equipo</p>
+          <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Tres generaciones, un mismo estudio
+          </h2>
+        </div>
+        <a href="/quienes-somos" class="text-sm font-bold text-brand hover:text-brand-dark">
+          Conocé la historia del estudio →
+        </a>
+      </div>
+
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {TEAM.map((p) => (
+          <div class="rounded-2xl border border-line bg-white p-6 text-center">
+            <span class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand-dark text-2xl font-extrabold text-white">
+              {p.initials}
+            </span>
+            <h3 class="mt-4 text-base font-extrabold tracking-tight text-ink">{p.name}</h3>
+            <p class="mt-1 text-sm font-semibold text-brand">{p.role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIAS -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+      <div class="max-w-2xl">
+        <p class="text-xs font-bold uppercase tracking-widest text-brand">Industrias</p>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+          Conocemos tu rubro
+        </h2>
+        <p class="mt-3 text-base leading-relaxed">
+          Cada industria tiene sus reglas, sus riesgos y sus oportunidades fiscales. Estas son algunas
+          de las que asesoramos hace años:
+        </p>
+      </div>
+      <ul class="mt-8 flex flex-wrap gap-3">
+        {INDUSTRIES.map((i) => (
+          <li class="rounded-full border border-line bg-paper px-5 py-2.5 text-sm font-semibold text-body">
+            {i}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- NOVEDADES -->
+  <section class="border-t border-line bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-brand">Novedades</p>
+          <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            El estudio en los medios
+          </h2>
+        </div>
+        <a href="/novedades" class="text-sm font-bold text-brand hover:text-brand-dark">
+          Ver todas →
+        </a>
+      </div>
+
+      <div class="mt-10 grid gap-5 md:grid-cols-3">
+        {posts.map((p) => (
+          <a
+            href={`/novedades/${p.id}`}
+            class="group flex flex-col rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg"
+          >
+            <div class="flex items-center gap-3 text-xs font-semibold text-muted">
+              <time datetime={p.data.date.toISOString()}>{fmtDate(p.data.date)}</time>
+              {p.data.source && (
+                <span class="rounded-full bg-brand-soft px-2.5 py-0.5 font-bold text-brand">
+                  {p.data.source}
+                </span>
+              )}
+            </div>
+            <h3 class="mt-3 flex-1 text-lg font-extrabold leading-snug tracking-tight text-ink group-hover:text-brand">
+              {p.data.title}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed">{p.data.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

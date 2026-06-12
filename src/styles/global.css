@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Identidad G&G: rojo institucional del logo sobre blanco y grises */
+  --color-brand: #ff3334;
+  --color-brand-dark: #d92527;
+  --color-brand-soft: #fff1f1;
+  --color-ink: #1d1d1f;
+  --color-body: #3f3f46;
+  --color-muted: #71717a;
+  --color-paper: #f7f7f8;
+  --color-line: #e4e4e7;
+  --color-wsp: #25d366;
+  --color-wsp-dark: #1eb958;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-body antialiased;
+}
+
+::selection {
+  background-color: var(--color-brand);
+  color: #fff;
+}

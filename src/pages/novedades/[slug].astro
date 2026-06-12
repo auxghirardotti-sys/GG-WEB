@@ -1,0 +1,65 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { fmtDate } from '../../data/format';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('novedades');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base title={`${post.data.title} | Novedades G&G`} description={post.data.excerpt}>
+  <article class="bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:py-20">
+      <nav class="text-xs font-semibold text-muted" aria-label="Migas de pan">
+        <a href="/" class="hover:text-brand">Inicio</a>
+        <span class="mx-2">/</span>
+        <a href="/novedades" class="hover:text-brand">Novedades</a>
+      </nav>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3 text-xs font-semibold text-muted">
+        <time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
+        {post.data.source && (
+          <span class="rounded-full bg-brand-soft px-2.5 py-0.5 font-bold text-brand">
+            {post.data.source}
+          </span>
+        )}
+      </div>
+
+      <h1 class="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">
+        {post.data.title}
+      </h1>
+
+      <div
+        class="prose-gg mt-8 space-y-5 text-lg leading-relaxed [&_a]:font-bold [&_a]:text-brand [&_a:hover]:text-brand-dark [&_strong]:text-ink"
+      >
+        <Content />
+      </div>
+
+      {post.data.externalUrl && (
+        <a
+          href={post.data.externalUrl}
+          target="_blank"
+          rel="noopener"
+          class="mt-8 inline-flex items-center gap-2 rounded-full border-2 border-line px-6 py-3 text-sm font-bold text-ink transition-colors hover:border-brand hover:text-brand"
+        >
+          Leer la nota original en {post.data.source}
+        </a>
+      )}
+
+      <a href="/novedades" class="mt-10 block text-sm font-bold text-brand hover:text-brand-dark">
+        ← Volver a novedades
+      </a>
+    </div>
+  </article>
+
+  <CtaBand />
+</Base>
