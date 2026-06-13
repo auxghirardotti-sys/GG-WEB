@@ -84,21 +84,25 @@ export const TEAM: TeamMember[] = [
 export const PROCESS = [
   {
     step: '01',
+    icon: 'chat',
     title: 'Nos escribís',
     text: 'Por WhatsApp o el formulario. Nos contás qué empresa tenés y qué necesitás resolver.',
   },
   {
     step: '02',
+    icon: 'clipboard',
     title: 'Diagnóstico sin cargo',
     text: 'Un socio revisa tu situación y te dice con franqueza cómo podemos ayudarte. La primera charla no tiene costo.',
   },
   {
     step: '03',
+    icon: 'doc',
     title: 'Propuesta a medida',
     text: 'Armamos un esquema de trabajo y honorarios claro, adaptado al tamaño y la industria de tu empresa.',
   },
   {
     step: '04',
+    icon: 'handshake',
     title: 'Te acompañamos',
     text: 'Quedás con un socio como interlocutor directo durante todo el año, no solo en los vencimientos.',
   },

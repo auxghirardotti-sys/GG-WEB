@@ -11,7 +11,8 @@ interface Props {
 const { pre, accent, post = '' } = Astro.props;
 ---
 
-<section class="surface-ink grid-ink masthead-top">
+<section class="surface-ink grid-ink">
+  <div class="brush-band"></div>
   <div class="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:py-28" data-reveal>
     <p class="font-display text-3xl leading-[1.15] text-white sm:text-5xl" style="font-weight:800">
       {pre}{' '}

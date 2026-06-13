@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Kicker from '../components/Kicker.astro';
+import Icon from '../components/Icon.astro';
 import { SITE, waLink } from '../data/site';
 ---
 
@@ -41,18 +42,21 @@ import { SITE, waLink } from '../data/site';
 
           <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <a href={SITE.phoneHref} class="group surface-card rounded-sm p-5 transition-colors hover:border-brand">
-              <p class="kicker">Teléfono</p>
-              <p class="mt-2 font-display text-lg text-ink group-hover:text-brand-ink" style="font-weight:700">{SITE.phoneDisplay}</p>
+              <span class="text-brand"><Icon name="phone" class="h-6 w-6" /></span>
+              <p class="kicker mt-3">Teléfono</p>
+              <p class="mt-1.5 font-display text-lg text-ink group-hover:text-brand-ink" style="font-weight:700">{SITE.phoneDisplay}</p>
             </a>
             <a href={`mailto:${SITE.email}`} class="group surface-card rounded-sm p-5 transition-colors hover:border-brand">
-              <p class="kicker">Email</p>
-              <p class="mt-2 break-all font-display text-lg text-ink group-hover:text-brand-ink" style="font-weight:700">{SITE.email}</p>
+              <span class="text-brand"><Icon name="mail" class="h-6 w-6" /></span>
+              <p class="kicker mt-3">Email</p>
+              <p class="mt-1.5 break-all font-display text-lg text-ink group-hover:text-brand-ink" style="font-weight:700">{SITE.email}</p>
             </a>
           </div>
 
           <a href={SITE.mapsLink} target="_blank" rel="noopener" class="group block surface-card rounded-sm p-5 transition-colors hover:border-brand">
-            <p class="kicker">Dónde estamos</p>
-            <p class="mt-2 font-display text-lg text-ink group-hover:text-brand-ink" style="font-weight:700">{SITE.addressFull}</p>
+            <span class="text-brand"><Icon name="pin" class="h-6 w-6" /></span>
+            <p class="kicker mt-3">Dónde estamos</p>
+            <p class="mt-1.5 font-display text-lg text-ink group-hover:text-brand-ink" style="font-weight:700">{SITE.addressFull}</p>
           </a>
 
           <div class="surface-card rounded-sm p-5">
