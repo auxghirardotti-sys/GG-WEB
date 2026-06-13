@@ -1,5 +1,5 @@
 ---
-// Índice numerado tipo sumario de dossier: filas editoriales 01–05.
+// Grilla de servicios con ícono (estilo manual/referencias: ícono grande, sin numeración).
 import Icon from './Icon.astro';
 import { SERVICES } from '../data/services';
 
@@ -11,34 +11,23 @@ const { exclude } = Astro.props;
 const items = SERVICES.filter((s) => s.slug !== exclude);
 ---
 
-<div class="border-t border-line-strong" data-reveal-stagger>
+<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
   {
-    items.map((s, i) => (
+    items.map((s) => (
       <a
         href={`/servicios/${s.slug}`}
-        class="group grid grid-cols-[auto_1fr_auto] items-center gap-5 border-b border-line px-1 py-7 transition-colors hover:bg-paper-2 sm:gap-8 sm:px-4"
+        class="lift surface-card group flex flex-col rounded-sm p-7 text-left hover:border-brand"
       >
-        <span
-          class="font-display tabular text-3xl leading-none text-line-strong transition-colors group-hover:text-brand sm:text-4xl"
-          style="font-weight:800"
-        >
-          {String(i + 1).padStart(2, '0')}
+        <span class="flex h-16 w-16 items-center justify-center rounded-md bg-brand-soft text-brand transition-colors group-hover:bg-brand group-hover:text-white">
+          <Icon name={s.icon} class="h-9 w-9" />
         </span>
-        <span class="min-w-0">
-          <span class="flex items-center gap-3">
-            <span class="text-brand">
-              <Icon name={s.icon} class="h-5 w-5" />
-            </span>
-            <span class="font-display text-xl text-ink transition-colors group-hover:text-brand-ink sm:text-2xl" style="font-weight:700">
-              {s.title}
-            </span>
-          </span>
-          <span class="mt-1.5 block max-w-xl text-sm leading-relaxed text-body sm:text-[0.95rem]">
-            {s.card}
-          </span>
-        </span>
-        <span class="hidden text-brand transition-transform duration-300 group-hover:translate-x-1 sm:block">
-          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <h3 class="mt-6 font-display text-xl text-ink transition-colors group-hover:text-brand-ink" style="font-weight:700">
+          {s.title}
+        </h3>
+        <p class="mt-2 flex-1 text-sm leading-relaxed text-body">{s.card}</p>
+        <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-[0.08em] text-brand-ink">
+          Ver más
+          <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </span>

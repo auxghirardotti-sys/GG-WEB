@@ -17,13 +17,10 @@ import { PROCESS, waLink } from '../data/site';
     <ol class="mt-12 grid gap-px overflow-hidden rounded-md sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
       {
         PROCESS.map((p) => (
-          <li class="relative bg-ink-2/60 p-7">
-            <div class="flex items-center justify-between">
-              <span class="flex h-12 w-12 items-center justify-center rounded-full border border-brand-bright/40 text-brand-bright">
-                <Icon name={p.icon as any} class="h-6 w-6" />
-              </span>
-              <span class="font-display tabular text-4xl text-white/15" style="font-weight:800">{p.step}</span>
-            </div>
+          <li class="relative bg-ink-2/60 p-7 text-left">
+            <span class="flex h-16 w-16 items-center justify-center rounded-md bg-brand-bright/15 text-brand-bright">
+              <Icon name={p.icon as any} class="h-9 w-9" />
+            </span>
             <h3 class="mt-5 font-display text-xl text-white" style="font-weight:700">{p.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-white/80">{p.text}</p>
           </li>

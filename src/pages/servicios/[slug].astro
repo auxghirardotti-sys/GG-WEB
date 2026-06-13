@@ -15,8 +15,6 @@ export function getStaticPaths() {
 }
 
 const { service } = Astro.props;
-const index = SERVICES.findIndex((s) => s.slug === service.slug);
-const num = String(index + 1).padStart(2, '0');
 const wa = waLinkFor(`Hola, quiero consultar por ${service.title}.`);
 const [lead, ...restIntro] = service.intro;
 ---
@@ -33,12 +31,8 @@ const [lead, ...restIntro] = service.intro;
         loading="eager"
       />
     )}
-    <span
-      class="font-display pointer-events-none absolute -right-2 top-1/2 -translate-y-1/2 select-none text-[14rem] leading-none text-white/[0.04] sm:text-[20rem]"
-      style="font-weight:800"
-      aria-hidden="true"
-    >
-      {num}
+    <span class="pointer-events-none absolute -right-6 top-1/2 -translate-y-1/2 select-none text-white/[0.06]" aria-hidden="true">
+      <Icon name={service.icon} class="h-64 w-64 sm:h-80 sm:w-80" />
     </span>
     <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
       <nav class="text-xs font-medium uppercase tracking-[0.16em] text-white/65" aria-label="Migas de pan">
@@ -48,7 +42,7 @@ const [lead, ...restIntro] = service.intro;
         <span class="mx-2">/</span>
         <span class="text-white/80">{service.nav}</span>
       </nav>
-      <Kicker text={`Servicio ${num}`} light class="mt-6 is-visible" />
+      <Kicker text="Servicio" light class="mt-6 is-visible" />
       <h1 class="font-display mt-4 max-w-3xl text-4xl leading-[1.05] text-white sm:text-6xl" style="font-weight:800">
         {service.heroTitle}
       </h1>
