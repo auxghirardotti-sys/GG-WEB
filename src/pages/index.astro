@@ -9,7 +9,6 @@ import Manifesto from '../components/Manifesto.astro';
 import Process from '../components/Process.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
-import TeamCard from '../components/TeamCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { SITE, waLink, TEAM, INDUSTRIES, DIFFERENTIALS, FAQ } from '../data/site';
 import { fmtDate } from '../data/format';
@@ -43,13 +42,13 @@ const faqJsonLd = {
   jsonLdExtra={faqJsonLd}
 >
   <!-- HERO -->
-  <section class="masthead-top grid-paper border-b border-line bg-paper">
+  <section class="mesh masthead-top grid-paper border-b border-line bg-paper">
     <div class="mx-auto max-w-6xl px-4 pb-14 pt-14 sm:px-6 lg:grid lg:grid-cols-[1.25fr_0.75fr] lg:gap-16 lg:pb-20 lg:pt-20">
       <div>
         <div class="hero-in hero-in-1">
           <Kicker text="Est. 1984 · San Isidro · BOKS International" />
         </div>
-        <h1 class="hero-in hero-in-2 font-display mt-6 text-[2.75rem] leading-[0.98] tracking-tight text-ink sm:text-6xl" style="font-weight:800">
+        <h1 class="hero-in hero-in-2 font-display mt-6 text-[2.05rem] leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-6xl lg:leading-[1]" style="font-weight:800">
           Tu contabilidad y tus impuestos, atendidos por un <em class="accent is-visible">socio</em> del estudio.
         </h1>
         <p class="hero-in hero-in-3 mt-7 max-w-xl text-lg leading-[1.7] text-body">
@@ -76,20 +75,22 @@ const faqJsonLd = {
         </p>
       </div>
 
-      <!-- Columna derecha: sello / compromiso -->
+      <!-- Columna derecha: imagen tratada con parallax + compromiso -->
       <div class="hero-in hero-in-5 mt-12 lg:mt-0">
-        <div class="surface-ink grid-ink relative flex h-full flex-col justify-between overflow-hidden border border-line p-8">
-          <span class="absolute right-0 top-0 h-12 w-12 border-b border-l border-brand-bright"></span>
-          <Kicker text="El compromiso G&G" light />
-          <p class="font-display mt-6 text-2xl leading-snug text-white sm:text-[1.75rem]" style="font-weight:800">
-            Cada cliente trabaja directamente con un <em class="text-brand-bright" style="font-style:italic">socio</em> del estudio.
-          </p>
-          <div class="mt-8 flex items-center gap-2">
-            {TEAM.map((m) => (
-              <span class="flex h-11 w-11 items-center justify-center border border-white/20 font-display text-sm text-white/90" style="font-weight:700">
-                {m.initials}
-              </span>
-            ))}
+        <div class="duotone relative flex aspect-[5/6] flex-col justify-end rounded-sm border border-line lg:aspect-[4/5]">
+          <img
+            src="/img/hero-impositivo.jpg"
+            alt=""
+            aria-hidden="true"
+            data-parallax="0.05"
+            class="absolute inset-x-0 -top-[8%] h-[116%] w-full object-cover"
+          />
+          <span class="absolute right-0 top-0 z-10 h-12 w-12 border-b border-l border-brand-bright"></span>
+          <div class="relative z-10 p-7 sm:p-8">
+            <Kicker text="El compromiso G&G" light />
+            <p class="font-display mt-4 text-2xl leading-snug text-white sm:text-[1.7rem]" style="font-weight:800">
+              Cada cliente trabaja directamente con un <em class="text-brand-bright" style="font-style:italic">socio</em>.
+            </p>
           </div>
         </div>
       </div>
@@ -177,23 +178,28 @@ const faqJsonLd = {
   <!-- CÓMO TRABAJAMOS -->
   <Process />
 
-  <!-- EQUIPO -->
+  <!-- EQUIPO (teaser compacto) -->
   <section class="bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
-      <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
-        <div class="max-w-2xl">
-          <Kicker text="Equipo" />
-          <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:700">
-            Tres generaciones, un mismo estudio
-          </h2>
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+      <div class="surface-card flex flex-col items-start gap-6 rounded-sm p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9" data-reveal>
+        <div class="flex items-center gap-5">
+          <div class="flex -space-x-3">
+            {TEAM.map((m) => (
+              <span class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-surface bg-ink font-display text-sm text-white" style="font-weight:700">
+                {m.initials}
+              </span>
+            ))}
+          </div>
+          <div>
+            <p class="kicker">El equipo</p>
+            <h2 class="mt-1 font-display text-xl text-ink sm:text-2xl" style="font-weight:700">
+              Tres generaciones, un mismo estudio
+            </h2>
+          </div>
         </div>
-        <a href="/quienes-somos" class="underline-grow text-sm font-semibold text-brand-ink">
-          Conocé la historia del estudio →
+        <a href="/quienes-somos" class="underline-grow shrink-0 text-sm font-semibold text-brand-ink">
+          Conocé al equipo →
         </a>
-      </div>
-
-      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
-        {TEAM.map((m) => <TeamCard member={m} />)}
       </div>
     </div>
   </section>
@@ -243,7 +249,7 @@ const faqJsonLd = {
         {posts.map((p) => (
           <a
             href={`/novedades/${p.id}`}
-            class="group flex flex-col border-t-2 border-line bg-paper p-7 transition-all hover:-translate-y-1 hover:border-brand"
+            class="group lift flex flex-col rounded-sm border-t-2 border-line surface-card p-7 hover:border-brand"
           >
             <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted">
               <time datetime={p.data.date.toISOString()}>{fmtDate(p.data.date)}</time>
