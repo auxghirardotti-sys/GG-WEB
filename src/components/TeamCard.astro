@@ -1,0 +1,36 @@
+---
+// Ficha de socio tipo directorio editorial: retrato/monograma cuadrado, credenciales.
+import type { TeamMember } from '../data/site';
+interface Props {
+  member: TeamMember;
+}
+const { member } = Astro.props;
+---
+
+<article class="flex flex-col">
+  <div class="portrait relative aspect-square overflow-hidden border border-line bg-ink-2">
+    {
+      member.photo ? (
+        <img src={member.photo} alt={member.name} class="h-full w-full object-cover" loading="lazy" />
+      ) : (
+        <div class="surface-ink grid-ink flex h-full w-full items-center justify-center">
+          <span class="font-display text-6xl text-white/90" style="font-weight:300">{member.initials}</span>
+        </div>
+      )
+    }
+    <span class="absolute right-0 top-0 h-8 w-8 border-l border-b border-brand-bright bg-brand-bright/0"></span>
+  </div>
+  <p class="kicker mt-5">{member.role}</p>
+  <h3 class="mt-2 font-display text-xl text-ink" style="font-weight:600">{member.name}</h3>
+  <p class="mt-2 text-sm leading-relaxed text-body">{member.bio}</p>
+  <ul class="mt-4 space-y-1.5 border-t border-line pt-4">
+    {
+      member.credentials.map((c) => (
+        <li class="flex items-start gap-2 text-xs text-muted">
+          <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand"></span>
+          {c}
+        </li>
+      ))
+    }
+  </ul>
+</article>

@@ -5,78 +5,51 @@ import { SITE, waLink } from '../data/site';
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-ink text-zinc-300">
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4">
-    <div>
-      <div class="flex items-center gap-3">
-        <img src="/logo-gg.png" alt="" class="h-9 w-9" width="36" height="36" />
-        <p class="text-base font-extrabold leading-tight text-white">
-          Ghirardotti<br />& Ghirardotti
-        </p>
-      </div>
-      <p class="mt-4 text-sm leading-relaxed">
-        Estudio contable e impositivo con más de 40 años de trayectoria. Auditoría, impuestos, sociedades, agro y outsourcing.
-      </p>
-      <p class="mt-4 text-sm">
-        Miembro independiente de <span class="font-semibold text-white">BOKS International</span>.
-      </p>
-      <a
-        href={SITE.linkedin}
-        target="_blank"
-        rel="noopener"
-        class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-brand"
-      >
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z" />
-        </svg>
-        LinkedIn
-      </a>
-    </div>
+<footer class="surface-ink grid-ink masthead-top text-white/70">
+  <div class="mx-auto max-w-6xl px-4 pt-14 sm:px-6">
+    <p class="font-display text-3xl leading-none text-white sm:text-4xl" style="font-weight:300">
+      Ghirardotti <span class="text-brand-bright">&amp;</span> Ghirardotti
+    </p>
+    <p class="mt-3 max-w-md text-sm leading-relaxed text-white/70">
+      Estudio contable e impositivo en San Isidro. Más de 40 años protegiendo la utilidad y los
+      activos de las empresas que confían en nosotros.
+    </p>
+  </div>
 
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 lg:grid-cols-4">
     <nav aria-label="Servicios">
-      <p class="text-xs font-bold uppercase tracking-widest text-zinc-500">Servicios</p>
+      <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-bright">Servicios</p>
       <ul class="mt-4 space-y-2.5">
         {SERVICES.map((s) => (
           <li>
-            <a href={`/servicios/${s.slug}`} class="text-sm transition-colors hover:text-white">
-              {s.title}
-            </a>
+            <a href={`/servicios/${s.slug}`} class="text-sm transition-colors hover:text-white">{s.title}</a>
           </li>
         ))}
       </ul>
     </nav>
 
     <nav aria-label="El estudio">
-      <p class="text-xs font-bold uppercase tracking-widest text-zinc-500">El estudio</p>
+      <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-bright">El estudio</p>
       <ul class="mt-4 space-y-2.5">
         <li><a href="/quienes-somos" class="text-sm transition-colors hover:text-white">Quiénes somos</a></li>
         <li><a href="/novedades" class="text-sm transition-colors hover:text-white">Novedades</a></li>
         <li><a href="/contacto" class="text-sm transition-colors hover:text-white">Contacto</a></li>
         <li>
-          <a
-            href={`mailto:${SITE.email}?subject=${encodeURIComponent('CV - Buscamos talentos')}`}
-            class="text-sm transition-colors hover:text-white"
-          >
-            Buscamos talentos · Envianos tu CV
+          <a href={`mailto:${SITE.email}?subject=${encodeURIComponent('CV - Buscamos talentos')}`} class="text-sm transition-colors hover:text-white">
+            Buscamos talentos · Enviá tu CV
           </a>
         </li>
       </ul>
     </nav>
 
     <div>
-      <p class="text-xs font-bold uppercase tracking-widest text-zinc-500">Contacto</p>
+      <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-bright">Contacto</p>
       <ul class="mt-4 space-y-3 text-sm">
         <li>
-          <a href={SITE.mapsLink} target="_blank" rel="noopener" class="transition-colors hover:text-white">
-            {SITE.addressFull}
-          </a>
+          <a href={SITE.mapsLink} target="_blank" rel="noopener" class="transition-colors hover:text-white">{SITE.addressFull}</a>
         </li>
-        <li>
-          <a href={SITE.phoneHref} class="transition-colors hover:text-white">{SITE.phoneDisplay}</a>
-        </li>
-        <li>
-          <a href={`mailto:${SITE.email}`} class="transition-colors hover:text-white">{SITE.email}</a>
-        </li>
+        <li><a href={SITE.phoneHref} class="transition-colors hover:text-white">{SITE.phoneDisplay}</a></li>
+        <li><a href={`mailto:${SITE.email}`} class="transition-colors hover:text-white">{SITE.email}</a></li>
         <li>
           <a href={waLink} target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-semibold text-wsp transition-colors hover:text-white">
             Escribinos por WhatsApp
@@ -84,12 +57,30 @@ const year = new Date().getFullYear();
         </li>
       </ul>
     </div>
+
+    <div>
+      <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-bright">Red internacional</p>
+      <p class="mt-4 text-sm leading-relaxed text-white/70">
+        Miembro independiente de <span class="font-semibold text-white">BOKS International</span>, una red global de firmas profesionales.
+      </p>
+      <a
+        href={SITE.linkedin}
+        target="_blank"
+        rel="noopener"
+        class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-brand-bright"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z" />
+        </svg>
+        LinkedIn
+      </a>
+    </div>
   </div>
 
-  <div class="border-t border-zinc-800">
-    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 pb-24 text-xs text-white/65 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:pb-6">
       <p>© {year} {SITE.legalName} · Todos los derechos reservados.</p>
-      <p>San Isidro, Buenos Aires, Argentina</p>
+      <p class="font-display italic text-white/65" style="font-style:italic">G&amp;G · San Isidro · desde 1984</p>
     </div>
   </div>
 </footer>

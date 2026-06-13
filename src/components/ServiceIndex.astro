@@ -1,0 +1,48 @@
+---
+// Índice numerado tipo sumario de dossier: filas editoriales 01–05.
+import Icon from './Icon.astro';
+import { SERVICES } from '../data/services';
+
+interface Props {
+  /** slug a excluir (para el cross-sell dentro de una página de servicio) */
+  exclude?: string;
+}
+const { exclude } = Astro.props;
+const items = SERVICES.filter((s) => s.slug !== exclude);
+---
+
+<div class="border-t border-line-strong" data-reveal-stagger>
+  {
+    items.map((s, i) => (
+      <a
+        href={`/servicios/${s.slug}`}
+        class="group grid grid-cols-[auto_1fr_auto] items-center gap-5 border-b border-line px-1 py-7 transition-colors hover:bg-paper-2 sm:gap-8 sm:px-4"
+      >
+        <span
+          class="font-display tabular text-3xl leading-none text-line-strong transition-colors group-hover:text-brand sm:text-4xl"
+          style="font-weight:300"
+        >
+          {String(i + 1).padStart(2, '0')}
+        </span>
+        <span class="min-w-0">
+          <span class="flex items-center gap-3">
+            <span class="text-brand">
+              <Icon name={s.icon} class="h-5 w-5" />
+            </span>
+            <span class="font-display text-xl text-ink transition-colors group-hover:text-brand-ink sm:text-2xl" style="font-weight:600">
+              {s.title}
+            </span>
+          </span>
+          <span class="mt-1.5 block max-w-xl text-sm leading-relaxed text-body sm:text-[0.95rem]">
+            {s.card}
+          </span>
+        </span>
+        <span class="hidden text-brand transition-transform duration-300 group-hover:translate-x-1 sm:block">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </a>
+    ))
+  }
+</div>

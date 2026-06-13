@@ -1,0 +1,14 @@
+---
+// Eyebrow editorial: filete rojo que se dibuja + texto en versalitas espaciadas.
+interface Props {
+  text: string;
+  class?: string;
+  /** Variante clara para fondos oscuros (ink) */
+  light?: boolean;
+}
+const { text, class: className = '', light = false } = Astro.props;
+---
+
+<p class:list={['kicker', className]} style={light ? 'color:#fff' : ''}>
+  {text}
+</p>

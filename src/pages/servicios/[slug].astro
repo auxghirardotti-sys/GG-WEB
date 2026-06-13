@@ -1,9 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
+import Kicker from '../../components/Kicker.astro';
+import ServiceIndex from '../../components/ServiceIndex.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { SERVICES } from '../../data/services';
-import { waLink } from '../../data/site';
+import { waLinkFor } from '../../data/site';
 
 export function getStaticPaths() {
   return SERVICES.map((service) => ({
@@ -13,45 +15,60 @@ export function getStaticPaths() {
 }
 
 const { service } = Astro.props;
-const others = SERVICES.filter((s) => s.slug !== service.slug);
+const index = SERVICES.findIndex((s) => s.slug === service.slug);
+const num = String(index + 1).padStart(2, '0');
+const wa = waLinkFor(`Hola, quiero consultar por ${service.title}.`);
+const [lead, ...restIntro] = service.intro;
 ---
 
 <Base title={`${service.title} | Ghirardotti & Ghirardotti`} description={service.metaDescription}>
   <!-- HERO -->
-  <section class="relative overflow-hidden bg-ink">
+  <section class="surface-ink grid-ink masthead-top relative overflow-hidden">
     {service.heroImage && (
       <img
         src={service.heroImage}
         alt=""
-        class="absolute inset-0 h-full w-full object-cover opacity-25"
+        aria-hidden="true"
+        class="absolute inset-0 h-full w-full object-cover opacity-[0.12] mix-blend-luminosity"
         loading="eager"
       />
     )}
-    <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40"></div>
+    <span
+      class="font-display pointer-events-none absolute -right-2 top-1/2 -translate-y-1/2 select-none text-[14rem] leading-none text-white/[0.04] sm:text-[20rem]"
+      style="font-weight:300"
+      aria-hidden="true"
+    >
+      {num}
+    </span>
     <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
-      <nav class="text-xs font-semibold text-zinc-400" aria-label="Migas de pan">
+      <nav class="text-xs font-medium uppercase tracking-[0.16em] text-white/65" aria-label="Migas de pan">
         <a href="/" class="hover:text-white">Inicio</a>
         <span class="mx-2">/</span>
-        <span class="text-zinc-300">Servicios</span>
+        <a href="/#servicios" class="hover:text-white">Servicios</a>
         <span class="mx-2">/</span>
-        <span class="text-white">{service.nav}</span>
+        <span class="text-white/80">{service.nav}</span>
       </nav>
-      <h1 class="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl">
+      <Kicker text={`Servicio ${num}`} light class="mt-6 is-visible" />
+      <h1 class="font-display mt-4 max-w-3xl text-4xl leading-[1.05] text-white sm:text-6xl" style="font-weight:300">
         {service.heroTitle}
       </h1>
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-zinc-300">{service.heroSub}</p>
-      <div class="mt-8 flex flex-wrap gap-3">
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">{service.heroSub}</p>
+      <div class="mt-9 flex flex-wrap gap-3">
         <a
-          href={waLink}
+          href={wa}
           target="_blank"
           rel="noopener"
-          class="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-base font-bold text-white shadow-md transition-colors hover:bg-brand-dark"
+          class="inline-flex items-center gap-2 rounded-md bg-wsp px-7 py-3.5 text-base font-bold text-white transition-colors hover:bg-wsp-dark"
         >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />
+            <path d="M12.04 2C6.56 2 2.1 6.45 2.1 11.93c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.92 9.92 0 0 0 4.79 1.22h.01c5.47 0 9.93-4.45 9.93-9.93A9.86 9.86 0 0 0 12.04 2Zm0 18.16a8.24 8.24 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38 8.27 8.27 0 0 1 8.25-8.25 8.2 8.2 0 0 1 5.83 2.42 8.2 8.2 0 0 1 2.41 5.84 8.27 8.27 0 0 1-8.24 8.23Z" />
+          </svg>
           Consultar por este servicio
         </a>
         <a
           href="/contacto"
-          class="inline-flex items-center rounded-full border-2 border-white/40 px-7 py-3.5 text-base font-bold text-white transition-colors hover:bg-white/10"
+          class="inline-flex items-center rounded-md border border-white/25 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10"
         >
           Ir a contacto
         </a>
@@ -60,29 +77,32 @@ const others = SERVICES.filter((s) => s.slug !== service.slug);
   </section>
 
   <!-- INTRO + ASIDE -->
-  <section class="bg-white">
-    <div class="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.5fr_1fr] lg:py-20">
-      <div class="space-y-5">
-        {service.intro.map((p) => (
-          <p class="text-lg leading-relaxed">{p}</p>
+  <section class="bg-paper">
+    <div class="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.5fr_1fr] lg:py-24">
+      <div data-reveal>
+        <p class="font-display text-2xl leading-[1.4] text-ink sm:text-[1.6rem]" style="font-weight:300">{lead}</p>
+        {restIntro.map((p) => (
+          <p class="mt-5 text-lg leading-[1.7] text-body">{p}</p>
         ))}
       </div>
-      <aside class="h-fit rounded-2xl border border-line bg-paper p-7">
-        <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft text-brand">
+      <aside class="h-fit border border-line bg-paper-2 p-7 lg:sticky lg:top-24" data-reveal>
+        <span class="relative flex h-12 w-12 items-center justify-center bg-ink text-white">
+          <span class="absolute right-0 top-0 h-4 w-4 border-b border-l border-brand-bright"></span>
           <Icon name={service.icon} class="h-6 w-6" />
         </span>
-        <h2 class="mt-4 text-lg font-extrabold tracking-tight text-ink">
-          Atención directa de los socios
+        <p class="kicker mt-5">Atención directa</p>
+        <h2 class="mt-2 font-display text-xl text-ink" style="font-weight:600">
+          Tu consulta la responde un socio
         </h2>
-        <p class="mt-2 text-sm leading-relaxed">
-          Tu consulta la responde un socio del estudio, no un formulario. Escribinos y contanos tu
-          caso.
+        <p class="mt-2 text-sm leading-relaxed text-body">
+          No un formulario ni un mostrador. Escribinos y contanos tu caso: te respondemos con criterio
+          y sin vueltas.
         </p>
         <a
-          href={waLink}
+          href={wa}
           target="_blank"
           rel="noopener"
-          class="mt-5 inline-flex items-center gap-2 rounded-full bg-wsp px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-wsp-dark"
+          class="mt-5 inline-flex items-center gap-2 rounded-md bg-wsp px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-wsp-dark"
         >
           WhatsApp directo
         </a>
@@ -91,15 +111,18 @@ const others = SERVICES.filter((s) => s.slug !== service.slug);
   </section>
 
   <!-- ITEMS -->
-  <section class="bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-      <h2 class="max-w-2xl text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-        {service.itemsTitle}
-      </h2>
-      <ul class="mt-10 grid gap-4 sm:grid-cols-2">
+  <section class="surface-paper-soft">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div data-reveal>
+        <Kicker text="Alcance" />
+        <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:400">
+          {service.itemsTitle}
+        </h2>
+      </div>
+      <ul class="mt-10 grid gap-x-12 border-t border-line sm:grid-cols-2" data-reveal>
         {service.items.map((item) => (
-          <li class="flex items-start gap-3 rounded-xl border border-line bg-white p-5">
-            <span class="mt-0.5 text-brand">
+          <li class="flex items-start gap-4 border-b border-line py-5">
+            <span class="mt-0.5 shrink-0 text-brand">
               <Icon name="check" class="h-5 w-5" />
             </span>
             <span class="text-base font-medium text-ink">{item}</span>
@@ -110,26 +133,23 @@ const others = SERVICES.filter((s) => s.slug !== service.slug);
   </section>
 
   <!-- OTROS SERVICIOS -->
-  <section class="bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <h2 class="text-xl font-extrabold tracking-tight text-ink">También te puede interesar</h2>
-      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {others.map((s) => (
-          <a
-            href={`/servicios/${s.slug}`}
-            class="group rounded-xl border border-line p-5 transition-colors hover:border-brand/40 hover:bg-brand-soft/40"
-          >
-            <span class="text-brand">
-              <Icon name={s.icon} class="h-5 w-5" />
-            </span>
-            <p class="mt-3 text-sm font-bold text-ink group-hover:text-brand">{s.title}</p>
-          </a>
-        ))}
+  <section class="bg-paper">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+      <div data-reveal>
+        <Kicker text="Seguir explorando" />
+        <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl" style="font-weight:400">
+          Otros servicios del estudio
+        </h2>
+      </div>
+      <div class="mt-10">
+        <ServiceIndex exclude={service.slug} />
       </div>
     </div>
   </section>
 
   <CtaBand
-    title={`¿Necesitás ${service.nav.toLowerCase() === 'outsourcing' ? 'tercerizar tu administración' : 'ayuda con este tema'}?`}
+    title="¿Querés avanzar? Hablemos con"
+    accent="un socio."
+    text="Contanos tu caso por WhatsApp y te decimos con franqueza cómo podemos ayudarte. Sin compromiso."
   />
 </Base>

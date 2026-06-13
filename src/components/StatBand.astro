@@ -1,0 +1,49 @@
+---
+// Banda de cifras Fraunces gigantes separadas por filetes verticales, con count-up.
+interface Stat {
+  value: number;
+  suffix?: string;
+  /** Texto fijo en lugar de número con count-up (ej: "BOKS") */
+  text?: string;
+  label: string;
+}
+interface Props {
+  stats: Stat[];
+  /** true sobre fondo oscuro */
+  light?: boolean;
+  class?: string;
+}
+const { stats, light = false, class: className = '' } = Astro.props;
+const numColor = light ? 'text-white' : 'text-ink';
+const labelColor = light ? 'text-white/55' : 'text-muted';
+const divide = light ? 'divide-white/15' : 'divide-line-strong';
+---
+
+<dl
+  class:list={[
+    'grid grid-cols-2 divide-y sm:grid-cols-4 sm:divide-y-0 sm:divide-x',
+    divide,
+    className,
+  ]}
+  data-reveal
+>
+  {
+    stats.map((s) => (
+      <div class="flex flex-col items-start px-2 py-6 sm:px-7">
+        <dt
+          class:list={['font-display tabular text-5xl leading-none sm:text-6xl', numColor]}
+          style="font-weight:300"
+        >
+          {s.text ? (
+            <span>{s.text}</span>
+          ) : (
+            <span data-countup={s.value} data-suffix={s.suffix ?? ''}>0{s.suffix ?? ''}</span>
+          )}
+        </dt>
+        <dd class:list={['mt-3 text-xs font-medium uppercase tracking-[0.14em]', labelColor]}>
+          {s.label}
+        </dd>
+      </div>
+    ))
+  }
+</dl>

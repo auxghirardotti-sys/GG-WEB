@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import Kicker from '../components/Kicker.astro';
+import TeamCard from '../components/TeamCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { TEAM } from '../data/site';
 ---
@@ -9,13 +11,13 @@ import { TEAM } from '../data/site';
   description="Más de 40 años de trayectoria y tres generaciones de contadores al frente del estudio. Conocé la historia y el equipo de Ghirardotti & Ghirardotti."
 >
   <!-- HERO -->
-  <section class="border-b border-line bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
-      <p class="text-xs font-bold uppercase tracking-widest text-brand">Quiénes somos</p>
-      <h1 class="mt-3 max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl">
+  <section class="masthead-top grid-paper border-b border-line bg-paper">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24" data-reveal>
+      <Kicker text="Quiénes somos" />
+      <h1 class="font-display mt-6 max-w-4xl text-4xl leading-[1.05] text-ink sm:text-6xl" style="font-weight:300">
         Tres generaciones cuidando los números de las empresas
       </h1>
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed">
+      <p class="mt-7 max-w-2xl text-lg leading-[1.7] text-body">
         Somos una firma de contadores públicos y abogados dedicada al asesoramiento tributario,
         societario y de auditoría, con más de 40 años en el mercado y la tercera generación de la
         familia fundadora al frente.
@@ -23,76 +25,74 @@ import { TEAM } from '../data/site';
     </div>
   </section>
 
-  <!-- HISTORIA + MISION -->
-  <section class="bg-white">
-    <div class="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-20">
-      <div class="space-y-5">
-        <h2 class="text-3xl font-extrabold tracking-tight text-ink">Nuestra historia</h2>
-        <p class="text-base leading-relaxed">
+  <!-- HISTORIA + MISIÓN -->
+  <section class="bg-paper">
+    <div class="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
+      <div data-reveal>
+        <Kicker text="Nuestra historia" />
+        <h2 class="mt-4 font-display text-3xl text-ink sm:text-4xl" style="font-weight:400">Cuarenta años de criterio</h2>
+        <p class="mt-5 text-lg leading-[1.7] text-body">
           El estudio nació hace más de cuatro décadas de la mano del Dr. Armando Ghirardotti, y creció
           junto a sus clientes: empresas que necesitaban algo más que el cumplimiento de formalidades
           administrativas. Hoy la dirección está en manos de la tercera generación de contadores de la
           familia, que combina esa trayectoria con un enfoque moderno y eficiente.
         </p>
-        <p class="text-base leading-relaxed">
+        <p class="mt-4 text-lg leading-[1.7] text-body">
           Quienes trabajan con nosotros buscan el asesoramiento como valor agregado distintivo: una
           mirada profesional que anticipa problemas, planifica y propone, en lugar de limitarse a
           presentar papeles a tiempo.
         </p>
       </div>
-      <div class="flex flex-col justify-center rounded-2xl bg-ink p-10 text-white">
-        <p class="text-xs font-bold uppercase tracking-widest text-brand">Nuestra misión</p>
-        <blockquote class="mt-4 text-2xl font-extrabold leading-snug tracking-tight">
-          “Brindar soluciones vinculadas a la protección y el manejo eficiente de la utilidad y los
-          activos empresarios, desde las ópticas tributaria, societaria y de auditoría.”
+      <div class="surface-ink grid-ink masthead-top flex flex-col justify-center p-10 lg:p-12" data-reveal>
+        <Kicker text="Nuestra misión" light />
+        <blockquote class="mt-6 font-display text-2xl leading-[1.3] text-white sm:text-3xl" style="font-weight:300">
+          Proteger y manejar con eficiencia la utilidad y los activos de las empresas, desde las
+          ópticas <em class="text-brand-bright" style="font-style:italic">tributaria, societaria y de auditoría.</em>
         </blockquote>
       </div>
     </div>
   </section>
 
   <!-- EQUIPO -->
-  <section class="bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-      <h2 class="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">El equipo</h2>
-      <div class="mt-10 grid gap-6 md:grid-cols-2">
-        {TEAM.map((p) => (
-          <article class="flex gap-6 rounded-2xl border border-line bg-white p-7">
-            <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand-dark text-xl font-extrabold text-white">
-              {p.initials}
-            </span>
-            <div>
-              <h3 class="text-lg font-extrabold tracking-tight text-ink">{p.name}</h3>
-              <p class="text-sm font-bold text-brand">{p.role}</p>
-              <p class="mt-3 text-sm leading-relaxed">{p.bio}</p>
-            </div>
-          </article>
-        ))}
+  <section class="surface-paper-soft">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div data-reveal>
+        <Kicker text="El equipo" />
+        <h2 class="mt-4 font-display text-3xl text-ink sm:text-4xl" style="font-weight:400">Los socios del estudio</h2>
+      </div>
+      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+        {TEAM.map((m) => <TeamCard member={m} />)}
       </div>
     </div>
   </section>
 
   <!-- BOKS -->
-  <section class="bg-white">
-    <div class="mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 py-16 sm:px-6 md:flex-row lg:py-20">
+  <section class="bg-paper">
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 py-16 sm:px-6 md:flex-row lg:py-24" data-reveal>
       <img
         src="/img/boks.jpg"
         alt="Miembro independiente de BOKS International"
-        class="w-full max-w-sm rounded-xl border border-line"
+        class="w-full max-w-sm border border-line"
         loading="lazy"
       />
       <div>
-        <h2 class="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+        <Kicker text="Red internacional" />
+        <h2 class="mt-4 font-display text-3xl text-ink sm:text-4xl" style="font-weight:400">
           Alcance internacional, atención local
         </h2>
-        <p class="mt-4 max-w-xl text-base leading-relaxed">
-          Somos miembro independiente de <strong>BOKS International</strong>, una red global de firmas
-          de contadores, auditores y consultores. Eso nos permite acompañar a nuestros clientes en
-          operaciones internacionales con corresponsales de confianza en decenas de países, sin perder
-          la cercanía de un estudio familiar.
+        <p class="mt-5 max-w-xl text-lg leading-[1.7] text-body">
+          Somos miembro independiente de <strong class="font-semibold text-ink">BOKS International</strong>,
+          una red global de firmas de contadores, auditores y consultores. Eso nos permite acompañar a
+          nuestros clientes en operaciones internacionales con corresponsales de confianza en decenas de
+          países, sin perder la cercanía de un estudio familiar.
         </p>
       </div>
     </div>
   </section>
 
-  <CtaBand title="¿Querés trabajar con nosotros?" text="Si buscás un estudio que se involucre con tu negocio, hablemos. Y si sos profesional y querés sumarte al equipo, envianos tu CV." />
+  <CtaBand
+    title="¿Querés trabajar con un estudio que se involucre? Hablemos con"
+    accent="un socio."
+    text="Y si sos contador, abogado o estudiante avanzado y querés sumarte al equipo, escribinos: siempre buscamos talento."
+  />
 </Base>

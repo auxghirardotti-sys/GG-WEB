@@ -1,0 +1,21 @@
+---
+// Banda oscura full-width con una sola frase grande Fraunces + palabra-acento roja italic.
+interface Props {
+  /** Texto antes de la palabra acento */
+  pre: string;
+  /** Palabra/frase en italic roja */
+  accent: string;
+  /** Texto después del acento */
+  post?: string;
+}
+const { pre, accent, post = '' } = Astro.props;
+---
+
+<section class="surface-ink grid-ink masthead-top">
+  <div class="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:py-28" data-reveal>
+    <p class="font-display text-3xl leading-[1.15] text-white sm:text-5xl" style="font-weight:300">
+      {pre}{' '}
+      <em class="text-brand-bright" style="font-style:italic">{accent}</em>{post}
+    </p>
+  </div>
+</section>

@@ -2,9 +2,16 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import Kicker from '../components/Kicker.astro';
+import StatBand from '../components/StatBand.astro';
+import ServiceIndex from '../components/ServiceIndex.astro';
+import Manifesto from '../components/Manifesto.astro';
+import Process from '../components/Process.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import TeamCard from '../components/TeamCard.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { SERVICES } from '../data/services';
-import { SITE, waLink, TEAM, INDUSTRIES, DIFFERENTIALS } from '../data/site';
+import { SITE, waLink, TEAM, INDUSTRIES, DIFFERENTIALS, FAQ } from '../data/site';
 import { fmtDate } from '../data/format';
 
 const posts = (await getCollection('novedades'))
@@ -12,185 +19,202 @@ const posts = (await getCollection('novedades'))
   .slice(0, 3);
 
 const stats = [
-  { value: '40+', label: 'años de trayectoria' },
-  { value: '3', label: 'generaciones al frente del estudio' },
-  { value: '12+', label: 'industrias asesoradas' },
-  { value: 'BOKS', label: 'red internacional de firmas' },
+  { value: 40, suffix: '+', label: 'años de trayectoria' },
+  { value: 3, label: 'generaciones al frente' },
+  { value: 12, suffix: '+', label: 'industrias asesoradas' },
+  { text: 'BOKS', value: 0, label: 'red internacional' },
 ];
+
+// JSON-LD de FAQ para SEO
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <Base
   title="Ghirardotti & Ghirardotti | Estudio Contable e Impositivo en San Isidro"
   description={SITE.description}
+  jsonLdExtra={faqJsonLd}
 >
   <!-- HERO -->
-  <section class="border-b border-line bg-white">
-    <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:py-24">
+  <section class="masthead-top grid-paper border-b border-line bg-paper">
+    <div class="mx-auto max-w-6xl px-4 pb-14 pt-14 sm:px-6 lg:grid lg:grid-cols-[1.25fr_0.75fr] lg:gap-16 lg:pb-20 lg:pt-20">
       <div>
-        <p class="inline-flex items-center gap-2 rounded-full bg-brand-soft px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-brand">
-          Estudio contable e impositivo · San Isidro
-        </p>
-        <h1 class="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl">
-          Asesoría contable orientada a <span class="text-brand">soluciones</span>
+        <div class="hero-in hero-in-1">
+          <Kicker text="Est. 1984 · San Isidro · BOKS International" />
+        </div>
+        <h1 class="hero-in hero-in-2 font-display mt-6 text-[2.75rem] leading-[0.98] tracking-tight text-ink sm:text-6xl" style="font-weight:300">
+          Tu contabilidad y tus impuestos, atendidos por un <em class="text-brand-ink" style="font-style:italic">socio</em> del estudio.
         </h1>
-        <p class="mt-5 max-w-xl text-lg leading-relaxed">
+        <p class="hero-in hero-in-3 mt-7 max-w-xl text-lg leading-[1.7] text-body">
           Hace más de 40 años protegemos la utilidad y los activos de empresas de todos los tamaños.
-          Impuestos, auditoría, sociedades, agro y outsourcing — con la atención directa de los socios,
-          no de un mostrador.
+          Tres generaciones de contadores y abogados, con atención directa — no un mostrador.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="hero-in hero-in-4 mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
           <a
             href={waLink}
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-base font-bold text-white shadow-md shadow-brand/25 transition-colors hover:bg-brand-dark"
+            class="inline-flex items-center gap-2 rounded-md bg-wsp px-7 py-4 text-base font-bold text-white shadow-[0_12px_30px_-10px_rgba(37,211,102,0.6)] transition-colors hover:bg-wsp-dark"
           >
-            Hablar con un asesor
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />
+              <path d="M12.04 2C6.56 2 2.1 6.45 2.1 11.93c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.92 9.92 0 0 0 4.79 1.22h.01c5.47 0 9.93-4.45 9.93-9.93A9.86 9.86 0 0 0 12.04 2Zm0 18.16a8.24 8.24 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38 8.27 8.27 0 0 1 8.25-8.25 8.2 8.2 0 0 1 5.83 2.42 8.2 8.2 0 0 1 2.41 5.84 8.27 8.27 0 0 1-8.24 8.23Z" />
+            </svg>
+            Hablar con un socio
           </a>
-          <a
-            href="#servicios"
-            class="inline-flex items-center rounded-full border-2 border-line px-7 py-3.5 text-base font-bold text-ink transition-colors hover:border-brand hover:text-brand"
-          >
-            Ver servicios
-          </a>
+          <a href="#servicios" class="underline-grow text-base font-semibold text-ink">Ver servicios</a>
         </div>
+        <p class="hero-in hero-in-4 mt-6 text-sm text-muted">
+          Miembro de BOKS International · 3 generaciones de contadores
+        </p>
       </div>
 
-      <div class="grid grid-cols-2 gap-4">
-        {stats.map((s) => (
-          <div class="rounded-2xl border border-line bg-paper p-6">
-            <p class="text-3xl font-extrabold tracking-tight text-brand">{s.value}</p>
-            <p class="mt-1 text-sm font-medium text-body">{s.label}</p>
+      <!-- Columna derecha: sello / compromiso -->
+      <div class="hero-in hero-in-5 mt-12 lg:mt-0">
+        <div class="surface-ink grid-ink relative flex h-full flex-col justify-between overflow-hidden border border-line p-8">
+          <span class="absolute right-0 top-0 h-12 w-12 border-b border-l border-brand-bright"></span>
+          <Kicker text="El compromiso G&G" light />
+          <p class="font-display mt-6 text-2xl leading-snug text-white sm:text-[1.75rem]" style="font-weight:300">
+            Cada cliente trabaja directamente con un <em class="text-brand-bright" style="font-style:italic">socio</em> del estudio.
+          </p>
+          <div class="mt-8 flex items-center gap-2">
+            {TEAM.map((m) => (
+              <span class="flex h-11 w-11 items-center justify-center border border-white/20 font-display text-sm text-white/90" style="font-weight:400">
+                {m.initials}
+              </span>
+            ))}
           </div>
-        ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Banda de stats -->
+    <div class="border-t border-line">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <StatBand stats={stats} />
       </div>
     </div>
   </section>
 
   <!-- SERVICIOS -->
-  <section id="servicios" class="scroll-mt-20 bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-      <div class="max-w-2xl">
-        <p class="text-xs font-bold uppercase tracking-widest text-brand">Servicios</p>
-        <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+  <section id="servicios" class="scroll-mt-20 surface-paper-soft">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div class="max-w-2xl" data-reveal>
+        <Kicker text="Servicios" />
+        <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-[2.75rem]" style="font-weight:400">
           Todo lo que tu empresa necesita, en un solo estudio
         </h2>
-        <p class="mt-3 text-base leading-relaxed">
+        <p class="mt-4 text-base leading-relaxed text-body">
           Contadores públicos y abogados trabajando juntos sobre las cinco áreas que definen la salud
           contable y fiscal de un negocio.
         </p>
       </div>
 
-      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {SERVICES.map((s) => (
-          <a
-            href={`/servicios/${s.slug}`}
-            class="group flex flex-col rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg"
-          >
-            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft text-brand">
-              <Icon name={s.icon} class="h-6 w-6" />
-            </span>
-            <h3 class="mt-5 text-lg font-extrabold tracking-tight text-ink group-hover:text-brand">
-              {s.title}
-            </h3>
-            <p class="mt-2 flex-1 text-sm leading-relaxed">{s.card}</p>
-            <span class="mt-5 inline-flex items-center gap-1 text-sm font-bold text-brand">
-              Más info
-              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.6L10.2 5.3a.75.75 0 1 1 1.1-1.02l5.5 5.25a.75.75 0 0 1 0 1.04l-5.5 5.25a.75.75 0 1 1-1.1-1.02l4.15-3.95H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
-              </svg>
-            </span>
-          </a>
-        ))}
+      <div class="mt-12">
+        <ServiceIndex />
+      </div>
 
-        <div class="flex flex-col justify-center rounded-2xl bg-ink p-7 text-white">
-          <h3 class="text-lg font-extrabold tracking-tight">¿No sabés por dónde empezar?</h3>
-          <p class="mt-2 text-sm leading-relaxed text-zinc-300">
-            Contanos tu situación y te orientamos hacia el servicio que mejor la resuelve. Sin compromiso.
-          </p>
-          <a
-            href={waLink}
-            target="_blank"
-            rel="noopener"
-            class="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-dark"
-          >
-            Escribinos
-          </a>
+      <!-- Fila destacada: no sabés por dónde empezar -->
+      <div class="surface-ink mt-8 flex flex-col items-start gap-5 p-7 sm:flex-row sm:items-center sm:justify-between" data-reveal>
+        <div>
+          <h3 class="font-display text-xl text-white" style="font-weight:600">¿No sabés por dónde empezar?</h3>
+          <p class="mt-1.5 text-sm text-white/65">Contanos tu situación y un socio te orienta hacia lo que mejor la resuelve.</p>
         </div>
+        <a
+          href={waLink}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex shrink-0 items-center gap-2 rounded-md bg-wsp px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-wsp-dark"
+        >
+          Escribinos
+        </a>
       </div>
     </div>
   </section>
 
+  <!-- MANIFIESTO -->
+  <Manifesto
+    pre="El asesoramiento como valor agregado, no como"
+    accent="trámite."
+  />
+
   <!-- DIFERENCIALES -->
-  <section class="bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-      <div class="max-w-2xl">
-        <p class="text-xs font-bold uppercase tracking-widest text-brand">Por qué G&G</p>
-        <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-          El asesoramiento como valor agregado, no como trámite
+  <section class="bg-paper">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div class="max-w-2xl" data-reveal>
+        <Kicker text="Por qué G&G" />
+        <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:400">
+          La trayectoria es el activo que no se puede improvisar
         </h2>
       </div>
-      <div class="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2">
-        {DIFFERENTIALS.map((d) => (
-          <div class="flex gap-5">
-            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand">
-              <Icon name={d.icon as any} class="h-6 w-6" />
-            </span>
-            <div>
-              <h3 class="text-lg font-extrabold tracking-tight text-ink">{d.title}</h3>
-              <p class="mt-1.5 text-sm leading-relaxed">{d.text}</p>
+      <div class="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2" data-reveal-stagger>
+        {DIFFERENTIALS.map((d, i) => (
+          <div>
+            <span class="block h-[2px] w-10 rule-draw bg-brand"></span>
+            <div class="mt-5 flex items-baseline gap-4">
+              <span class="font-display tabular text-3xl leading-none text-line-strong" style="font-weight:300">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 class="font-display text-xl text-ink" style="font-weight:600">{d.title}</h3>
             </div>
+            <p class="mt-3 pl-[3.25rem] text-base leading-relaxed text-body">{d.text}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
+  <!-- TESTIMONIOS -->
+  <Testimonials />
+
+  <!-- CÓMO TRABAJAMOS -->
+  <Process />
+
   <!-- EQUIPO -->
   <section class="bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-      <div class="flex flex-wrap items-end justify-between gap-4">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
         <div class="max-w-2xl">
-          <p class="text-xs font-bold uppercase tracking-widest text-brand">Equipo</p>
-          <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+          <Kicker text="Equipo" />
+          <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:400">
             Tres generaciones, un mismo estudio
           </h2>
         </div>
-        <a href="/quienes-somos" class="text-sm font-bold text-brand hover:text-brand-dark">
+        <a href="/quienes-somos" class="underline-grow text-sm font-semibold text-brand-ink">
           Conocé la historia del estudio →
         </a>
       </div>
 
-      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {TEAM.map((p) => (
-          <div class="rounded-2xl border border-line bg-white p-6 text-center">
-            <span class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand-dark text-2xl font-extrabold text-white">
-              {p.initials}
-            </span>
-            <h3 class="mt-4 text-base font-extrabold tracking-tight text-ink">{p.name}</h3>
-            <p class="mt-1 text-sm font-semibold text-brand">{p.role}</p>
-          </div>
-        ))}
+      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+        {TEAM.map((m) => <TeamCard member={m} />)}
       </div>
     </div>
   </section>
 
   <!-- INDUSTRIAS -->
-  <section class="bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-      <div class="max-w-2xl">
-        <p class="text-xs font-bold uppercase tracking-widest text-brand">Industrias</p>
-        <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+  <section class="surface-paper-soft">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div class="max-w-2xl" data-reveal>
+        <Kicker text="Industrias" />
+        <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:400">
           Conocemos tu rubro
         </h2>
-        <p class="mt-3 text-base leading-relaxed">
+        <p class="mt-4 text-base leading-relaxed text-body">
           Cada industria tiene sus reglas, sus riesgos y sus oportunidades fiscales. Estas son algunas
           de las que asesoramos hace años:
         </p>
       </div>
-      <ul class="mt-8 flex flex-wrap gap-3">
+      <ul class="mt-10 grid gap-x-10 border-t border-line sm:grid-cols-2 lg:grid-cols-3" data-reveal>
         {INDUSTRIES.map((i) => (
-          <li class="rounded-full border border-line bg-paper px-5 py-2.5 text-sm font-semibold text-body">
+          <li class="flex items-center gap-3 border-b border-line py-3.5 text-base text-ink">
+            <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-brand"></span>
             {i}
           </li>
         ))}
@@ -198,39 +222,36 @@ const stats = [
     </div>
   </section>
 
+  <!-- FAQ -->
+  <Faq />
+
   <!-- NOVEDADES -->
-  <section class="border-t border-line bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-      <div class="flex flex-wrap items-end justify-between gap-4">
+  <section class="surface-paper-soft border-t border-line">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
         <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-brand">Novedades</p>
-          <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+          <Kicker text="Novedades" />
+          <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:400">
             El estudio en los medios
           </h2>
         </div>
-        <a href="/novedades" class="text-sm font-bold text-brand hover:text-brand-dark">
-          Ver todas →
-        </a>
+        <a href="/novedades" class="underline-grow text-sm font-semibold text-brand-ink">Ver todas →</a>
       </div>
 
-      <div class="mt-10 grid gap-5 md:grid-cols-3">
+      <div class="mt-12 grid gap-6 md:grid-cols-3" data-reveal-stagger>
         {posts.map((p) => (
           <a
             href={`/novedades/${p.id}`}
-            class="group flex flex-col rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg"
+            class="group flex flex-col border-t-2 border-line bg-paper p-7 transition-all hover:-translate-y-1 hover:border-brand"
           >
-            <div class="flex items-center gap-3 text-xs font-semibold text-muted">
+            <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted">
               <time datetime={p.data.date.toISOString()}>{fmtDate(p.data.date)}</time>
-              {p.data.source && (
-                <span class="rounded-full bg-brand-soft px-2.5 py-0.5 font-bold text-brand">
-                  {p.data.source}
-                </span>
-              )}
+              {p.data.source && <span class="text-brand-ink">· {p.data.source}</span>}
             </div>
-            <h3 class="mt-3 flex-1 text-lg font-extrabold leading-snug tracking-tight text-ink group-hover:text-brand">
+            <h3 class="mt-3 flex-1 font-display text-xl leading-snug text-ink transition-colors group-hover:text-brand-ink" style="font-weight:600">
               {p.data.title}
             </h3>
-            <p class="mt-2 text-sm leading-relaxed">{p.data.excerpt}</p>
+            <p class="mt-3 text-sm leading-relaxed text-body">{p.data.excerpt}</p>
           </a>
         ))}
       </div>

@@ -30,30 +30,116 @@ export const SITE = {
 
 export const waLink = `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(SITE.whatsappMessage)}`;
 
-export const TEAM = [
+/** Link de WhatsApp con mensaje personalizado (ej: prellenado por servicio) */
+export const waLinkFor = (message: string) =>
+  `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  initials: string;
+  bio: string;
+  credentials: string[];
+  /** Ruta a la foto real cuando esté disponible (ej: /team/mariano.jpg) */
+  photo?: string;
+}
+
+export const TEAM: TeamMember[] = [
   {
     name: 'Armando Ghirardotti',
     role: 'Socio Fundador',
     initials: 'AG',
-    bio: 'Contador Público. Fundador del estudio, con más de 40 años liderando la firma en auditoría, asesoramiento impositivo, societario y contable.',
+    bio: 'Fundador del estudio, con más de 40 años liderando la firma en auditoría, asesoramiento impositivo, societario y contable.',
+    credentials: ['Contador Público', '+40 años de ejercicio'],
   },
   {
     name: 'Mariano Ghirardotti',
     role: 'Socio Director',
     initials: 'MG',
-    bio: 'Contador Público (1993) y Especialista en Tributación (UBA, 2004). Más de veinte años dedicado a la planificación tributaria. Miembro activo de la Asociación Argentina de Estudios Fiscales y docente en el MBA de la Universidad de San Andrés.',
+    bio: 'Más de veinte años dedicado a la planificación tributaria. Lleva la estrategia fiscal de las empresas del estudio.',
+    credentials: [
+      'Contador Público (1993)',
+      'Especialista en Tributación (UBA)',
+      'Docente MBA · Universidad de San Andrés',
+      'Miembro de la AAEF',
+    ],
   },
   {
     name: 'Florencia Ghirardotti',
-    role: 'Asociada · Departamento de Sociedades',
+    role: 'Asociada · Sociedades',
     initials: 'FG',
-    bio: 'Abogada (UCA, 2001, diploma de honor). Doce años como Abogada Senior en Brichou, Fernández Madero & Lombard. Especializada en asesoramiento corporativo y reorganizaciones societarias.',
+    bio: 'Doce años como Abogada Senior en Brichou, Fernández Madero & Lombard. Lidera el asesoramiento corporativo y las reorganizaciones societarias.',
+    credentials: ['Abogada (UCA, diploma de honor)', 'Asesoramiento corporativo'],
   },
   {
     name: 'Gisela Franceschina',
     role: 'Socia COO',
     initials: 'GF',
-    bio: 'Contadora Pública, cursando el MBA de la Universidad de San Andrés. Especializada en impuestos agropecuarios y productora agropecuaria.',
+    bio: 'Especializada en impuestos agropecuarios. Productora agropecuaria: conoce el negocio del agro desde el campo y desde los números.',
+    credentials: ['Contadora Pública', 'MBA en curso · Universidad de San Andrés', 'Productora agropecuaria'],
+  },
+];
+
+/** Cómo trabajamos — pasos del embudo que bajan la fricción de contactar */
+export const PROCESS = [
+  {
+    step: '01',
+    title: 'Nos escribís',
+    text: 'Por WhatsApp o el formulario. Nos contás qué empresa tenés y qué necesitás resolver.',
+  },
+  {
+    step: '02',
+    title: 'Diagnóstico sin cargo',
+    text: 'Un socio revisa tu situación y te dice con franqueza cómo podemos ayudarte. La primera charla no tiene costo.',
+  },
+  {
+    step: '03',
+    title: 'Propuesta a medida',
+    text: 'Armamos un esquema de trabajo y honorarios claro, adaptado al tamaño y la industria de tu empresa.',
+  },
+  {
+    step: '04',
+    title: 'Te acompañamos',
+    text: 'Quedás con un socio como interlocutor directo durante todo el año, no solo en los vencimientos.',
+  },
+];
+
+/** Preguntas frecuentes que bajan objeciones antes del CTA */
+export const FAQ = [
+  {
+    q: '¿Atienden empresas chicas o solo grandes?',
+    a: 'Trabajamos con empresas de todos los tamaños: desde emprendimientos y PyMEs familiares hasta grupos consolidados. El esquema de trabajo y los honorarios se adaptan a cada caso.',
+  },
+  {
+    q: '¿Trabajan con clientes de otras provincias o de forma remota?',
+    a: 'Sí. Buena parte de nuestros clientes opera fuera de Buenos Aires. La operatoria es digital y la atención del socio es la misma, estés donde estés.',
+  },
+  {
+    q: '¿Cómo es el cambio desde mi contador actual?',
+    a: 'Nos ocupamos de la transición de punta a punta: pedimos la información al profesional anterior, ordenamos la situación y te avisamos si encontramos algo para corregir. Para vos es transparente.',
+  },
+  {
+    q: '¿Cómo cobran los honorarios?',
+    a: 'Definimos un honorario claro antes de empezar, según el alcance del trabajo y la complejidad de tu empresa. Sin sorpresas: sabés qué pagás y por qué.',
+  },
+];
+
+/** Prueba social. Anonimizada por industria hasta tener testimonios atribuibles. */
+export const TESTIMONIALS = [
+  {
+    quote:
+      'Pasamos de correr atrás de los vencimientos a tener todo planificado. Hablamos directo con un socio cuando lo necesitamos.',
+    who: 'PyME agroexportadora · Pergamino',
+  },
+  {
+    quote:
+      'Nos acompañaron en una reorganización societaria compleja con criterio y sin vueltas. Se nota la trayectoria.',
+    who: 'Grupo familiar · Industria metalmecánica',
+  },
+  {
+    quote:
+      'Tercerizamos toda la administración contable e impositiva y nos sacamos un peso de encima. Cumplen y responden.',
+    who: 'Empresa de software · CABA',
   },
 ];
 

@@ -1,19 +1,43 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+/* Fuentes variables (self-hosted vía @fontsource) — Fraunces con eje óptico + Inter Tight */
+@import "@fontsource-variable/fraunces/opsz.css";
+@import "@fontsource-variable/fraunces/opsz-italic.css";
+@import "@fontsource-variable/inter-tight/index.css";
+@import "@fontsource-variable/inter-tight/wght-italic.css";
 
-  /* Identidad G&G: rojo institucional del logo sobre blanco y grises */
-  --color-brand: #ff3334;
-  --color-brand-dark: #d92527;
-  --color-brand-soft: #fff1f1;
-  --color-ink: #1d1d1f;
-  --color-body: #3f3f46;
-  --color-muted: #71717a;
-  --color-paper: #f7f7f8;
-  --color-line: #e4e4e7;
+/*
+  G&G — "Dossier Editorial"
+  Autoridad editorial financiera: serif Fraunces como voz de marca, Inter Tight de cuerpo,
+  papel cálido + tinta azul-negra + rojo de tinta. Ritmo claro/oscuro, filetes que se dibujan.
+*/
+@theme {
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter Tight Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Marca — el rojo como tinta de acento, no como brocha */
+  --color-brand: #e8302f;        /* rojo institucional refinado */
+  --color-brand-bright: #ff3334; /* rojo original del logo, acentos puntuales */
+  --color-brand-ink: #b81f24;    /* rojo lacre/sello, texto rojo legible sobre papel */
+
+  /* Tinta editorial azul-negra */
+  --color-ink: #14171f;
+  --color-ink-2: #232734;
+  --color-body: #383b45;
+  --color-muted: #6b7280;
+
+  /* Papel cálido */
+  --color-paper: #faf8f4;
+  --color-paper-2: #f3efe7;
+  --color-line: #e4ddd0;
+  --color-line-strong: #c9bfae;
+
+  /* WhatsApp / contacto directo (único color de "hablar con un socio ya") */
   --color-wsp: #25d366;
   --color-wsp-dark: #1eb958;
+
+  /* Movimiento */
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
@@ -21,10 +45,227 @@ html {
 }
 
 body {
-  @apply font-sans text-body antialiased;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--color-body);
+  background-color: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Grano de papel global: overlay de textura imperceptible por encima de todo
+   el contenido (pointer-events:none para no bloquear clics). z-index 1 lo deja
+   sobre las secciones estáticas pero debajo del header/botones fijos (z-40). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.022;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {
   background-color: var(--color-brand);
   color: #fff;
+}
+
+/* Tipografía display: Fraunces con óptica grande para titulares */
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+}
+.font-display-sm {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 28, "SOFT" 0, "WONK" 0;
+}
+
+/* Kicker / eyebrow editorial con filete rojo que se dibuja */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-brand-ink);
+}
+.kicker::before {
+  content: "";
+  display: block;
+  width: 1.75rem;
+  height: 2px;
+  background-color: var(--color-brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-editorial);
+}
+.is-visible .kicker::before,
+.kicker.is-visible::before {
+  transform: scaleX(1);
+}
+
+/* Subrayado de navegación que crece desde la izquierda */
+.underline-grow {
+  position: relative;
+}
+.underline-grow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-editorial);
+}
+.underline-grow:hover::after,
+.underline-grow[aria-current="page"]::after,
+.underline-grow.is-active::after {
+  transform: scaleX(1);
+}
+
+/* Filete que se dibuja al revelar (signature move) */
+.rule-draw {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-editorial);
+}
+.is-visible .rule-draw,
+.rule-draw.is-visible {
+  transform: scaleX(1);
+}
+
+/* Masthead: filete rojo de periódico arriba de secciones clave */
+.masthead-top {
+  border-top: 3px solid var(--color-brand-bright);
+}
+
+/* Retícula editorial fina (columnas de papel contable) */
+.grid-paper {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(20, 23, 31, 0.035) 0,
+    rgba(20, 23, 31, 0.035) 1px,
+    transparent 1px,
+    transparent 80px
+  );
+}
+.grid-ink {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.045) 0,
+    rgba(255, 255, 255, 0.045) 1px,
+    transparent 1px,
+    transparent 80px
+  );
+}
+
+/* Superficie oscura con gradiente atmosférico + glow rojo en una esquina */
+.surface-ink {
+  background-color: var(--color-ink);
+  background-image:
+    radial-gradient(60% 50% at 85% 0%, rgba(232, 48, 47, 0.1), transparent 70%),
+    radial-gradient(120% 120% at 0% 0%, var(--color-ink-2), var(--color-ink));
+}
+
+/* Gradiente cálido casi imperceptible para secciones de papel */
+.surface-paper-soft {
+  background-image: linear-gradient(180deg, var(--color-paper), var(--color-paper-2));
+}
+
+/* ---- Motion: revelado al scroll (orquestado por reveal.js) ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s var(--ease-editorial),
+    transform 0.7s var(--ease-editorial);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger: los hijos entran escalonados */
+[data-reveal-stagger] > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s var(--ease-editorial),
+    transform 0.6s var(--ease-editorial);
+}
+[data-reveal-stagger].is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal-stagger].is-visible > *:nth-child(1) { transition-delay: 0ms; }
+[data-reveal-stagger].is-visible > *:nth-child(2) { transition-delay: 80ms; }
+[data-reveal-stagger].is-visible > *:nth-child(3) { transition-delay: 160ms; }
+[data-reveal-stagger].is-visible > *:nth-child(4) { transition-delay: 240ms; }
+[data-reveal-stagger].is-visible > *:nth-child(5) { transition-delay: 320ms; }
+[data-reveal-stagger].is-visible > *:nth-child(6) { transition-delay: 400ms; }
+[data-reveal-stagger].is-visible > *:nth-child(7) { transition-delay: 480ms; }
+[data-reveal-stagger].is-visible > *:nth-child(8) { transition-delay: 560ms; }
+
+/* Hero: entrada escalonada al cargar (sin esperar scroll) */
+.hero-in {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroReveal 0.7s var(--ease-editorial) forwards;
+}
+.hero-in-1 { animation-delay: 0.05s; }
+.hero-in-2 { animation-delay: 0.14s; }
+.hero-in-3 { animation-delay: 0.23s; }
+.hero-in-4 { animation-delay: 0.32s; }
+.hero-in-5 { animation-delay: 0.41s; }
+
+@keyframes heroReveal {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Cifras tabulares para que el count-up no salte de ancho */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Retratos de equipo: b/n cálido → color al hover (listo para fotos reales) */
+.portrait img {
+  filter: grayscale(1) contrast(1.02);
+  transition: filter 0.5s var(--ease-editorial);
+}
+.portrait:hover img {
+  filter: grayscale(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal],
+  [data-reveal-stagger] > *,
+  .hero-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .rule-draw,
+  .kicker::before {
+    transform: scaleX(1) !important;
+  }
 }
