@@ -1,10 +1,10 @@
 ---
-// Banda de cierre del embudo: fondo ink (no rojo pleno), titular Fraunces, CTA verde WhatsApp.
+// Banda de cierre del embudo: fondo ROJO protagonista, CTA verde WhatsApp.
 import { waLink } from '../data/site';
 
 interface Props {
   title?: string;
-  /** Palabra/frase acento en italic roja, anexada al final del título */
+  /** Palabra/frase acento subrayada, anexada al final del título */
   accent?: string;
   text?: string;
 }
@@ -16,21 +16,23 @@ const {
 } = Astro.props;
 ---
 
-<section class="surface-ink grid-ink masthead-top">
+<section class="surface-brand border-t-4 border-ink">
   <div class="mx-auto flex max-w-6xl flex-col items-start gap-8 px-4 py-16 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:py-20" data-reveal>
     <div>
-      <h2 class="max-w-2xl font-display text-3xl leading-[1.1] text-white sm:text-4xl lg:text-[2.75rem]" style="font-weight:300">
+      <h2 class="max-w-2xl font-display text-3xl leading-[1.1] text-white sm:text-4xl lg:text-[2.75rem]" style="font-weight:800">
         {title}{' '}
-        {accent && <em class="text-brand-bright" style="font-style:italic">{accent}</em>}
+        {accent && (
+          <em class="underline decoration-white/50 decoration-4 underline-offset-[6px]" style="font-style:italic">{accent}</em>
+        )}
       </h2>
-      <p class="mt-4 max-w-xl text-base leading-relaxed text-white/65">{text}</p>
+      <p class="mt-4 max-w-xl text-base leading-relaxed text-white/90">{text}</p>
     </div>
     <div class="flex shrink-0 flex-wrap gap-3">
       <a
         href={waLink}
         target="_blank"
         rel="noopener"
-        class="inline-flex items-center gap-2 rounded-md bg-wsp px-7 py-3.5 text-base font-bold text-white transition-colors hover:bg-wsp-dark"
+        class="inline-flex items-center gap-2 rounded-md bg-wsp px-7 py-3.5 text-base font-bold text-white shadow-[0_14px_34px_-12px_rgba(0,0,0,0.5)] transition-transform hover:-translate-y-0.5"
       >
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />
@@ -40,7 +42,7 @@ const {
       </a>
       <a
         href="/contacto"
-        class="inline-flex items-center rounded-md border border-white/25 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10"
+        class="inline-flex items-center rounded-md border border-white/50 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/15"
       >
         Ver todas las vías de contacto
       </a>

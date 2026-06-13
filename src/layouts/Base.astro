@@ -63,6 +63,7 @@ const jsonLd = {
     {jsonLdExtra && <script type="application/ld+json" set:html={JSON.stringify(jsonLdExtra)} />}
   </head>
   <body>
+    <div id="scroll-progress"></div>
     <Header />
     <main>
       <slot />

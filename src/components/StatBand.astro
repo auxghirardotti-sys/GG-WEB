@@ -14,7 +14,7 @@ interface Props {
   class?: string;
 }
 const { stats, light = false, class: className = '' } = Astro.props;
-const numColor = light ? 'text-white' : 'text-ink';
+const numColor = light ? 'text-white' : 'text-brand';
 const labelColor = light ? 'text-white/55' : 'text-muted';
 const divide = light ? 'divide-white/15' : 'divide-line-strong';
 ---
@@ -32,7 +32,7 @@ const divide = light ? 'divide-white/15' : 'divide-line-strong';
       <div class="flex flex-col items-start px-2 py-6 sm:px-7">
         <dt
           class:list={['font-display tabular text-5xl leading-none sm:text-6xl', numColor]}
-          style="font-weight:300"
+          style="font-weight:800"
         >
           {s.text ? (
             <span>{s.text}</span>

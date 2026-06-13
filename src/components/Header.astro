@@ -19,7 +19,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
     <a href="/" class="flex items-center gap-3" aria-label="Ghirardotti & Ghirardotti — Inicio">
       <img src="/logo-gg.png" alt="" class="h-9 w-9" width="36" height="36" />
       <span class="leading-tight">
-        <span class="block font-display text-[17px] text-ink" style="font-weight:600">Ghirardotti &amp; Ghirardotti</span>
+        <span class="block font-display text-[17px] text-ink" style="font-weight:700">Ghirardotti &amp; Ghirardotti</span>
         <span class="block text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">Estudio contable e impositivo</span>
       </span>
     </a>
@@ -55,7 +55,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
                   current === `/servicios/${s.slug}` ? 'text-brand-ink' : 'text-ink',
                 ]}
               >
-                <span class="font-display tabular text-sm text-brand" style="font-weight:600">{String(i + 1).padStart(2, '0')}</span>
+                <span class="font-display tabular text-sm text-brand" style="font-weight:700">{String(i + 1).padStart(2, '0')}</span>
                 <span class="text-sm font-medium">{s.title}</span>
               </a>
             ))}
@@ -105,17 +105,17 @@ const isActive = (href: string) => current === href || current.startsWith(href +
 
   <div id="mobile-menu" class="hidden border-t border-line bg-paper lg:hidden">
     <nav class="mx-auto max-w-6xl space-y-1 px-4 py-4 sm:px-6" aria-label="Navegación móvil">
-      <a href="/" class="block py-2.5 font-display text-lg text-ink" style="font-weight:600">Inicio</a>
+      <a href="/" class="block py-2.5 font-display text-lg text-ink" style="font-weight:700">Inicio</a>
       <p class="kicker pb-1 pt-4">Servicios</p>
       {SERVICES.map((s, i) => (
         <a href={`/servicios/${s.slug}`} class="flex items-center gap-3 py-2.5 text-base text-body">
-          <span class="font-display tabular text-sm text-brand" style="font-weight:600">{String(i + 1).padStart(2, '0')}</span>
+          <span class="font-display tabular text-sm text-brand" style="font-weight:700">{String(i + 1).padStart(2, '0')}</span>
           {s.title}
         </a>
       ))}
       <div class="pt-2">
         {links.map((l) => (
-          <a href={l.href} class="block py-2.5 font-display text-lg text-ink" style="font-weight:600">{l.label}</a>
+          <a href={l.href} class="block py-2.5 font-display text-lg text-ink" style="font-weight:700">{l.label}</a>
         ))}
       </div>
       <a

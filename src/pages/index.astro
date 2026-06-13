@@ -49,8 +49,8 @@ const faqJsonLd = {
         <div class="hero-in hero-in-1">
           <Kicker text="Est. 1984 · San Isidro · BOKS International" />
         </div>
-        <h1 class="hero-in hero-in-2 font-display mt-6 text-[2.75rem] leading-[0.98] tracking-tight text-ink sm:text-6xl" style="font-weight:300">
-          Tu contabilidad y tus impuestos, atendidos por un <em class="text-brand-ink" style="font-style:italic">socio</em> del estudio.
+        <h1 class="hero-in hero-in-2 font-display mt-6 text-[2.75rem] leading-[0.98] tracking-tight text-ink sm:text-6xl" style="font-weight:800">
+          Tu contabilidad y tus impuestos, atendidos por un <em class="accent is-visible">socio</em> del estudio.
         </h1>
         <p class="hero-in hero-in-3 mt-7 max-w-xl text-lg leading-[1.7] text-body">
           Hace más de 40 años protegemos la utilidad y los activos de empresas de todos los tamaños.
@@ -81,12 +81,12 @@ const faqJsonLd = {
         <div class="surface-ink grid-ink relative flex h-full flex-col justify-between overflow-hidden border border-line p-8">
           <span class="absolute right-0 top-0 h-12 w-12 border-b border-l border-brand-bright"></span>
           <Kicker text="El compromiso G&G" light />
-          <p class="font-display mt-6 text-2xl leading-snug text-white sm:text-[1.75rem]" style="font-weight:300">
+          <p class="font-display mt-6 text-2xl leading-snug text-white sm:text-[1.75rem]" style="font-weight:800">
             Cada cliente trabaja directamente con un <em class="text-brand-bright" style="font-style:italic">socio</em> del estudio.
           </p>
           <div class="mt-8 flex items-center gap-2">
             {TEAM.map((m) => (
-              <span class="flex h-11 w-11 items-center justify-center border border-white/20 font-display text-sm text-white/90" style="font-weight:400">
+              <span class="flex h-11 w-11 items-center justify-center border border-white/20 font-display text-sm text-white/90" style="font-weight:700">
                 {m.initials}
               </span>
             ))}
@@ -108,7 +108,7 @@ const faqJsonLd = {
     <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
       <div class="max-w-2xl" data-reveal>
         <Kicker text="Servicios" />
-        <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-[2.75rem]" style="font-weight:400">
+        <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-[2.75rem]" style="font-weight:700">
           Todo lo que tu empresa necesita, en un solo estudio
         </h2>
         <p class="mt-4 text-base leading-relaxed text-body">
@@ -124,7 +124,7 @@ const faqJsonLd = {
       <!-- Fila destacada: no sabés por dónde empezar -->
       <div class="surface-ink mt-8 flex flex-col items-start gap-5 p-7 sm:flex-row sm:items-center sm:justify-between" data-reveal>
         <div>
-          <h3 class="font-display text-xl text-white" style="font-weight:600">¿No sabés por dónde empezar?</h3>
+          <h3 class="font-display text-xl text-white" style="font-weight:700">¿No sabés por dónde empezar?</h3>
           <p class="mt-1.5 text-sm text-white/65">Contanos tu situación y un socio te orienta hacia lo que mejor la resuelve.</p>
         </div>
         <a
@@ -150,7 +150,7 @@ const faqJsonLd = {
     <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
       <div class="max-w-2xl" data-reveal>
         <Kicker text="Por qué G&G" />
-        <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:400">
+        <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:700">
           La trayectoria es el activo que no se puede improvisar
         </h2>
       </div>
@@ -159,10 +159,10 @@ const faqJsonLd = {
           <div>
             <span class="block h-[2px] w-10 rule-draw bg-brand"></span>
             <div class="mt-5 flex items-baseline gap-4">
-              <span class="font-display tabular text-3xl leading-none text-line-strong" style="font-weight:300">
+              <span class="font-display tabular text-3xl leading-none text-line-strong" style="font-weight:800">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <h3 class="font-display text-xl text-ink" style="font-weight:600">{d.title}</h3>
+              <h3 class="font-display text-xl text-ink" style="font-weight:700">{d.title}</h3>
             </div>
             <p class="mt-3 pl-[3.25rem] text-base leading-relaxed text-body">{d.text}</p>
           </div>
@@ -183,7 +183,7 @@ const faqJsonLd = {
       <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
         <div class="max-w-2xl">
           <Kicker text="Equipo" />
-          <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:400">
+          <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:700">
             Tres generaciones, un mismo estudio
           </h2>
         </div>
@@ -198,27 +198,28 @@ const faqJsonLd = {
     </div>
   </section>
 
-  <!-- INDUSTRIAS -->
-  <section class="surface-paper-soft">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
-      <div class="max-w-2xl" data-reveal>
-        <Kicker text="Industrias" />
-        <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:400">
-          Conocemos tu rubro
-        </h2>
-        <p class="mt-4 text-base leading-relaxed text-body">
-          Cada industria tiene sus reglas, sus riesgos y sus oportunidades fiscales. Estas son algunas
-          de las que asesoramos hace años:
-        </p>
-      </div>
-      <ul class="mt-10 grid gap-x-10 border-t border-line sm:grid-cols-2 lg:grid-cols-3" data-reveal>
-        {INDUSTRIES.map((i) => (
-          <li class="flex items-center gap-3 border-b border-line py-3.5 text-base text-ink">
-            <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-brand"></span>
+  <!-- INDUSTRIAS (marquee dinámico) -->
+  <section class="surface-paper-soft overflow-hidden py-16 lg:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6" data-reveal>
+      <Kicker text="Industrias" />
+      <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:700">
+        Conocemos tu rubro
+      </h2>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-body">
+        Cada industria tiene sus reglas, sus riesgos y sus oportunidades fiscales. Estas son algunas
+        de las que asesoramos hace años:
+      </p>
+    </div>
+
+    <div class="marquee mt-12 border-y border-line py-6">
+      <div class="marquee__track">
+        {[...INDUSTRIES, ...INDUSTRIES].map((i) => (
+          <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-2xl text-ink/85 sm:text-3xl" style="font-weight:700">
+            <span class="h-2.5 w-2.5 shrink-0 rounded-full bg-brand"></span>
             {i}
-          </li>
+          </span>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
 
@@ -231,7 +232,7 @@ const faqJsonLd = {
       <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
         <div>
           <Kicker text="Novedades" />
-          <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:400">
+          <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:700">
             El estudio en los medios
           </h2>
         </div>
@@ -248,7 +249,7 @@ const faqJsonLd = {
               <time datetime={p.data.date.toISOString()}>{fmtDate(p.data.date)}</time>
               {p.data.source && <span class="text-brand-ink">· {p.data.source}</span>}
             </div>
-            <h3 class="mt-3 flex-1 font-display text-xl leading-snug text-ink transition-colors group-hover:text-brand-ink" style="font-weight:600">
+            <h3 class="mt-3 flex-1 font-display text-xl leading-snug text-ink transition-colors group-hover:text-brand-ink" style="font-weight:700">
               {p.data.title}
             </h3>
             <p class="mt-3 text-sm leading-relaxed text-body">{p.data.excerpt}</p>
