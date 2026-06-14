@@ -51,17 +51,16 @@ const faqJsonLd = {
         <h1 class="hero-in hero-in-2 font-display mt-6 text-[1.55rem] leading-[1.18] tracking-tight text-ink sm:text-3xl lg:text-[2.6rem] lg:leading-[1.1]" style="font-weight:800">
           Tu contabilidad y tus impuestos, atendidos por un <em class="accent is-visible">socio</em> del estudio.
         </h1>
-        <p class="hero-in hero-in-3 mt-7 max-w-xl text-lg leading-[1.7] text-body">
-          Contadores y abogados con más de 40 años de trayectoria, hoy liderados por la tercera
-          generación. Un enfoque moderno y estratégico que acompaña a tu empresa más allá de las
-          funciones tradicionales — con la atención directa de un socio.
+        <p class="hero-in hero-in-3 mt-6 max-w-lg text-lg leading-[1.6] text-body">
+          Contadores y abogados, +40 años y tercera generación. Asesoría estratégica con la atención
+          directa de un socio.
         </p>
         <div class="hero-in hero-in-4 mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
           <a
             href={waLink}
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center gap-2 rounded-md bg-wsp px-7 py-4 text-base font-bold text-white shadow-[0_12px_30px_-10px_rgba(37,211,102,0.6)] transition-colors hover:bg-wsp-dark"
+            class="inline-flex items-center gap-2 rounded-md bg-brand px-7 py-4 text-base font-bold text-white shadow-[0_12px_30px_-10px_rgba(205,51,51,0.6)] transition-colors hover:bg-brand-ink"
           >
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />
@@ -111,11 +110,10 @@ const faqJsonLd = {
       <div class="max-w-2xl" data-reveal>
         <Kicker text="Servicios" />
         <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-[2.75rem]" style="font-weight:700">
-          Todo lo que tu empresa necesita, en un solo estudio
+          Todo en un solo <em class="accent" style="font-style:italic">estudio</em>
         </h2>
         <p class="mt-4 text-base leading-relaxed text-body">
-          Contadores públicos y abogados trabajando juntos sobre las cinco áreas que definen la salud
-          contable y fiscal de un negocio.
+          Contadores y abogados sobre las cinco áreas clave de tu negocio.
         </p>
       </div>
 
@@ -133,7 +131,7 @@ const faqJsonLd = {
           href={waLink}
           target="_blank"
           rel="noopener"
-          class="inline-flex shrink-0 items-center gap-2 rounded-md bg-wsp px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-wsp-dark"
+          class="inline-flex shrink-0 items-center gap-2 rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink"
         >
           Escribinos
         </a>
@@ -153,13 +151,13 @@ const faqJsonLd = {
       <div class="max-w-2xl" data-reveal>
         <Kicker text="Por qué G&G" />
         <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:700">
-          La trayectoria es el activo que no se puede improvisar
+          La trayectoria no se <em class="accent" style="font-style:italic">improvisa</em>
         </h2>
       </div>
       <div class="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2" data-reveal-stagger>
         {DIFFERENTIALS.map((d) => (
-          <div>
-            <span class="flex h-16 w-16 items-center justify-center rounded-md bg-brand-soft text-brand">
+          <div class="group">
+            <span class="flex h-16 w-16 items-center justify-center rounded-full border border-brand/40 bg-surface text-brand transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-white">
               <Icon name={d.icon as any} class="h-9 w-9" />
             </span>
             <h3 class="mt-5 font-display text-xl text-ink" style="font-weight:700">{d.title}</h3>
@@ -207,7 +205,7 @@ const faqJsonLd = {
     <div class="mx-auto max-w-6xl px-4 sm:px-6" data-reveal>
       <Kicker text="Industrias" />
       <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:700">
-        Conocemos tu rubro
+        Conocemos tu <em class="accent" style="font-style:italic">rubro</em>
       </h2>
       <p class="mt-4 max-w-2xl text-base leading-relaxed text-body">
         Cada industria tiene sus reglas, sus riesgos y sus oportunidades fiscales. Estas son algunas
@@ -231,13 +229,14 @@ const faqJsonLd = {
   <Faq />
 
   <!-- NOVEDADES -->
-  <section class="surface-paper-soft border-t border-line">
+  <div class="brush-band" aria-hidden="true"></div>
+  <section class="surface-paper-soft">
     <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
       <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
         <div>
           <Kicker text="Novedades" />
           <h2 class="mt-4 font-display text-3xl leading-tight text-ink sm:text-4xl" style="font-weight:700">
-            El estudio en los medios
+            El estudio en los <em class="accent" style="font-style:italic">medios</em>
           </h2>
         </div>
         <a href="/novedades" class="underline-grow text-sm font-semibold text-brand-ink">Ver todas →</a>

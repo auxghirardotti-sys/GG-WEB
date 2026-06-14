@@ -264,6 +264,21 @@ body::before {
   transform: scaleY(-1);
 }
 
+/* Anillos decorativos "öö" — eco del isotipo, acento de marca en zonas con aire */
+.ring-deco {
+  position: absolute;
+  border-radius: 9999px;
+  border-style: solid;
+  pointer-events: none;
+}
+.ring-float {
+  animation: ringFloat 7s ease-in-out infinite alternate;
+}
+@keyframes ringFloat {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, -16px, 0); }
+}
+
 /* Malla de gradiente animada (efecto visual de fondo, sutil y con marca) */
 .mesh {
   position: relative;

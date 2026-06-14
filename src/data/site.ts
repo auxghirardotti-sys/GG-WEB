@@ -86,25 +86,25 @@ export const PROCESS = [
     step: '01',
     icon: 'chat',
     title: 'Nos escribís',
-    text: 'Por WhatsApp o el formulario. Nos contás qué empresa tenés y qué necesitás resolver.',
+    text: 'Por WhatsApp o el formulario. Contanos qué necesitás resolver.',
   },
   {
     step: '02',
     icon: 'clipboard',
     title: 'Diagnóstico sin cargo',
-    text: 'Un socio revisa tu situación y te dice con franqueza cómo podemos ayudarte. La primera charla no tiene costo.',
+    text: 'Un socio revisa tu situación y te dice cómo ayudarte. Gratis.',
   },
   {
     step: '03',
     icon: 'doc',
     title: 'Propuesta a medida',
-    text: 'Armamos un esquema de trabajo y honorarios claro, adaptado al tamaño y la industria de tu empresa.',
+    text: 'Esquema de trabajo y honorarios claros, según tu empresa.',
   },
   {
     step: '04',
     icon: 'handshake',
     title: 'Te acompañamos',
-    text: 'Quedás con un socio como interlocutor directo durante todo el año, no solo en los vencimientos.',
+    text: 'Un socio como interlocutor directo todo el año, no solo en vencimientos.',
   },
 ];
 
@@ -164,23 +164,23 @@ export const INDUSTRIES = [
 
 export const DIFFERENTIALS = [
   {
-    title: 'Atención directa de los socios',
-    text: 'Cada cliente trabaja con un socio del estudio, no con un call center. Soluciones personalizadas para cada negocio e industria.',
+    title: 'Atención directa del socio',
+    text: 'Trabajás con un socio del estudio, no con un call center.',
     icon: 'people',
   },
   {
-    title: 'Más de 40 años de trayectoria',
-    text: 'Tres generaciones de contadores al frente de la firma, protegiendo la utilidad y los activos de las empresas que confían en nosotros.',
+    title: '+40 años de trayectoria',
+    text: 'Tres generaciones cuidando la utilidad y los activos de tu empresa.',
     icon: 'shield',
   },
   {
-    title: 'Equipo multidisciplinario',
-    text: 'Contadores públicos y abogados trabajando juntos: la mirada tributaria, societaria y de auditoría en un mismo lugar.',
+    title: 'Contadores y abogados',
+    text: 'Mirada tributaria, societaria y de auditoría en un mismo lugar.',
     icon: 'team',
   },
   {
     title: 'Alcance internacional',
-    text: 'Miembro independiente de BOKS International, una red global de firmas profesionales que nos permite acompañar operaciones más allá de Argentina.',
+    text: 'Miembros de BOKS International: te acompañamos más allá de Argentina.',
     icon: 'globe',
   },
 ];

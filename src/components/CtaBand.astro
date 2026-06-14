@@ -16,8 +16,10 @@ const {
 } = Astro.props;
 ---
 
-<section class="surface-ink grid-ink masthead-top">
-  <div class="mx-auto flex max-w-6xl flex-col items-start gap-8 px-4 py-16 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:py-20" data-reveal>
+<section class="surface-ink grid-ink masthead-top overflow-hidden">
+  <span class="ring-deco ring-float" aria-hidden="true" style="width:200px;height:200px;border-width:22px;border-color:rgba(226,59,59,0.22);top:-56px;right:6%"></span>
+  <span class="ring-deco" aria-hidden="true" style="width:80px;height:80px;border-width:12px;border-color:rgba(226,59,59,0.3);bottom:24px;right:22%"></span>
+  <div class="relative z-10 mx-auto flex max-w-6xl flex-col items-start gap-8 px-4 py-16 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:py-20" data-reveal>
     <div>
       <h2 class="max-w-2xl font-display text-3xl leading-[1.1] text-white sm:text-4xl lg:text-[2.75rem]" style="font-weight:800">
         {title}{' '}
@@ -30,7 +32,7 @@ const {
         href={waLink}
         target="_blank"
         rel="noopener"
-        class="inline-flex items-center gap-2 rounded-md bg-wsp px-7 py-3.5 text-base font-bold text-white shadow-[0_14px_34px_-12px_rgba(0,0,0,0.5)] transition-transform hover:-translate-y-0.5"
+        class="inline-flex items-center gap-2 rounded-md bg-brand px-7 py-3.5 text-base font-bold text-white shadow-[0_14px_34px_-12px_rgba(0,0,0,0.5)] transition-transform hover:-translate-y-0.5"
       >
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />

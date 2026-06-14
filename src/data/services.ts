@@ -26,7 +26,7 @@ export const SERVICES: Service[] = [
       'Planificación fiscal y reducción de riesgos: que los impuestos dejen de ser un problema y pasen a ser una variable más, bajo control.',
     heroImage: '/img/hero-impositivo.jpg',
     icon: 'impositivo',
-    card: 'Planificación fiscal, determinación de impuestos, defensa tributaria y precios de transferencia.',
+    card: 'Que los impuestos dejen de ser un problema. Bajo control.',
     intro: [
       'Los impuestos son, para la mayoría de las empresas, uno de sus mayores costos. Nuestro trabajo es que ese costo esté planificado, optimizado y bajo control, con una mirada estratégica que va mucho más allá de presentar declaraciones juradas a tiempo.',
       'Trabajamos con la dirección de cada empresa para entender su negocio y diseñar la estructura fiscal que mejor le quede: desde la operación diaria hasta reorganizaciones, sucesiones y operaciones internacionales.',
@@ -55,7 +55,7 @@ export const SERVICES: Service[] = [
     heroSub:
       'Estados contables confiables y procesos sólidos, para que los números reflejen la realidad del negocio y sirvan para decidir.',
     icon: 'contable',
-    card: 'Auditoría externa e interna, análisis de estados contables, control interno y due diligence.',
+    card: 'Números confiables para decidir créditos, inversiones y operaciones.',
     intro: [
       'Unos estados contables bien armados no son un trámite: son la base sobre la que se deciden créditos, inversiones, ventas de empresas y relaciones con socios. Por eso los tratamos con el rigor que merecen.',
       'Nuestro equipo audita y analiza estados contables bajo normas locales e IFRS, y trabaja sobre los procesos y controles internos que están detrás de esos números, en empresas de los más variados sectores e industrias.',
@@ -84,7 +84,7 @@ export const SERVICES: Service[] = [
       'El agro tiene sus propios ciclos, sus riesgos y su régimen fiscal. Lo conocemos de adentro: también somos productores.',
     heroImage: '/img/hero-agro.jpg',
     icon: 'agropecuario',
-    card: 'Impuestos del agro, costos de producción, inventarios y rentabilidad por actividad.',
+    card: 'Impuestos del agro, costos y rentabilidad. Somos productores.',
     intro: [
       'La contabilidad agropecuaria no es una contabilidad más: ciclos biológicos, estacionalidad, clima, retenciones y regímenes especiales hacen que las recetas genéricas queden cortas.',
       'Nuestra socia a cargo del área es especialista en impuestos agropecuarios y productora agropecuaria: conocemos el negocio desde el campo y desde los números. Eso nos permite asesorar a empresas agrícolas y ganaderas con criterio real, no solo normativo.',
@@ -112,7 +112,7 @@ export const SERVICES: Service[] = [
       'La estructura legal correcta para cada negocio: desde la constitución de una sociedad hasta fusiones, adquisiciones y convenios entre socios.',
     heroImage: '/img/hero-societario.jpg',
     icon: 'sociedades',
-    card: 'Estructuras societarias, convenios de accionistas, fusiones, adquisiciones y transformaciones.',
+    card: 'La estructura legal correcta para crecer, asociarte o vender.',
     intro: [
       'Detrás de todo negocio sólido hay una estructura societaria pensada: protege el patrimonio, ordena la relación entre socios y prepara a la empresa para crecer, asociarse o venderse bien.',
       'Ya sea que estés por iniciar una empresa, quieras optimizar la estructura existente o estés frente a una fusión o adquisición, nuestro departamento de sociedades —liderado por una abogada con larga trayectoria corporativa— diseña la solución a medida.',
@@ -136,7 +136,7 @@ export const SERVICES: Service[] = [
     heroSub:
       'Tu administración contable e impositiva, en manos de un equipo profesional: vos te dedicás al negocio, nosotros a los números.',
     icon: 'outsourcing',
-    card: 'Tercerización de la contabilidad y los impuestos de tu empresa, con soluciones a medida.',
+    card: 'Vos al negocio, nosotros a tus números. Sin departamento propio.',
     intro: [
       'Mantener un departamento contable propio es caro y, en muchas empresas, innecesario. Tercerizar la contabilidad y los impuestos en un estudio con trayectoria reduce costos, errores y contingencias.',
       'Armamos esquemas de outsourcing a medida: desde la contabilización de operaciones hasta la presentación de todas las declaraciones juradas, con la información siempre disponible para la dirección.',
