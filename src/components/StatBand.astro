@@ -14,7 +14,7 @@ interface Props {
   class?: string;
 }
 const { stats, light = false, class: className = '' } = Astro.props;
-const numColor = light ? 'text-white' : 'text-brand';
+const numColor = light ? 'text-brand-bright' : 'text-brand';
 const labelColor = light ? 'text-white/55' : 'text-muted';
 const divide = light ? 'divide-white/15' : 'divide-line-strong';
 ---

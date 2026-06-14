@@ -41,17 +41,22 @@ const faqJsonLd = {
   description={SITE.description}
   jsonLdExtra={faqJsonLd}
 >
-  <!-- HERO -->
-  <section class="mesh masthead-top grid-paper border-b border-line bg-paper">
-    <div class="mx-auto max-w-6xl px-4 pb-10 pt-10 sm:px-6 lg:grid lg:grid-cols-[1.25fr_0.75fr] lg:gap-12 lg:pb-14 lg:pt-14">
-      <div>
+  <!-- HERO cinematográfico (imagen de fondo + parallax + Ken Burns) -->
+  <section class="cine masthead-top">
+    <div class="cine__media" data-parallax="0.12">
+      <img src="/img/hero-impositivo.jpg" alt="" aria-hidden="true" class="kenburns h-full w-full object-cover" />
+    </div>
+    <div class="cine__veil"></div>
+
+    <div class="relative z-10 mx-auto max-w-6xl px-4 pb-10 pt-16 sm:px-6 lg:pb-14 lg:pt-24">
+      <div class="max-w-2xl">
         <div class="hero-in hero-in-1">
-          <Kicker text="Est. 1984 · San Isidro · BOKS International" />
+          <Kicker text="Est. 1984 · San Isidro · BOKS International" light />
         </div>
-        <h1 class="hero-in hero-in-2 font-display mt-6 text-[1.55rem] leading-[1.18] tracking-tight text-brand sm:text-3xl lg:text-[2.6rem] lg:leading-[1.1]" style="font-weight:800">
+        <h1 class="hero-in hero-in-2 font-display mt-6 text-[1.7rem] leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-[3rem] lg:leading-[1.04]" style="font-weight:800">
           Tu contabilidad y tus impuestos, atendidos por un <em class="accent is-visible">socio</em> del estudio.
         </h1>
-        <p class="hero-in hero-in-3 mt-6 max-w-lg text-lg leading-[1.6] text-body">
+        <p class="hero-in hero-in-3 mt-6 max-w-xl text-lg leading-[1.6] text-white/85">
           Contadores y abogados, +40 años y tercera generación. Asesoría estratégica con la atención
           directa de un socio.
         </p>
@@ -60,7 +65,7 @@ const faqJsonLd = {
             href={waLink}
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center gap-2 rounded-md bg-brand px-7 py-4 text-base font-bold text-white shadow-[0_12px_30px_-10px_rgba(205,51,51,0.6)] transition-colors hover:bg-brand-ink"
+            class="inline-flex items-center gap-2 rounded-md bg-brand px-7 py-4 text-base font-bold text-white shadow-[0_16px_40px_-12px_rgba(205,51,51,0.7)] transition-transform hover:-translate-y-0.5"
           >
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />
@@ -68,39 +73,18 @@ const faqJsonLd = {
             </svg>
             Hablar con un socio
           </a>
-          <a href="#servicios" class="underline-grow text-base font-semibold text-ink">Ver servicios</a>
+          <a href="#servicios" class="underline-grow text-base font-semibold text-white">Ver servicios</a>
         </div>
-        <p class="hero-in hero-in-4 mt-6 text-sm text-muted">
+        <p class="hero-in hero-in-4 mt-6 text-sm text-white/60">
           Miembro de BOKS International · 3 generaciones de contadores
         </p>
       </div>
-
-      <!-- Columna derecha: imagen tratada con parallax + compromiso -->
-      <div class="hero-in hero-in-5 mt-10 lg:mt-0 lg:h-full">
-        <div class="duotone relative flex aspect-[4/3] flex-col justify-end rounded-sm border border-line lg:aspect-auto lg:h-full">
-          <div data-parallax="0.05" class="absolute inset-x-0 -top-[8%] h-[116%]">
-            <img
-              src="/img/hero-impositivo.jpg"
-              alt=""
-              aria-hidden="true"
-              class="kenburns h-full w-full object-cover"
-            />
-          </div>
-          <span class="absolute right-0 top-0 z-10 h-12 w-12 border-b border-l border-brand-bright"></span>
-          <div class="relative z-10 p-7 sm:p-8">
-            <Kicker text="El compromiso G&G" light />
-            <p class="font-display mt-4 text-2xl leading-snug text-white sm:text-[1.7rem]" style="font-weight:800">
-              Cada cliente trabaja directamente con un <em class="text-brand-bright" style="font-style:italic">socio</em>.
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- Banda de stats -->
-    <div class="border-t border-line">
+    <!-- Banda de stats sobre el hero oscuro -->
+    <div class="relative z-10 border-t border-white/15">
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
-        <StatBand stats={stats} />
+        <StatBand stats={stats} light />
       </div>
     </div>
   </section>

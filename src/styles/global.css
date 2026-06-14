@@ -311,13 +311,16 @@ body::before {
 [data-reveal] {
   opacity: 0;
   transform: translateY(26px);
+  filter: blur(6px);
   transition:
-    opacity 0.7s var(--ease-editorial),
-    transform 0.7s var(--ease-editorial);
+    opacity 0.8s var(--ease-editorial),
+    transform 0.8s var(--ease-editorial),
+    filter 0.8s var(--ease-editorial);
 }
 [data-reveal].is-visible {
   opacity: 1;
   transform: none;
+  filter: blur(0);
 }
 
 [data-reveal-stagger] > * {
@@ -447,6 +450,7 @@ html.lenis body { height: auto; }
   [data-reveal], [data-reveal-stagger] > *, .hero-in {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
   }
   .rule-draw, .kicker::before { transform: scaleX(1) !important; }
   .marquee__track { animation: none !important; }
