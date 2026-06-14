@@ -8,6 +8,14 @@ const links = [
   { href: '/novedades', label: 'Novedades' },
   { href: '/contacto', label: 'Contacto' },
 ];
+
+// Accesos directos a info clave (anclas en la home)
+const quick = [
+  { href: '/#como-trabajamos', label: 'Cómo trabajamos' },
+  { href: '/#equipo', label: 'Equipo' },
+  { href: '/#faq', label: 'Preguntas frecuentes' },
+  { href: '/quienes-somos', label: 'Quiénes somos' },
+];
 const current = Astro.url.pathname;
 const isActive = (href: string) => current === href || current.startsWith(href + '/');
 ---
@@ -46,20 +54,32 @@ const isActive = (href: string) => current === href || current.startsWith(href +
             <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd" />
           </svg>
         </a>
-        <div class="invisible absolute left-1/2 top-full w-72 -translate-x-1/2 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-          <div class="border border-line bg-paper py-2 shadow-[0_24px_60px_-32px_rgba(20,23,31,0.4)]">
-            {SERVICES.map((s) => (
-              <a
-                href={`/servicios/${s.slug}`}
-                class:list={[
-                  'flex items-center gap-3 px-5 py-2.5 transition-colors hover:bg-paper-2',
-                  current === `/servicios/${s.slug}` ? 'text-brand-ink' : 'text-ink',
-                ]}
-              >
-                <span class="text-brand"><Icon name={s.icon} class="h-5 w-5" /></span>
-                <span class="text-sm font-medium">{s.title}</span>
-              </a>
-            ))}
+        <div class="invisible absolute left-1/2 top-full w-[40rem] max-w-[92vw] -translate-x-1/2 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+          <div class="grid grid-cols-2 gap-2 border border-line bg-paper p-3 shadow-[0_24px_60px_-32px_rgba(20,23,31,0.4)]">
+            <div>
+              <p class="px-3 pb-1 pt-2 text-[11px] font-bold uppercase tracking-[0.18em] text-muted">Servicios</p>
+              {SERVICES.map((s) => (
+                <a
+                  href={`/servicios/${s.slug}`}
+                  class:list={[
+                    'flex items-center gap-3 rounded-sm px-3 py-2 transition-colors hover:bg-paper-2',
+                    current === `/servicios/${s.slug}` ? 'text-brand-ink' : 'text-ink',
+                  ]}
+                >
+                  <span class="text-brand"><Icon name={s.icon} class="h-5 w-5" /></span>
+                  <span class="text-sm font-medium">{s.title}</span>
+                </a>
+              ))}
+            </div>
+            <div class="border-l border-line pl-2">
+              <p class="px-3 pb-1 pt-2 text-[11px] font-bold uppercase tracking-[0.18em] text-muted">Ir directo a</p>
+              {quick.map((q) => (
+                <a href={q.href} class="flex items-center gap-2 rounded-sm px-3 py-2 text-sm font-medium text-ink transition-colors hover:bg-paper-2 hover:text-brand-ink">
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-brand"></span>
+                  {q.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -112,6 +132,13 @@ const isActive = (href: string) => current === href || current.startsWith(href +
         <a href={`/servicios/${s.slug}`} class="flex items-center gap-3 py-2.5 text-base text-body">
           <span class="text-brand"><Icon name={s.icon} class="h-5 w-5" /></span>
           {s.title}
+        </a>
+      ))}
+      <p class="kicker pb-1 pt-4">Ir directo a</p>
+      {quick.filter((q) => q.href.startsWith('/#')).map((q) => (
+        <a href={q.href} class="flex items-center gap-2 py-2.5 text-base text-body">
+          <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-brand"></span>
+          {q.label}
         </a>
       ))}
       <div class="pt-2">

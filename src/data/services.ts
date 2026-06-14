@@ -82,7 +82,7 @@ export const SERVICES: Service[] = [
     heroTitle: 'Contabilidad agropecuaria',
     heroSub:
       'El agro tiene sus propios ciclos, sus riesgos y su régimen fiscal. Lo conocemos de adentro: también somos productores.',
-    heroImage: '/img/hero-agro.jpg',
+    heroImage: '/img/agro-a.jpg',
     icon: 'agropecuario',
     card: 'Impuestos del agro, costos y rentabilidad. Somos productores.',
     intro: [
@@ -110,7 +110,6 @@ export const SERVICES: Service[] = [
     heroTitle: 'Asesoramiento societario',
     heroSub:
       'La estructura legal correcta para cada negocio: desde la constitución de una sociedad hasta fusiones, adquisiciones y convenios entre socios.',
-    heroImage: '/img/hero-societario.jpg',
     icon: 'sociedades',
     card: 'La estructura legal correcta para crecer, asociarte o vender.',
     intro: [
