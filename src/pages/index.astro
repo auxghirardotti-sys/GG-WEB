@@ -43,7 +43,7 @@ const faqJsonLd = {
 >
   <!-- HERO -->
   <section class="mesh masthead-top grid-paper border-b border-line bg-paper">
-    <div class="mx-auto max-w-6xl px-4 pb-14 pt-14 sm:px-6 lg:grid lg:grid-cols-[1.25fr_0.75fr] lg:gap-16 lg:pb-20 lg:pt-20">
+    <div class="mx-auto max-w-6xl px-4 pb-10 pt-10 sm:px-6 lg:grid lg:grid-cols-[1.25fr_0.75fr] lg:gap-12 lg:pb-14 lg:pt-14">
       <div>
         <div class="hero-in hero-in-1">
           <Kicker text="Est. 1984 · San Isidro · BOKS International" />
@@ -76,7 +76,7 @@ const faqJsonLd = {
       </div>
 
       <!-- Columna derecha: imagen tratada con parallax + compromiso -->
-      <div class="hero-in hero-in-5 mt-12 lg:mt-0">
+      <div class="hero-in hero-in-5 mt-10 lg:mt-0">
         <div class="duotone relative flex aspect-[5/6] flex-col justify-end rounded-sm border border-line lg:aspect-[4/5]">
           <img
             src="/img/hero-impositivo.jpg"
@@ -106,7 +106,7 @@ const faqJsonLd = {
 
   <!-- SERVICIOS -->
   <section id="servicios" class="scroll-mt-20 surface-paper-soft">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
       <div class="max-w-2xl" data-reveal>
         <Kicker text="Servicios" />
         <h2 class="mt-4 font-display text-3xl leading-tight text-brand sm:text-[2.75rem]" style="font-weight:700">
@@ -117,12 +117,12 @@ const faqJsonLd = {
         </p>
       </div>
 
-      <div class="mt-12">
+      <div class="mt-8">
         <ServiceIndex />
       </div>
 
       <!-- Fila destacada: no sabés por dónde empezar -->
-      <div class="surface-ink mt-8 flex flex-col items-start gap-5 p-7 sm:flex-row sm:items-center sm:justify-between" data-reveal>
+      <div class="surface-ink mt-6 flex flex-col items-start gap-5 p-6 sm:flex-row sm:items-center sm:justify-between" data-reveal>
         <div>
           <h3 class="font-display text-xl text-white" style="font-weight:700">¿No sabés por dónde empezar?</h3>
           <p class="mt-1.5 text-sm text-white/65">Contanos tu situación y un socio te orienta hacia lo que mejor la resuelve.</p>
@@ -147,21 +147,23 @@ const faqJsonLd = {
 
   <!-- DIFERENCIALES -->
   <section class="bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
       <div class="max-w-2xl" data-reveal>
         <Kicker text="Por qué G&G" />
         <h2 class="mt-4 font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
           La trayectoria no se <em class="accent" style="font-style:italic">improvisa</em>
         </h2>
       </div>
-      <div class="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2" data-reveal-stagger>
+      <div class="mt-10 grid gap-x-8 gap-y-8 sm:grid-cols-2" data-reveal-stagger>
         {DIFFERENTIALS.map((d) => (
-          <div class="group">
-            <span class="flex h-16 w-16 items-center justify-center rounded-full border border-brand/40 bg-surface text-brand transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-white">
-              <Icon name={d.icon as any} class="h-9 w-9" />
+          <div class="group flex gap-4">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brand/40 bg-surface text-brand transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-white">
+              <Icon name={d.icon as any} class="h-6 w-6" />
             </span>
-            <h3 class="mt-5 font-display text-xl text-ink" style="font-weight:700">{d.title}</h3>
-            <p class="mt-2 text-base leading-relaxed text-body">{d.text}</p>
+            <div>
+              <h3 class="font-display text-lg text-ink" style="font-weight:700">{d.title}</h3>
+              <p class="mt-1 text-base leading-relaxed text-body">{d.text}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -201,7 +203,7 @@ const faqJsonLd = {
   </section>
 
   <!-- INDUSTRIAS (marquee dinámico) -->
-  <section class="surface-paper-soft overflow-hidden py-16 lg:py-24">
+  <section class="surface-paper-soft overflow-hidden py-12 lg:py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6" data-reveal>
       <Kicker text="Industrias" />
       <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
@@ -213,7 +215,7 @@ const faqJsonLd = {
       </p>
     </div>
 
-    <div class="marquee mt-12 border-y border-line py-6">
+    <div class="marquee mt-10 border-y border-line py-6">
       <div class="marquee__track">
         {[...INDUSTRIES, ...INDUSTRIES].map((i) => (
           <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-2xl text-ink/85 sm:text-3xl" style="font-weight:700">
@@ -231,7 +233,7 @@ const faqJsonLd = {
   <!-- NOVEDADES -->
   <div class="brush-band" aria-hidden="true"></div>
   <section class="surface-paper-soft">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
       <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
         <div>
           <Kicker text="Novedades" />
@@ -242,7 +244,7 @@ const faqJsonLd = {
         <a href="/novedades" class="underline-grow text-sm font-semibold text-brand-ink">Ver todas →</a>
       </div>
 
-      <div class="mt-12 grid gap-6 md:grid-cols-3" data-reveal-stagger>
+      <div class="mt-10 grid gap-6 md:grid-cols-3" data-reveal-stagger>
         {posts.map((p) => (
           <a
             href={`/novedades/${p.id}`}

@@ -29,9 +29,9 @@ const divide = light ? 'divide-white/15' : 'divide-line-strong';
 >
   {
     stats.map((s) => (
-      <div class="flex flex-col items-start px-2 py-6 sm:px-7">
+      <div class="flex flex-col items-start px-2 py-5 sm:px-7">
         <dt
-          class:list={['font-display tabular text-5xl leading-none sm:text-6xl', numColor]}
+          class:list={['font-display tabular text-4xl leading-none sm:text-5xl', numColor]}
           style="font-weight:800"
         >
           {s.text ? (
@@ -40,7 +40,7 @@ const divide = light ? 'divide-white/15' : 'divide-line-strong';
             <span data-countup={s.value} data-suffix={s.suffix ?? ''}>0{s.suffix ?? ''}</span>
           )}
         </dt>
-        <dd class:list={['mt-3 text-xs font-medium uppercase tracking-[0.14em]', labelColor]}>
+        <dd class:list={['mt-2 text-xs font-medium uppercase tracking-[0.14em]', labelColor]}>
           {s.label}
         </dd>
       </div>

@@ -34,7 +34,7 @@ const [lead, ...restIntro] = service.intro;
     <span class="pointer-events-none absolute -right-6 top-1/2 -translate-y-1/2 select-none text-white/[0.06]" aria-hidden="true">
       <Icon name={service.icon} class="h-64 w-64 sm:h-80 sm:w-80" />
     </span>
-    <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+    <div class="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:py-20">
       <nav class="text-xs font-medium uppercase tracking-[0.16em] text-white/65" aria-label="Migas de pan">
         <a href="/" class="hover:text-white">Inicio</a>
         <span class="mx-2">/</span>
@@ -72,7 +72,7 @@ const [lead, ...restIntro] = service.intro;
 
   <!-- INTRO + ASIDE -->
   <section class="bg-paper">
-    <div class="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.5fr_1fr] lg:py-24">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.5fr_1fr] lg:py-16">
       <div data-reveal>
         <p class="font-display text-2xl leading-[1.4] text-ink sm:text-[1.6rem]" style="font-weight:800">{lead}</p>
         {restIntro.map((p) => (
@@ -106,7 +106,7 @@ const [lead, ...restIntro] = service.intro;
 
   <!-- ITEMS -->
   <section class="surface-paper-soft">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
       <div data-reveal>
         <Kicker text="Alcance" />
         <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
@@ -128,7 +128,7 @@ const [lead, ...restIntro] = service.intro;
 
   <!-- OTROS SERVICIOS -->
   <section class="bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
       <div data-reveal>
         <Kicker text="Seguir explorando" />
         <h2 class="mt-4 font-display text-2xl text-brand sm:text-3xl" style="font-weight:700">
