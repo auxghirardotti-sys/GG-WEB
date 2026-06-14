@@ -29,12 +29,12 @@
   --color-body: #3a3a40;
   --color-muted: #6e6e76;
 
-  /* Neutros gris (base + alternada) y superficie blanca de tarjetas */
-  --color-paper: #ebedf1;     /* fondo base gris suave */
-  --color-paper-2: #e2e5ea;   /* sección alternada, gris un punto más profundo */
-  --color-surface: #ffffff;   /* tarjetas elevadas sobre el gris */
-  --color-line: #d7dbe2;
-  --color-line-strong: #bdc3cd;
+  /* Neutros gris CÁLIDO/ROJIZO (base + alternada) y superficie blanca de tarjetas */
+  --color-paper: #f1eae8;     /* gris cálido con matiz rojizo */
+  --color-paper-2: #ece0dd;   /* sección alternada, más rosado-tostado */
+  --color-surface: #ffffff;   /* tarjetas elevadas */
+  --color-line: #ddd0cc;
+  --color-line-strong: #c9b9b4;
 
   /* WhatsApp / contacto directo */
   --color-wsp: #25d366;
@@ -64,9 +64,28 @@ body::before {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.02;
+  opacity: 0.05;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Tinte rojo animado sutil: da vida y calidez rojiza al fondo (overlay, no bloquea clics) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background:
+    radial-gradient(42% 38% at 28% 28%, #cd3333, transparent 70%),
+    radial-gradient(38% 42% at 76% 72%, #cd3333, transparent 70%);
+  animation: bgDrift 20s ease-in-out infinite alternate;
+}
+@keyframes bgDrift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to { transform: translate3d(3%, 2%, 0) scale(1.08); }
 }
 
 ::selection {
