@@ -100,28 +100,10 @@ body::before {
   letter-spacing: -0.01em;
 }
 
-/* Acento de marca: palabra resaltada en rojo con subrayado que se dibuja */
+/* Acento de marca: palabra resaltada en rojo (sin subrayado) */
 .accent {
-  position: relative;
   color: var(--color-brand-bright);
   font-style: italic;
-  white-space: nowrap;
-}
-.accent::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.04em;
-  height: 0.12em;
-  background: var(--color-brand);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.7s var(--ease-editorial) 0.25s;
-}
-.is-visible .accent::after,
-.accent.is-visible::after {
-  transform: scaleX(1);
 }
 
 /* Kicker / eyebrow con filete rojo que se dibuja */
@@ -189,24 +171,10 @@ body::before {
   border-top: 3px solid var(--color-brand-bright);
 }
 
-/* Retícula editorial fina */
-.grid-paper {
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(20, 23, 31, 0.035) 0,
-    rgba(20, 23, 31, 0.035) 1px,
-    transparent 1px,
-    transparent 80px
-  );
-}
+/* Retícula editorial desactivada a pedido (se quitaron las líneas verticales) */
+.grid-paper,
 .grid-ink {
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.045) 0,
-    rgba(255, 255, 255, 0.045) 1px,
-    transparent 1px,
-    transparent 80px
-  );
+  background-image: none;
 }
 
 /* Superficie oscura con glow rojo ANIMADO (respira) */
@@ -427,7 +395,7 @@ body::before {
     opacity: 1 !important;
     transform: none !important;
   }
-  .rule-draw, .kicker::before, .accent::after { transform: scaleX(1) !important; }
+  .rule-draw, .kicker::before { transform: scaleX(1) !important; }
   .marquee__track { animation: none !important; }
   .surface-ink::after { animation: none !important; }
 }
