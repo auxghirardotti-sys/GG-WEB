@@ -383,6 +383,59 @@ body::before {
   transform: scale(1.04);
 }
 
+/* Reveals direccionales y de escala (más variedad de entrada al scroll) */
+[data-reveal="left"] { transform: translateX(-36px); }
+[data-reveal="right"] { transform: translateX(36px); }
+[data-reveal="scale"] { transform: scale(0.93); }
+
+/* Ken Burns: zoom lento cinematográfico para imágenes de fondo */
+.kenburns {
+  animation: kenburns 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes kenburns {
+  from { transform: scale(1.03); }
+  to { transform: scale(1.15); }
+}
+
+/* Banda cinematográfica con imagen de fondo (foto + parallax + overlay) */
+.cine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cine__media {
+  position: absolute;
+  inset: -14% 0;
+  z-index: -2;
+  will-change: transform;
+}
+.cine__media img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.cine__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(20, 20, 20, 0.55), rgba(20, 20, 20, 0.78)),
+    radial-gradient(70% 60% at 80% 0%, rgba(205, 51, 51, 0.28), transparent 70%);
+}
+
+/* Zoom sutil de imagen al hover (tarjetas/figuras con foto) */
+.zoom-host { overflow: hidden; }
+.zoom-host img { transition: transform 0.7s var(--ease-editorial); }
+.zoom-host:hover img { transform: scale(1.06); }
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

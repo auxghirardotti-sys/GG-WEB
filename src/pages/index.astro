@@ -78,13 +78,14 @@ const faqJsonLd = {
       <!-- Columna derecha: imagen tratada con parallax + compromiso -->
       <div class="hero-in hero-in-5 mt-10 lg:mt-0 lg:h-full">
         <div class="duotone relative flex aspect-[4/3] flex-col justify-end rounded-sm border border-line lg:aspect-auto lg:h-full">
-          <img
-            src="/img/hero-impositivo.jpg"
-            alt=""
-            aria-hidden="true"
-            data-parallax="0.05"
-            class="absolute inset-x-0 -top-[8%] h-[116%] w-full object-cover"
-          />
+          <div data-parallax="0.05" class="absolute inset-x-0 -top-[8%] h-[116%]">
+            <img
+              src="/img/hero-impositivo.jpg"
+              alt=""
+              aria-hidden="true"
+              class="kenburns h-full w-full object-cover"
+            />
+          </div>
           <span class="absolute right-0 top-0 z-10 h-12 w-12 border-b border-l border-brand-bright"></span>
           <div class="relative z-10 p-7 sm:p-8">
             <Kicker text="El compromiso G&G" light />

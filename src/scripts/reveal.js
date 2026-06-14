@@ -1,9 +1,10 @@
-// Orquesta el movimiento del sitio con un IntersectionObserver compartido + scroll:
-// - [data-reveal] / [data-reveal-stagger]: .is-visible una vez al entrar en viewport.
+// Movimiento del sitio:
+// - Lenis: scroll suave premium (respeta prefers-reduced-motion).
+// - [data-reveal] / [data-reveal-stagger]: .is-visible al entrar en viewport.
 // - [data-countup]: cuenta de 0 a data-target al entrar en viewport.
-// - [data-parallax]: desplazamiento suave según scroll (factor en data-parallax).
+// - [data-parallax]: desplazamiento suave según scroll (factor en el atributo).
 // - #scroll-progress: barra roja de progreso de lectura.
-// Respeta prefers-reduced-motion.
+import Lenis from 'lenis';
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -56,27 +57,31 @@ function initReveal() {
   });
 }
 
-function initScroll() {
+function initScrollFx() {
   const bar = document.getElementById('scroll-progress');
   const parallax = Array.from(document.querySelectorAll('[data-parallax]'));
-  if (reduce) return;
 
-  let ticking = false;
   function update() {
     const scroll = window.scrollY;
     const docH = document.documentElement.scrollHeight - window.innerHeight;
     if (bar) bar.style.transform = `scaleX(${docH > 0 ? scroll / docH : 0})`;
+    if (reduce) return;
+    const vh = window.innerHeight;
     parallax.forEach((el) => {
-      const factor = parseFloat(el.dataset.parallax || '0.1');
+      const factor = parseFloat(el.dataset.parallax || '0.12');
       const rect = el.getBoundingClientRect();
-      const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+      const center = rect.top + rect.height / 2 - vh / 2;
       el.style.transform = `translate3d(0, ${(-center * factor).toFixed(1)}px, 0)`;
     });
-    ticking = false;
   }
+
+  let ticking = false;
   function onScroll() {
     if (!ticking) {
-      requestAnimationFrame(update);
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
       ticking = true;
     }
   }
@@ -85,9 +90,42 @@ function initScroll() {
   update();
 }
 
+function initSmoothScroll() {
+  if (reduce) return;
+  const lenis = new Lenis({
+    duration: 1.1,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  // Anclas internas con scroll suave (#... y /#... en la misma página)
+  document.querySelectorAll('a[href*="#"]').forEach((a) => {
+    const href = a.getAttribute('href') || '';
+    const hashIndex = href.indexOf('#');
+    if (hashIndex < 0) return;
+    const path = href.slice(0, hashIndex);
+    if (path && path !== '/' && path !== location.pathname) return; // link a otra página
+    const id = href.slice(hashIndex);
+    if (id.length < 2) return;
+    const target = document.querySelector(id);
+    if (!target) return;
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -76 });
+      history.pushState(null, '', id);
+    });
+  });
+}
+
 function init() {
   initReveal();
-  initScroll();
+  initScrollFx();
+  initSmoothScroll();
 }
 
 if (document.readyState === 'loading') {
