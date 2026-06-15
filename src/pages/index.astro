@@ -75,9 +75,6 @@ const faqJsonLd = {
           </a>
           <a href="#servicios" class="underline-grow text-base font-semibold text-white">Ver servicios</a>
         </div>
-        <p class="hero-in hero-in-4 mt-6 text-sm text-white/60">
-          Miembro de BOKS International · 3 generaciones de contadores
-        </p>
       </div>
     </div>
 
@@ -105,30 +102,36 @@ const faqJsonLd = {
       <div class="mt-8">
         <ServiceIndex />
       </div>
+    </div>
+  </section>
 
-      <!-- Fila destacada: no sabés por dónde empezar -->
-      <div class="surface-ink mt-6 flex flex-col items-start gap-5 p-6 sm:flex-row sm:items-center sm:justify-between" data-reveal>
-        <div>
-          <h3 class="font-display text-xl text-white" style="font-weight:700">¿No sabés por dónde empezar?</h3>
-          <p class="mt-1.5 text-sm text-white/65">Contanos tu situación y un socio te orienta hacia lo que mejor la resuelve.</p>
-        </div>
-        <a
-          href={waLink}
-          target="_blank"
-          rel="noopener"
-          class="inline-flex shrink-0 items-center gap-2 rounded-md bg-brand px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink"
-        >
-          Escribinos
-        </a>
+  <!-- INDUSTRIAS (después de servicios) -->
+  <section class="surface-paper-soft overflow-hidden py-12 lg:py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6" data-reveal>
+      <Kicker text="Tu sector" />
+      <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
+        Industrias con las que <em class="accent" style="font-style:italic">trabajamos</em>
+      </h2>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-body">
+        Cada industria tiene sus reglas, sus riesgos y sus oportunidades fiscales. Estas son algunas
+        de las que asesoramos hace años:
+      </p>
+    </div>
+
+    <div class="marquee mt-10 border-y border-line py-6">
+      <div class="marquee__track">
+        {[...INDUSTRIES, ...INDUSTRIES].map((i) => (
+          <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-2xl text-ink/85 sm:text-3xl" style="font-weight:700">
+            <span class="h-2.5 w-2.5 shrink-0 rounded-full bg-brand"></span>
+            {i}
+          </span>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- MANIFIESTO -->
-  <Manifesto
-    pre="El asesoramiento como valor agregado, no como"
-    accent="trámite."
-  />
+  <!-- CÓMO TRABAJAMOS (movido arriba: empezar es simple, primera charla sin costo) -->
+  <Process />
 
   <!-- DIFERENCIALES -->
   <section>
@@ -154,12 +157,6 @@ const faqJsonLd = {
       </div>
     </div>
   </section>
-
-  <!-- TESTIMONIOS -->
-  <Testimonials />
-
-  <!-- CÓMO TRABAJAMOS -->
-  <Process />
 
   <!-- EQUIPO (teaser compacto) -->
   <section id="equipo" class="scroll-mt-20">
@@ -187,30 +184,14 @@ const faqJsonLd = {
     </div>
   </section>
 
-  <!-- INDUSTRIAS (marquee dinámico) -->
-  <section class="surface-paper-soft overflow-hidden py-12 lg:py-16">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6" data-reveal>
-      <Kicker text="Industrias" />
-      <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
-        Conocemos tu <em class="accent" style="font-style:italic">rubro</em>
-      </h2>
-      <p class="mt-4 max-w-2xl text-base leading-relaxed text-body">
-        Cada industria tiene sus reglas, sus riesgos y sus oportunidades fiscales. Estas son algunas
-        de las que asesoramos hace años:
-      </p>
-    </div>
+  <!-- MANIFIESTO (movido abajo) -->
+  <Manifesto
+    pre="El asesoramiento como valor agregado, no como"
+    accent="trámite."
+  />
 
-    <div class="marquee mt-10 border-y border-line py-6">
-      <div class="marquee__track">
-        {[...INDUSTRIES, ...INDUSTRIES].map((i) => (
-          <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-2xl text-ink/85 sm:text-3xl" style="font-weight:700">
-            <span class="h-2.5 w-2.5 shrink-0 rounded-full bg-brand"></span>
-            {i}
-          </span>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- TESTIMONIOS (más al final) -->
+  <Testimonials />
 
   <!-- FAQ -->
   <Faq />
