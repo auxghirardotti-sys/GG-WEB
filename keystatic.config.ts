@@ -4,10 +4,12 @@ import { config, fields, singleton } from '@keystatic/core';
 // guarda los cambios en GitHub -> Vercel republica solo. El contenido vive en src/content/*
 // como JSON y lo lee src/data/site.ts (las páginas no cambian de forma).
 export default config({
+  // Cloud en producción (login sin claves, vía Keystatic Cloud); local en desarrollo.
   storage:
     process.env.NODE_ENV === 'production'
-      ? { kind: 'github', repo: 'auxghirardotti-sys/GG-WEB' }
+      ? { kind: 'cloud' }
       : { kind: 'local' },
+  cloud: { project: 'ghirardotti-web/ghirardotti-web' },
   ui: {
     brand: { name: 'Ghirardotti & Ghirardotti' },
   },
