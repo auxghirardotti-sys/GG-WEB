@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "title": "Atención directa del socio",
+      "text": "Trabajás con un socio del estudio, no con un call center.",
+      "icon": "people"
+    },
+    {
+      "title": "+40 años de trayectoria",
+      "text": "Tres generaciones cuidando la utilidad y los activos de tu empresa.",
+      "icon": "shield"
+    },
+    {
+      "title": "Contadores y abogados",
+      "text": "Mirada tributaria, societaria y de auditoría en un mismo lugar.",
+      "icon": "team"
+    },
+    {
+      "title": "Alcance internacional",
+      "text": "Miembros de BOKS International: te acompañamos más allá de Argentina.",
+      "icon": "globe"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "q": "¿Atienden empresas chicas o solo grandes?",
+      "a": "Trabajamos con empresas de todos los tamaños: desde emprendimientos y PyMEs familiares hasta grupos consolidados. El esquema de trabajo y los honorarios se adaptan a cada caso."
+    },
+    {
+      "q": "¿Trabajan con clientes de otras provincias o de forma remota?",
+      "a": "Sí. Buena parte de nuestros clientes opera fuera de Buenos Aires. La operatoria es digital y la atención del socio es la misma, estés donde estés."
+    },
+    {
+      "q": "¿Cómo es el cambio desde mi contador actual?",
+      "a": "Nos ocupamos de la transición de punta a punta: pedimos la información al profesional anterior, ordenamos la situación y te avisamos si encontramos algo para corregir. Para vos es transparente."
+    },
+    {
+      "q": "¿Cómo cobran los honorarios?",
+      "a": "Definimos un honorario claro antes de empezar, según el alcance del trabajo y la complejidad de tu empresa. Sin sorpresas: sabés qué pagás y por qué."
+    }
+  ]
+}

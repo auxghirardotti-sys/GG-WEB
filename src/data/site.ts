@@ -1,32 +1,13 @@
-export const SITE = {
-  name: 'Ghirardotti & Ghirardotti',
-  legalName: 'Ghirardotti & Ghirardotti S.C.',
-  tagline: 'Asesoría contable orientada a soluciones',
-  description:
-    'Estudio contable e impositivo en San Isidro, Buenos Aires. Más de 40 años asesorando empresas en impuestos, auditoría, sociedades, agro y outsourcing contable.',
-  url: 'https://gg-web.vercel.app',
+// El contenido editable vive en src/content/*.json y se administra desde el panel /keystatic.
+// Acá lo importamos y lo re-exportamos con los mismos nombres: los componentes no cambian.
+import siteData from '../content/site/index.json';
+import teamData from '../content/team/index.json';
+import faqData from '../content/faq/index.json';
+import testimonialsData from '../content/testimonials/index.json';
+import industriesData from '../content/industries/index.json';
+import differentialsData from '../content/differentials/index.json';
 
-  email: 'info@ggasoc.com',
-  phoneDisplay: '+54 9 11 3511-6890',
-  phoneHref: 'tel:+5491135116890',
-
-  whatsappNumber: '5491135116890',
-  whatsappMessage:
-    'Hola, los contacto desde la web del estudio G&G. Quisiera hacer una consulta.',
-
-  address: 'Chacabuco 511 P.B., San Isidro',
-  addressFull: 'Chacabuco 511 P.B., San Isidro (CP 1642), Buenos Aires, Argentina',
-  mapsLink:
-    'https://maps.google.com/?q=Chacabuco+511,+San+Isidro,+Buenos+Aires,+Argentina',
-  mapsEmbed:
-    'https://maps.google.com/maps?q=Chacabuco+511,+San+Isidro,+Buenos+Aires,+Argentina&z=16&output=embed',
-
-  linkedin: 'https://www.linkedin.com/company/ghirardotti-&-ghirardotti-sc/',
-
-  // Access key de Web3Forms para el formulario de contacto (ver README.md).
-  // Mientras esté vacía, el formulario sugiere escribir por WhatsApp o email.
-  web3formsKey: '',
-};
+export const SITE = siteData;
 
 export const waLink = `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(SITE.whatsappMessage)}`;
 
@@ -44,41 +25,11 @@ export interface TeamMember {
   photo?: string;
 }
 
-export const TEAM: TeamMember[] = [
-  {
-    name: 'Armando Ghirardotti',
-    role: 'Socio Fundador',
-    initials: 'AG',
-    bio: 'Fundador del estudio, con más de 40 años liderando la firma en auditoría, asesoramiento impositivo, societario y contable.',
-    credentials: ['Contador Público', '+40 años de ejercicio'],
-  },
-  {
-    name: 'Mariano Ghirardotti',
-    role: 'Socio Director',
-    initials: 'MG',
-    bio: 'Más de veinte años dedicado a la planificación tributaria. Lleva la estrategia fiscal de las empresas del estudio.',
-    credentials: [
-      'Contador Público (1993)',
-      'Especialista en Tributación (UBA)',
-      'Docente MBA · Universidad de San Andrés',
-      'Miembro de la AAEF',
-    ],
-  },
-  {
-    name: 'Florencia Ghirardotti',
-    role: 'Asociada · Sociedades',
-    initials: 'FG',
-    bio: 'Doce años como Abogada Senior en Brichou, Fernández Madero & Lombard. Lidera el asesoramiento corporativo y las reorganizaciones societarias.',
-    credentials: ['Abogada (UCA, diploma de honor)', 'Asesoramiento corporativo'],
-  },
-  {
-    name: 'Gisela Franceschina',
-    role: 'Socia COO',
-    initials: 'GF',
-    bio: 'Especializada en impuestos agropecuarios. Productora agropecuaria: conoce el negocio del agro desde el campo y desde los números.',
-    credentials: ['Contadora Pública', 'MBA en curso · Universidad de San Andrés', 'Productora agropecuaria'],
-  },
-];
+export const TEAM: TeamMember[] = (teamData.members as any[]).map((m) => ({
+  ...m,
+  // Keystatic guarda solo el nombre de archivo de la foto; le anteponemos la ruta pública.
+  photo: m.photo ? `/team/${m.photo}` : undefined,
+}));
 
 /** Cómo trabajamos — pasos del embudo que bajan la fricción de contactar */
 export const PROCESS = [
@@ -108,79 +59,11 @@ export const PROCESS = [
   },
 ];
 
-/** Preguntas frecuentes que bajan objeciones antes del CTA */
-export const FAQ = [
-  {
-    q: '¿Atienden empresas chicas o solo grandes?',
-    a: 'Trabajamos con empresas de todos los tamaños: desde emprendimientos y PyMEs familiares hasta grupos consolidados. El esquema de trabajo y los honorarios se adaptan a cada caso.',
-  },
-  {
-    q: '¿Trabajan con clientes de otras provincias o de forma remota?',
-    a: 'Sí. Buena parte de nuestros clientes opera fuera de Buenos Aires. La operatoria es digital y la atención del socio es la misma, estés donde estés.',
-  },
-  {
-    q: '¿Cómo es el cambio desde mi contador actual?',
-    a: 'Nos ocupamos de la transición de punta a punta: pedimos la información al profesional anterior, ordenamos la situación y te avisamos si encontramos algo para corregir. Para vos es transparente.',
-  },
-  {
-    q: '¿Cómo cobran los honorarios?',
-    a: 'Definimos un honorario claro antes de empezar, según el alcance del trabajo y la complejidad de tu empresa. Sin sorpresas: sabés qué pagás y por qué.',
-  },
-];
+/** Preguntas frecuentes, testimonios, industrias y diferenciales — editables desde /keystatic */
+export const FAQ = faqData.items;
 
-/** Prueba social. Anonimizada por industria hasta tener testimonios atribuibles. */
-export const TESTIMONIALS = [
-  {
-    quote:
-      'Pasamos de correr atrás de los vencimientos a tener todo planificado. Hablamos directo con un socio cuando lo necesitamos.',
-    who: 'PyME agroexportadora · Pergamino',
-  },
-  {
-    quote:
-      'Nos acompañaron en una reorganización societaria compleja con criterio y sin vueltas. Se nota la trayectoria.',
-    who: 'Grupo familiar · Industria metalmecánica',
-  },
-  {
-    quote:
-      'Tercerizamos toda la administración contable e impositiva y nos sacamos un peso de encima. Cumplen y responden.',
-    who: 'Empresa de software · CABA',
-  },
-];
+export const TESTIMONIALS = testimonialsData.items;
 
-export const INDUSTRIES = [
-  'Agropecuario',
-  'Software y tecnología',
-  'Construcción',
-  'Desarrollos inmobiliarios',
-  'Energía',
-  'Minería',
-  'Industria metalmecánica',
-  'Industria eléctrica',
-  'Importadores',
-  'Agencias de publicidad',
-  'Estudios de abogados',
-  'Hotelería',
-];
+export const INDUSTRIES = industriesData.items;
 
-export const DIFFERENTIALS = [
-  {
-    title: 'Atención directa del socio',
-    text: 'Trabajás con un socio del estudio, no con un call center.',
-    icon: 'people',
-  },
-  {
-    title: '+40 años de trayectoria',
-    text: 'Tres generaciones cuidando la utilidad y los activos de tu empresa.',
-    icon: 'shield',
-  },
-  {
-    title: 'Contadores y abogados',
-    text: 'Mirada tributaria, societaria y de auditoría en un mismo lugar.',
-    icon: 'team',
-  },
-  {
-    title: 'Alcance internacional',
-    text: 'Miembros de BOKS International: te acompañamos más allá de Argentina.',
-    icon: 'globe',
-  },
-];
+export const DIFFERENTIALS = differentialsData.items;
