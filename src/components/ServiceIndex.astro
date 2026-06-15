@@ -9,14 +9,21 @@ interface Props {
 }
 const { exclude } = Astro.props;
 const items = SERVICES.filter((s) => s.slug !== exclude);
+// Bento solo en la home (sin exclude); en páginas de servicio queda grilla uniforme.
+const bento = !exclude;
 ---
 
-<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
+<div class:list={['grid gap-4 sm:grid-cols-2', bento ? 'lg:grid-cols-6' : 'lg:grid-cols-3']} data-reveal-stagger>
   {
-    items.map((s) => (
+    items.map((s, i) => {
+      const big = bento && i < 2;
+      return (
       <a
         href={`/servicios/${s.slug}`}
-        class="lift group relative flex min-h-[220px] flex-col overflow-hidden rounded-md border border-line bg-surface hover:border-brand"
+        class:list={[
+          'lift group relative flex min-h-[220px] flex-col overflow-hidden rounded-md border border-line bg-surface hover:border-brand',
+          bento && (big ? 'lg:col-span-3 lg:min-h-[260px]' : 'lg:col-span-2'),
+        ]}
       >
         <img
           src={s.cardImage}
@@ -46,6 +53,7 @@ const items = SERVICES.filter((s) => s.slug !== exclude);
           </div>
         </div>
       </a>
-    ))
+      );
+    })
   }
 </div>

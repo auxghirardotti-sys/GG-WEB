@@ -91,6 +91,7 @@ export default config({
           fields.object({
             quote: fields.text({ label: 'Testimonio', multiline: true }),
             who: fields.text({ label: 'Quién (industria / lugar)' }),
+            icon: fields.text({ label: 'Ícono', description: 'agropecuario, factory, code, sociedades, globe, brain, team...' }),
           }),
           { label: 'Testimonios', itemLabel: (props) => props.fields.who.value }
         ),

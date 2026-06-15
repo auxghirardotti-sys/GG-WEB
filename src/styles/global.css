@@ -308,10 +308,23 @@ body::before {
 .marquee:hover .marquee__track {
   animation-play-state: paused;
 }
+.marquee__track--reverse {
+  animation-direction: reverse;
+  animation-duration: 46s;
+}
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-50%, 0, 0); }
 }
+
+/* FAQ: acordeón con apertura/cierre suave (cortina) + flecha que rota */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s var(--ease-editorial);
+}
+details[open] .faq-answer { grid-template-rows: 1fr; }
+details[open] .faq-chevron { transform: rotate(180deg); }
 
 /* ---- Motion: revelado al scroll ---- */
 [data-reveal] {

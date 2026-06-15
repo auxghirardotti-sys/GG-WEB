@@ -118,14 +118,26 @@ const faqJsonLd = {
       </p>
     </div>
 
-    <div class="marquee mt-10 border-y border-line py-6">
-      <div class="marquee__track">
-        {[...INDUSTRIES, ...INDUSTRIES].map((i) => (
-          <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-2xl text-ink/85 sm:text-3xl" style="font-weight:700">
-            <span class="h-2.5 w-2.5 shrink-0 rounded-full bg-brand"></span>
-            {i}
-          </span>
-        ))}
+    <div class="mt-10 flex flex-col gap-4 border-y border-line py-6">
+      <div class="marquee">
+        <div class="marquee__track">
+          {[...INDUSTRIES, ...INDUSTRIES].map((i) => (
+            <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-xl text-ink/85 sm:text-2xl" style="font-weight:700">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-brand"></span>
+              {i}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div class="marquee">
+        <div class="marquee__track marquee__track--reverse">
+          {[...[...INDUSTRIES].reverse(), ...[...INDUSTRIES].reverse()].map((i) => (
+            <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-xl text-ink/85 sm:text-2xl" style="font-weight:700">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-brand"></span>
+              {i}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   </section>

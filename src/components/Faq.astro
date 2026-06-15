@@ -20,7 +20,7 @@ import { FAQ } from '../data/site';
             <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left">
               <span class="font-display text-lg text-ink sm:text-xl" style="font-weight:700">{item.q}</span>
               <svg
-                class="h-5 w-5 shrink-0 text-brand transition-transform duration-300 group-open:rotate-180"
+                class="faq-chevron h-5 w-5 shrink-0 text-brand transition-transform duration-300"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -30,7 +30,11 @@ import { FAQ } from '../data/site';
                 <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </summary>
-            <p class="pb-6 pr-8 text-base leading-relaxed text-body">{item.a}</p>
+            <div class="faq-answer">
+              <div class="overflow-hidden">
+                <p class="pb-6 pr-8 text-base leading-relaxed text-body">{item.a}</p>
+              </div>
+            </div>
           </details>
         ))
       }
