@@ -29,12 +29,12 @@
   --color-body: #3a3a40;
   --color-muted: #6e6e76;
 
-  /* Neutros gris CÁLIDO/ROJIZO (base + alternada) y superficie blanca de tarjetas */
-  --color-paper: #f1eae8;     /* gris cálido con matiz rojizo */
-  --color-paper-2: #ece0dd;   /* sección alternada, más rosado-tostado */
+  /* Neutros gris limpio (canvas) y superficie blanca de tarjetas */
+  --color-paper: #f1f2f4;     /* gris claro neutro (canvas / header / inputs) */
+  --color-paper-2: #e9ebef;
   --color-surface: #ffffff;   /* tarjetas elevadas */
-  --color-line: #ddd0cc;
-  --color-line-strong: #c9b9b4;
+  --color-line: #dde0e6;
+  --color-line-strong: #c5cad3;
 
   /* WhatsApp / contacto directo */
   --color-wsp: #25d366;
@@ -69,40 +69,34 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Fondo dinámico: blobs rojos suaves que flotan (overlay multiply, no bloquea clics) */
+/* Fondo: orbes rojos suaves DETRÁS del contenido (no multiply), que se desplazan
+   con el scroll (parallax, movido por reveal.js). Canvas gris limpio. */
 #bg-fx {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: -1;
   pointer-events: none;
   overflow: hidden;
-  mix-blend-mode: multiply;
 }
 #bg-fx span {
   position: absolute;
   display: block;
   border-radius: 50%;
-  filter: blur(70px);
+  filter: blur(80px);
   will-change: transform;
 }
 #bg-fx span:nth-child(1) {
-  width: 55vw; height: 55vw; left: -12vw; top: -14vw;
-  background: radial-gradient(circle, rgba(205, 51, 51, 0.17), transparent 68%);
-  animation: blobA 24s ease-in-out infinite alternate;
+  width: 50vw; height: 50vw; left: -8vw; top: -6vh;
+  background: radial-gradient(circle, rgba(205, 51, 51, 0.3), transparent 70%);
 }
 #bg-fx span:nth-child(2) {
-  width: 48vw; height: 48vw; right: -10vw; top: 16vh;
-  background: radial-gradient(circle, rgba(232, 59, 59, 0.14), transparent 68%);
-  animation: blobB 31s ease-in-out infinite alternate;
+  width: 42vw; height: 42vw; right: -6vw; top: 38vh;
+  background: radial-gradient(circle, rgba(232, 59, 59, 0.24), transparent 70%);
 }
 #bg-fx span:nth-child(3) {
-  width: 46vw; height: 46vw; left: 24vw; bottom: -16vh;
-  background: radial-gradient(circle, rgba(168, 38, 38, 0.13), transparent 68%);
-  animation: blobC 27s ease-in-out infinite alternate;
+  width: 46vw; height: 46vw; left: 16vw; top: 80vh;
+  background: radial-gradient(circle, rgba(168, 38, 38, 0.22), transparent 70%);
 }
-@keyframes blobA { to { transform: translate3d(24vw, 18vh, 0) scale(1.25); } }
-@keyframes blobB { to { transform: translate3d(-22vw, -12vh, 0) scale(1.18); } }
-@keyframes blobC { to { transform: translate3d(16vw, -16vh, 0) scale(1.12); } }
 
 ::selection {
   background-color: var(--color-brand);
@@ -242,9 +236,9 @@ body::before {
     radial-gradient(80% 100% at 0% 100%, rgba(0, 0, 0, 0.18), transparent 70%);
 }
 
-/* Gradiente sutil para secciones alternadas */
+/* Secciones de contenido: transparentes para dejar ver el canvas + orbes de fondo */
 .surface-paper-soft {
-  background-image: linear-gradient(180deg, var(--color-paper), var(--color-paper-2));
+  background: transparent;
 }
 
 /* Tarjeta blanca elevada sobre el gris — profundidad sin pesadez */
