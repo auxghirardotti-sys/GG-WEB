@@ -48,9 +48,9 @@ function start() {
 
   // ---- AURORA (baja resolución) ----
   const ribbons = [
-    { rgb: '205,51,51', a: 0.18, R: 0.62, sx: 1.7, sy: 0.34, angle: -0.16, y: 0.30, spd: 0.22, fr: 0.55, amp: 0.10, ph: 0.0, dir: 1 },
-    { rgb: '168,38,38', a: 0.15, R: 0.66, sx: 1.8, sy: 0.30, angle: 0.13, y: 0.66, spd: 0.18, fr: 0.45, amp: 0.12, ph: 2.0, dir: -1 },
-    { rgb: '226,59,59', a: 0.12, R: 0.55, sx: 1.6, sy: 0.30, angle: -0.06, y: 0.50, spd: 0.27, fr: 0.65, amp: 0.09, ph: 4.0, dir: 1 },
+    { rgb: '205,51,51', a: 0.16, R: 0.62, sx: 1.7, sy: 0.34, angle: -0.16, y: 0.60, spd: 0.22, fr: 0.55, amp: 0.10, ph: 0.0, dir: 1 },
+    { rgb: '168,38,38', a: 0.13, R: 0.66, sx: 1.8, sy: 0.30, angle: 0.13, y: 0.86, spd: 0.18, fr: 0.45, amp: 0.10, ph: 2.0, dir: -1 },
+    { rgb: '226,59,59', a: 0.10, R: 0.55, sx: 1.6, sy: 0.30, angle: -0.06, y: 0.73, spd: 0.27, fr: 0.65, amp: 0.08, ph: 4.0, dir: 1 },
   ];
   for (const rb of ribbons) rb.sprite = makeRibbonSprite(rb.rgb, rb.a); // cacheado una sola vez
   let BW = 0, BH = 0;
@@ -96,13 +96,13 @@ function start() {
   const frags = [];
   function explode(p) {
     const ex = p.x * TW, ey = p.y * TH;
-    for (let i = 0; i < 14 && frags.length < 300; i++) {
+    for (let i = 0; i < 7 && frags.length < 200; i++) {
       const ang = Math.random() * 6.2832;
-      const spd = Math.random() * 0.18 + 0.06;  // px/ms
+      const spd = Math.random() * 0.09 + 0.04;  // px/ms (estallido discreto)
       frags.push({
         x: ex, y: ey,
         vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd,
-        life: 1, size: p.size * 0.32 * (Math.random() * 0.6 + 0.6), red: p.red,
+        life: 1, size: p.size * 0.22 * (Math.random() * 0.6 + 0.5), red: p.red,
       });
     }
     spawn(p, true); // renace desde abajo (mantiene el conteo)
@@ -120,7 +120,7 @@ function start() {
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  const MAG_R = 0.30, MAG_R2 = MAG_R * MAG_R, PULL = 0.0000009, EXPLODE_R = 0.05;
+  const MAG_R = 0.24, MAG_R2 = MAG_R * MAG_R, PULL = 0.0000004, EXPLODE_R = 0.05;
 
   function step(dt) {
     mx += (tmx - mx) * 0.12; my += (tmy - my) * 0.12; // el imán reacciona rápido
@@ -143,7 +143,7 @@ function start() {
       const f = frags[i];
       f.x += f.vx * dt; f.y += f.vy * dt;
       f.vx *= 0.93; f.vy *= 0.93;
-      f.life -= dt / 700;
+      f.life -= dt / 550;
       if (f.life <= 0) frags.splice(i, 1);
     }
   }
@@ -153,8 +153,8 @@ function start() {
     for (const rb of ribbons) {
       const baseX = 0.5 + Math.sin(t * rb.spd + rb.ph) * 0.55 * rb.dir;
       const baseY = rb.y + Math.sin(t * rb.fr + rb.ph) * rb.amp + scrollN * 0.15;
-      const rx = (baseX + (mx - baseX) * 0.20) * BW; // la luz se inclina hacia el imán
-      const ry = (baseY + (my - baseY) * 0.20) * BH;
+      const rx = (baseX + (mx - baseX) * 0.14) * BW; // la luz se inclina hacia el imán (suave)
+      const ry = (baseY + (my - baseY) * 0.14) * BH;
       bx.save();
       bx.translate(rx, ry); bx.rotate(rb.angle); bx.scale(rb.sx, rb.sy);
       const R = rb.R * BW;
@@ -174,7 +174,7 @@ function start() {
     tx.globalCompositeOperation = 'lighter'; // estallidos = destello luminoso
     for (const f of frags) {
       const r = f.size * Math.max(f.life, 0.25);
-      tx.globalAlpha = Math.max(0, f.life);
+      tx.globalAlpha = Math.max(0, f.life) * 0.75;
       tx.drawImage(f.red ? spRed : spWarm, f.x - r, f.y - r, r * 2, r * 2);
     }
     tx.globalCompositeOperation = 'source-over';
