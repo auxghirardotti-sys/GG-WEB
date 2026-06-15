@@ -60,9 +60,6 @@ function initReveal() {
 function initScrollFx() {
   const bar = document.getElementById('scroll-progress');
   const parallax = Array.from(document.querySelectorAll('[data-parallax]'));
-  const orbs = Array.from(document.querySelectorAll('#bg-fx span'));
-  const orbY = [0.14, -0.1, 0.08];
-  const orbX = [0.05, -0.04, 0.06];
 
   function update() {
     const scroll = window.scrollY;
@@ -75,10 +72,6 @@ function initScrollFx() {
       const rect = el.getBoundingClientRect();
       const center = rect.top + rect.height / 2 - vh / 2;
       el.style.transform = `translate3d(0, ${(-center * factor).toFixed(1)}px, 0)`;
-    });
-    // Orbes de fondo: se desplazan con el scroll (cada uno a su ritmo)
-    orbs.forEach((orb, i) => {
-      orb.style.transform = `translate3d(${(scroll * (orbX[i] ?? 0)).toFixed(1)}px, ${(scroll * (orbY[i] ?? 0.1)).toFixed(1)}px, 0)`;
     });
   }
 

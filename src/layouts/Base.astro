@@ -64,7 +64,7 @@ const jsonLd = {
   </head>
   <body>
     <div id="scroll-progress"></div>
-    <div id="bg-fx" aria-hidden="true"><span></span><span></span><span></span></div>
+    <canvas id="bg-fx" aria-hidden="true"></canvas>
     <Header />
     <main>
       <slot />
@@ -74,6 +74,7 @@ const jsonLd = {
     <MobileActionBar />
     <script>
       import '../scripts/reveal.js';
+      import '../scripts/bg-gradient.js';
     </script>
   </body>
 </html>
