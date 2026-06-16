@@ -13,7 +13,13 @@ const items = SERVICES.filter((s) => s.slug !== exclude);
 const bento = !exclude;
 ---
 
-<div class:list={['grid gap-4 sm:grid-cols-2', bento ? 'lg:grid-cols-6' : 'lg:grid-cols-3']} data-reveal-stagger>
+<div
+  class:list={[
+    'no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0',
+    bento ? 'lg:grid-cols-6' : 'lg:grid-cols-3',
+  ]}
+  data-reveal-stagger
+>
   {
     items.map((s, i) => {
       const big = bento && i < 2;
@@ -22,6 +28,7 @@ const bento = !exclude;
         href={`/servicios/${s.slug}`}
         class:list={[
           'lift group relative flex min-h-[220px] flex-col overflow-hidden rounded-md border border-line bg-surface hover:border-brand',
+          'shrink-0 basis-[82%] snap-start sm:basis-auto sm:shrink',
           bento && (big ? 'lg:col-span-3 lg:min-h-[260px]' : 'lg:col-span-2'),
         ]}
       >

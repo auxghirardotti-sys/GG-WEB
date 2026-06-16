@@ -304,7 +304,12 @@ body::before {
   display: flex;
   width: max-content;
   animation: marquee 38s linear infinite;
+  will-change: transform;
 }
+
+/* Ocultar scrollbar (carrusel de servicios en mobile) */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 .marquee:hover .marquee__track {
   animation-play-state: paused;
 }
