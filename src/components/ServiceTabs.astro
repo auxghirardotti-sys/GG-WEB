@@ -40,9 +40,10 @@ import Kicker from './Kicker.astro';
               id={`svc-tab-${i}`}
               aria-controls={`svc-panel-${i}`}
               aria-selected={i === 0 ? 'true' : 'false'}
+              tabindex={i === 0 ? '0' : '-1'}
               class:list={[
                 'flex shrink-0 items-center gap-2 whitespace-nowrap px-4 py-3 text-sm transition-colors sm:px-5',
-                i === 0 ? 'text-brand' : 'text-muted hover:text-brand-ink',
+                i === 0 ? 'text-brand' : 'text-body hover:text-brand-ink',
               ]}
               style={i === 0 ? 'font-weight:600' : 'font-weight:500'}
             >
@@ -145,19 +146,41 @@ import Kicker from './Kicker.astro';
       tabs.forEach((tab, idx) => {
         const active = idx === n;
         tab.classList.toggle('text-brand', active);
-        tab.classList.toggle('text-muted', !active);
+        tab.classList.toggle('text-body', !active);
         tab.classList.toggle('hover:text-brand-ink', !active);
         tab.style.fontWeight = active ? '600' : '500';
         tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.tabIndex = active ? 0 : -1;
       });
       panels.forEach((p, idx) => p.classList.toggle('hidden', idx !== n));
-      // Asegura que la pestaña activa quede visible en el carrusel mobile.
-      tabs[n]?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest', inline: 'nearest' });
+      // Centra la pestaña activa SOLO dentro del carrusel (no toca el scroll vertical ni a Lenis).
+      const activeTab = tabs[n];
+      if (activeTab && tablist) {
+        tablist.scrollTo({
+          left: activeTab.offsetLeft - (tablist.clientWidth - activeTab.clientWidth) / 2,
+          behavior: reduce ? 'auto' : 'smooth',
+        });
+      }
       moveIndicator(n);
     }
 
     tabs.forEach((tab, i) => {
       tab.addEventListener('click', () => select(i));
+    });
+
+    // Navegación por teclado del patrón tabs (WAI-ARIA APG): flechas + Home/End.
+    tablist?.addEventListener('keydown', (e) => {
+      const i = tabs.indexOf(document.activeElement as HTMLButtonElement);
+      if (i < 0) return;
+      let n = i;
+      if (e.key === 'ArrowRight') n = (i + 1) % count;
+      else if (e.key === 'ArrowLeft') n = (i - 1 + count) % count;
+      else if (e.key === 'Home') n = 0;
+      else if (e.key === 'End') n = count - 1;
+      else return;
+      e.preventDefault();
+      select(n);
+      tabs[n].focus();
     });
 
     // Swipe lateral sobre los paneles.
