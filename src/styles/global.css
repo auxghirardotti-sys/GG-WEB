@@ -112,6 +112,31 @@ body::before {
   font-style: italic;
 }
 
+/* Resaltador rojo que se "pinta" detrás de una frase clave (texto blanco encima) */
+.hl-mark {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  color: #fff;
+  padding-inline: 0.14em;
+}
+.hl-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0.06em -0.04em;
+  z-index: -1;
+  border-radius: 0.16em;
+  background: var(--color-brand-bright);
+  box-shadow: 0 6px 24px -6px rgba(226, 59, 59, 0.7);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.7s cubic-bezier(0.7, 0, 0.25, 1) 0.25s;
+}
+.is-visible .hl-mark::before,
+.hl-mark.is-visible::before {
+  transform: scaleX(1);
+}
+
 /* Kicker / eyebrow con filete rojo que se dibuja */
 .kicker {
   display: inline-flex;
