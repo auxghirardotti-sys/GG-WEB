@@ -1,0 +1,211 @@
+---
+// Servicios con pestañas deslizables (estilo app fintech: Revolut / Mercado Pago).
+// Barra de pestañas scrolleable en mobile + indicador rojo que se mueve a la activa.
+// Paneles con swipe lateral. Reemplaza la grilla de servicios en la home.
+// JS vanilla scopeado a #svc-tabs; respeta prefers-reduced-motion.
+import { SERVICES } from '../data/services';
+import Icon from './Icon.astro';
+import Kicker from './Kicker.astro';
+---
+
+<section id="servicios" class="scroll-mt-20 surface-paper-soft">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+    {/* 1) Encabezado */}
+    <div class="max-w-2xl" data-reveal>
+      <Kicker text="Lo que hacemos" />
+      <h2 class="mt-4 font-display text-3xl leading-tight text-brand sm:text-[2.75rem]" style="font-weight:700">
+        Nuestros <em class="accent" style="font-style:italic">servicios</em>
+      </h2>
+      <p class="mt-4 text-base leading-relaxed text-body">
+        Contadores y abogados sobre las cinco áreas clave de tu negocio.
+      </p>
+    </div>
+
+    {/* 2) + 3) Sistema de pestañas + paneles */}
+    <div id="svc-tabs" class="mt-8" data-reveal>
+      {/* Barra de pestañas */}
+      <div class="relative border-b border-line">
+        <div
+          id="svc-tablist"
+          role="tablist"
+          aria-label="Áreas de servicio"
+          class="no-scrollbar -mb-px flex gap-1 overflow-x-auto sm:gap-2"
+        >
+          {SERVICES.map((s, i) => (
+            <button
+              type="button"
+              role="tab"
+              data-haptic
+              data-svc-tab={i}
+              id={`svc-tab-${i}`}
+              aria-controls={`svc-panel-${i}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              class:list={[
+                'flex shrink-0 items-center gap-2 whitespace-nowrap px-4 py-3 text-sm transition-colors sm:px-5',
+                i === 0 ? 'text-brand' : 'text-muted hover:text-brand-ink',
+              ]}
+              style={i === 0 ? 'font-weight:600' : 'font-weight:500'}
+            >
+              <Icon name={s.icon} class="h-4 w-4" />
+              {s.nav}
+            </button>
+          ))}
+        </div>
+        {/* Indicador deslizante */}
+        <span
+          id="svc-indicator"
+          aria-hidden="true"
+          class="pointer-events-none absolute bottom-0 left-0 h-[3px] w-0 rounded-full bg-brand"
+        ></span>
+      </div>
+
+      {/* Paneles */}
+      <div id="svc-panels" class="mt-6">
+        {SERVICES.map((s, i) => (
+          <div
+            role="tabpanel"
+            id={`svc-panel-${i}`}
+            data-svc-panel={i}
+            aria-labelledby={`svc-tab-${i}`}
+            class:list={['surface-card rounded-lg p-6 sm:p-8', i !== 0 && 'hidden']}
+          >
+            <div class="grid gap-8 lg:grid-cols-2">
+              {/* Columna texto */}
+              <div>
+                <span class="flex h-12 w-12 items-center justify-center rounded-md bg-brand text-white shadow-[0_8px_20px_-8px_rgba(205,51,51,0.7)]">
+                  <Icon name={s.icon} class="h-6 w-6" />
+                </span>
+                <h3 class="mt-4 font-display text-2xl text-ink" style="font-weight:700">{s.title}</h3>
+                <p class="mt-2 text-body">{s.heroSub}</p>
+                <ul class="mt-5 space-y-2.5">
+                  {s.items.slice(0, 4).map((it) => (
+                    <li class="flex items-start gap-2.5 text-body">
+                      <Icon name="check" class="mt-0.5 h-5 w-5 shrink-0 text-brand" />
+                      <span>{it}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={`/servicios/${s.slug}`}
+                  class="group mt-6 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-[0.08em] text-brand-ink"
+                >
+                  Ver más
+                  <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+              </div>
+
+              {/* Columna imagen */}
+              <div class="relative hidden overflow-hidden rounded-md lg:block">
+                <img
+                  src={s.cardImage}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  class="h-full w-full rounded-md object-cover"
+                />
+                <div class="absolute inset-0 bg-brand/10 mix-blend-multiply"></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.getElementById('svc-tabs');
+  if (root) {
+    const tablist = root.querySelector<HTMLElement>('#svc-tablist');
+    const indicator = root.querySelector<HTMLElement>('#svc-indicator');
+    const panelsWrap = root.querySelector<HTMLElement>('#svc-panels');
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-svc-tab]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-svc-panel]'));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const count = tabs.length;
+    let current = 0;
+
+    function moveIndicator(i: number) {
+      const tab = tabs[i];
+      if (!indicator || !tab || !tablist) return;
+      // El indicador es absolute respecto a la barra (no scrollea); el tablist sí.
+      // Usamos rects para alinear el indicador con la posición VISIBLE de la pestaña,
+      // descontando el scroll horizontal del carrusel en mobile.
+      const barRect = (indicator.offsetParent as HTMLElement).getBoundingClientRect();
+      const tabRect = tab.getBoundingClientRect();
+      indicator.style.width = `${tabRect.width}px`;
+      indicator.style.transform = `translateX(${tabRect.left - barRect.left}px)`;
+    }
+
+    function select(i: number) {
+      const n = Math.max(0, Math.min(count - 1, i));
+      current = n;
+      tabs.forEach((tab, idx) => {
+        const active = idx === n;
+        tab.classList.toggle('text-brand', active);
+        tab.classList.toggle('text-muted', !active);
+        tab.classList.toggle('hover:text-brand-ink', !active);
+        tab.style.fontWeight = active ? '600' : '500';
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      panels.forEach((p, idx) => p.classList.toggle('hidden', idx !== n));
+      // Asegura que la pestaña activa quede visible en el carrusel mobile.
+      tabs[n]?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest', inline: 'nearest' });
+      moveIndicator(n);
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(i));
+    });
+
+    // Swipe lateral sobre los paneles.
+    if (panelsWrap) {
+      let startX = 0;
+      let startY = 0;
+      panelsWrap.addEventListener(
+        'touchstart',
+        (e) => {
+          startX = e.changedTouches[0].clientX;
+          startY = e.changedTouches[0].clientY;
+        },
+        { passive: true }
+      );
+      panelsWrap.addEventListener(
+        'touchend',
+        (e) => {
+          const dx = e.changedTouches[0].clientX - startX;
+          const dy = e.changedTouches[0].clientY - startY;
+          // Solo gesto horizontal claro (evita confundir con scroll vertical).
+          if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+          if (dx < 0) select(current + 1); // desliza a la izquierda -> siguiente
+          else select(current - 1); // desliza a la derecha -> anterior
+        },
+        { passive: true }
+      );
+    }
+
+    // Recalcular el indicador en resize (y al re-scrollear el carrusel).
+    let raf = 0;
+    const recompute = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => moveIndicator(current));
+    };
+    window.addEventListener('resize', recompute);
+    tablist?.addEventListener('scroll', recompute, { passive: true });
+
+    // Posición inicial: pestaña 0 (sin transición en el primer pintado).
+    const initialTransition = indicator?.style.transition;
+    if (indicator) indicator.style.transition = 'none';
+    requestAnimationFrame(() => {
+      moveIndicator(0);
+      if (indicator && !reduce) {
+        requestAnimationFrame(() => {
+          indicator.style.transition =
+            initialTransition || 'transform 0.4s var(--ease-editorial), width 0.4s var(--ease-editorial)';
+        });
+      }
+    });
+  }
+</script>

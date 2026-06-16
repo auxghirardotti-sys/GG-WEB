@@ -122,10 +122,24 @@ function initSmoothScroll() {
   });
 }
 
+// Vibración háptica sutil en elementos con [data-haptic] (Android/Chrome; iOS lo ignora).
+function initHaptics() {
+  if (reduce || !('vibrate' in navigator)) return;
+  document.addEventListener(
+    'click',
+    (e) => {
+      const t = e.target;
+      if (t instanceof Element && t.closest('[data-haptic]')) navigator.vibrate(8);
+    },
+    { passive: true }
+  );
+}
+
 function init() {
   initReveal();
   initScrollFx();
   initSmoothScroll();
+  initHaptics();
 }
 
 if (document.readyState === 'loading') {
