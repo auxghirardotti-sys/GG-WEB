@@ -13,6 +13,9 @@ const { exclude } = Astro.props;
 const items = SERVICES.filter((s) => s.slug !== exclude);
 // Bento solo en la home (sin exclude); en páginas de servicio queda grilla uniforme.
 const bento = !exclude;
+// El diseño "2 grandes + 3 chicas" solo cierra con 5 servicios; con otra cantidad
+// (ej. 6) usamos col-span-2 parejo => grilla 3×2 prolija.
+const featured = bento && items.length === 5;
 ---
 
 <div data-carousel>
@@ -26,7 +29,7 @@ const bento = !exclude;
   >
   {
     items.map((s, i) => {
-      const big = bento && i < 2;
+      const big = featured && i < 2;
       return (
       <a
         href={`/servicios/${s.slug}`}

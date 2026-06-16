@@ -7,7 +7,7 @@ export interface Service {
   heroSub: string;
   /** Foto de fondo del hero (opcional, rescatada del sitio anterior) */
   heroImage?: string;
-  icon: 'contable' | 'impositivo' | 'agropecuario' | 'sociedades' | 'outsourcing';
+  icon: 'contable' | 'impositivo' | 'agropecuario' | 'sociedades' | 'outsourcing' | 'shield';
   card: string;
   /** Imagen temática para la card (tratada con glass + duotono rojo) */
   cardImage: string;
@@ -129,6 +129,34 @@ export const SERVICES: Service[] = [
       'Redacción de convenios de accionistas',
       'Fusiones, adquisiciones y transformaciones',
       'Coordinación de inspecciones ante la Justicia y organismos de contralor',
+    ],
+  },
+  {
+    slug: 'patrimonial',
+    nav: 'Patrimonial',
+    title: 'Planificación patrimonial y sucesoria',
+    metaDescription:
+      'Planificación patrimonial y sucesoria con mirada legal, fiscal y jurídica: protección del patrimonio, estructuras familiares, sucesiones y transmisión ordenada entre generaciones.',
+    heroTitle: 'Planificación patrimonial y sucesoria',
+    heroSub:
+      'Ordenar, proteger y transmitir el patrimonio familiar y empresario desde la óptica legal, fiscal y jurídica, para que cada generación reciba claridad y no conflictos.',
+    heroImage: '/img/campo-atardecer.jpg',
+    icon: 'shield',
+    card: 'Protegé y transmití tu patrimonio. Mirada legal, fiscal y jurídica.',
+    cardImage: '/img/campo-atardecer.jpg',
+    intro: [
+      'El patrimonio que se construye a lo largo de una vida —empresas, inmuebles, inversiones— necesita una estrategia para protegerse y transmitirse en orden. Sin planificación, la sucesión suele terminar en impuestos evitables, trámites largos y conflictos entre herederos.',
+      'Abordamos la planificación patrimonial y sucesoria de forma integral, combinando la óptica legal, fiscal y jurídica: diseñamos la estructura que protege los activos, ordena la relación familiar y prepara la transmisión entre generaciones con la menor carga impositiva posible.',
+    ],
+    itemsTitle: 'Cómo planificamos tu patrimonio y tu sucesión',
+    items: [
+      'Diagnóstico patrimonial y de la estructura familiar',
+      'Planificación sucesoria y testamentaria',
+      'Protección y reorganización de activos',
+      'Estructuras societarias y fideicomisos para la familia empresaria',
+      'Optimización de la carga fiscal en la transmisión',
+      'Protocolos de empresa familiar',
+      'Acompañamiento en sucesiones y procesos hereditarios',
     ],
   },
   {
