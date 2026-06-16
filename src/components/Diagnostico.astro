@@ -1,0 +1,191 @@
+---
+// Diagnóstico express: 3 preguntas táctiles -> arma un mensaje y abre WhatsApp prellenado.
+// On-brand (rojo), sin alarmismo. Funciona sin JS-pesado; respeta reduced-motion.
+import Kicker from './Kicker.astro';
+import Icon from './Icon.astro';
+import { SITE } from '../data/site';
+
+const steps = [
+  {
+    key: 'Área',
+    q: '¿Qué necesitás resolver?',
+    options: [
+      { v: 'Impuestos y planificación', i: 'impositivo' },
+      { v: 'Contabilidad y auditoría', i: 'contable' },
+      { v: 'Sociedades', i: 'sociedades' },
+      { v: 'Agro', i: 'agropecuario' },
+      { v: 'Outsourcing contable', i: 'outsourcing' },
+      { v: 'No estoy seguro', i: 'brain' },
+    ],
+  },
+  {
+    key: 'Tamaño',
+    q: '¿Qué tamaño tiene tu empresa?',
+    options: [
+      { v: 'Monotributo / Emprendedor' },
+      { v: 'PyME' },
+      { v: 'Grupo o gran empresa' },
+    ],
+  },
+  {
+    key: 'Opera al exterior',
+    q: '¿Operás o facturás al exterior?',
+    options: [{ v: 'Sí' }, { v: 'No' }],
+  },
+];
+const total = steps.length;
+---
+
+<section class="scroll-mt-20">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+    <div class="max-w-2xl" data-reveal>
+      <Kicker text="Diagnóstico express" />
+      <h2 class="mt-4 font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
+        ¿Por dónde te conviene <em class="accent" style="font-style:italic">empezar</em>?
+      </h2>
+      <p class="mt-4 text-base leading-relaxed text-body">
+        Respondé 3 preguntas rápidas y te decimos cómo puede ayudarte un socio. La primera charla es sin costo.
+      </p>
+    </div>
+
+    <div id="diag" data-wa={SITE.whatsappNumber} data-total={total} class="surface-card mt-8 max-w-3xl rounded-lg p-6 sm:p-8" data-reveal>
+      <div class="flex items-center justify-between gap-4">
+        <span id="diag-counter" class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Paso 1 de {total}</span>
+        <div class="h-1.5 w-32 overflow-hidden rounded-full bg-line sm:w-40">
+          <div id="diag-bar" class="h-full rounded-full bg-brand transition-[width] duration-300" style={`width:${Math.round(100 / total)}%`}></div>
+        </div>
+      </div>
+
+      {steps.map((s, idx) => (
+        <div data-diag-step={idx} data-diag-key={s.key} class:list={['mt-6', idx !== 0 && 'hidden']}>
+          <h3 class="font-display text-xl text-ink sm:text-2xl" style="font-weight:700">{s.q}</h3>
+          <div class="mt-5 grid gap-3 sm:grid-cols-2">
+            {s.options.map((o) => (
+              <button
+                type="button"
+                data-diag-opt
+                data-value={o.v}
+                class="flex items-center gap-3 rounded-md border border-line bg-surface px-5 py-4 text-left text-base font-semibold text-ink transition-all hover:border-brand hover:bg-brand/5 active:scale-[0.98]"
+              >
+                {'i' in o && o.i && <span class="text-brand"><Icon name={o.i as any} class="h-5 w-5" /></span>}
+                <span>{o.v}</span>
+              </button>
+            ))}
+          </div>
+          {idx > 0 && (
+            <button type="button" data-diag-back class="mt-5 text-sm font-semibold text-muted transition-colors hover:text-brand-ink">← Volver</button>
+          )}
+        </div>
+      ))}
+
+      <div id="diag-loading" class="mt-6 hidden">
+        <p class="font-display text-xl text-ink" style="font-weight:700">Analizando tu perfil…</p>
+        <div class="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-line">
+          <div id="diag-loadbar" class="h-full w-0 rounded-full bg-brand transition-[width] duration-1000 ease-out"></div>
+        </div>
+      </div>
+
+      <div id="diag-result" class="mt-6 hidden">
+        <span class="inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-brand-ink">
+          <Icon name="check" class="h-4 w-4" /> Diagnóstico listo
+        </span>
+        <h3 class="mt-4 font-display text-xl text-ink sm:text-2xl" style="font-weight:700">
+          Un socio puede ayudarte con <span id="diag-area" class="text-brand-ink">tu consulta</span>.
+        </h3>
+        <p class="mt-2 text-base leading-relaxed text-body">
+          Con tu perfil hay oportunidades concretas para revisar. Coordinemos tu primera charla: sin costo y sin compromiso.
+        </p>
+        <div class="mt-6 flex flex-wrap items-center gap-4">
+          <a
+            id="diag-wa"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 rounded-md bg-brand px-7 py-3.5 text-base font-bold text-white shadow-[0_14px_34px_-14px_rgba(205,51,51,0.7)] transition-colors hover:bg-brand-ink"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />
+              <path d="M12.04 2C6.56 2 2.1 6.45 2.1 11.93c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.92 9.92 0 0 0 4.79 1.22h.01c5.47 0 9.93-4.45 9.93-9.93A9.86 9.86 0 0 0 12.04 2Zm0 18.16a8.24 8.24 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38 8.27 8.27 0 0 1 8.25-8.25 8.2 8.2 0 0 1 5.83 2.42 8.2 8.2 0 0 1 2.41 5.84 8.27 8.27 0 0 1-8.24 8.23Z" />
+            </svg>
+            Pedir mi diagnóstico por WhatsApp
+          </a>
+          <button type="button" id="diag-restart" class="text-sm font-semibold text-muted transition-colors hover:text-brand-ink">Volver a empezar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.getElementById('diag');
+  if (root) {
+    const wa = root.dataset.wa || '';
+    const total = parseInt(root.dataset.total || '3', 10);
+    const stepsEls = Array.from(root.querySelectorAll('[data-diag-step]'));
+    const counter = document.getElementById('diag-counter');
+    const bar = document.getElementById('diag-bar');
+    const loading = document.getElementById('diag-loading');
+    const loadbar = document.getElementById('diag-loadbar');
+    const result = document.getElementById('diag-result');
+    const areaOut = document.getElementById('diag-area');
+    const waA = document.getElementById('diag-wa');
+    const restart = document.getElementById('diag-restart');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const answers = {};
+
+    function showStep(n) {
+      loading?.classList.add('hidden');
+      result?.classList.add('hidden');
+      stepsEls.forEach((el, i) => el.classList.toggle('hidden', i !== n));
+      if (counter) counter.textContent = `Paso ${n + 1} de ${total}`;
+      if (bar) bar.style.width = `${Math.round(((n + 1) / total) * 100)}%`;
+    }
+
+    function finish() {
+      stepsEls.forEach((el) => el.classList.add('hidden'));
+      if (counter) counter.textContent = 'Procesando…';
+      if (bar) bar.style.width = '100%';
+      const reveal = () => {
+        loading?.classList.add('hidden');
+        if (counter) counter.textContent = 'Diagnóstico listo';
+        const area = answers['Área'] || '';
+        if (areaOut) areaOut.textContent = (!area || area === 'No estoy seguro') ? 'lo que tu empresa necesita' : area.toLowerCase();
+        const msg =
+          `Hola, hice el diagnóstico express en la web. ` +
+          `Necesito ayuda con: ${answers['Área'] || '-'}. ` +
+          `Tamaño de mi empresa: ${answers['Tamaño'] || '-'}. ` +
+          `¿Opera al exterior?: ${answers['Opera al exterior'] || '-'}. ` +
+          `Quiero coordinar mi primera charla, sin costo.`;
+        if (waA) waA.setAttribute('href', `https://wa.me/${wa}?text=${encodeURIComponent(msg)}`);
+        result?.classList.remove('hidden');
+      };
+      if (reduce) {
+        reveal();
+      } else {
+        loading?.classList.remove('hidden');
+        if (loadbar) {
+          loadbar.style.width = '0%';
+          requestAnimationFrame(() => { loadbar.style.width = '100%'; });
+        }
+        setTimeout(reveal, 1100);
+      }
+    }
+
+    stepsEls.forEach((stepEl, i) => {
+      const key = stepEl.getAttribute('data-diag-key') || String(i);
+      stepEl.querySelectorAll('[data-diag-opt]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          answers[key] = btn.getAttribute('data-value') || '';
+          if (i < total - 1) showStep(i + 1);
+          else finish();
+        });
+      });
+      stepEl.querySelector('[data-diag-back]')?.addEventListener('click', () => showStep(Math.max(0, i - 1)));
+    });
+
+    restart?.addEventListener('click', () => {
+      for (const k in answers) delete answers[k];
+      showStep(0);
+    });
+  }
+</script>
