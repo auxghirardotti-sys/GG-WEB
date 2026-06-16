@@ -20,10 +20,10 @@ export const SERVICES: Service[] = [
   {
     slug: 'impositivo',
     nav: 'Impositivo',
-    title: 'Asesoramiento Impositivo',
+    title: 'Asesoramiento impositivo y planificación fiscal',
     metaDescription:
-      'Asesoramiento impositivo y planificación fiscal para empresas en Argentina: impuestos nacionales y provinciales, defensa tributaria, precios de transferencia y planificación internacional.',
-    heroTitle: 'Asesoramiento impositivo',
+      'Asesoramiento impositivo y planificación fiscal nacional e internacional para empresas y grupos: impuestos nacionales y provinciales, defensa tributaria, precios de transferencia y operaciones internacionales.',
+    heroTitle: 'Asesoramiento impositivo y planificación fiscal nacional e internacional',
     heroSub:
       'Planificación fiscal y reducción de riesgos: que los impuestos dejen de ser un problema y pasen a ser una variable más, bajo control.',
     heroImage: '/img/hero-impositivo.jpg',
@@ -80,10 +80,10 @@ export const SERVICES: Service[] = [
   {
     slug: 'agropecuario',
     nav: 'Agropecuario',
-    title: 'Contabilidad Agropecuaria',
+    title: 'Planificación fiscal agropecuaria',
     metaDescription:
-      'Estudio contable especializado en el agro: impuestos agropecuarios, costos de producción, inventarios de hacienda y granos, y rentabilidad por actividad.',
-    heroTitle: 'Contabilidad agropecuaria',
+      'Especialistas en el agro: planificación fiscal agropecuaria, impuestos del sector, costos de producción, inventarios de hacienda y granos, y rentabilidad por actividad.',
+    heroTitle: 'Planificación fiscal agropecuaria',
     heroSub:
       'El agro tiene sus propios ciclos, sus riesgos y su régimen fiscal. Lo conocemos de adentro: también somos productores.',
     heroImage: '/img/agro-a.jpg',
