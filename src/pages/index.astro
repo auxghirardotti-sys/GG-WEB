@@ -4,15 +4,14 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Kicker from '../components/Kicker.astro';
 import StatBand from '../components/StatBand.astro';
-import ServiceTabs from '../components/ServiceTabs.astro';
+import ServiceIndex from '../components/ServiceIndex.astro';
 import Diagnostico from '../components/Diagnostico.astro';
-import IndustryBento from '../components/IndustryBento.astro';
 import Manifesto from '../components/Manifesto.astro';
 import Process from '../components/Process.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { SITE, waLink, TEAM, DIFFERENTIALS, FAQ } from '../data/site';
+import { SITE, waLink, TEAM, INDUSTRIES, DIFFERENTIALS, FAQ } from '../data/site';
 import { fmtDate } from '../data/format';
 
 const posts = (await getCollection('novedades'))
@@ -88,11 +87,61 @@ const faqJsonLd = {
     </div>
   </section>
 
-  <!-- SERVICIOS (tabs deslizables) -->
-  <ServiceTabs />
+  <!-- SERVICIOS -->
+  <section id="servicios" class="scroll-mt-20 surface-paper-soft">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+      <div class="max-w-2xl" data-reveal>
+        <Kicker text="Lo que hacemos" />
+        <h2 class="mt-4 font-display text-3xl leading-tight text-brand sm:text-[2.75rem]" style="font-weight:700">
+          Nuestros <em class="accent" style="font-style:italic">servicios</em>
+        </h2>
+        <p class="mt-4 text-base leading-relaxed text-body">
+          Contadores y abogados sobre las cinco áreas clave de tu negocio.
+        </p>
+      </div>
 
-  <!-- INDUSTRIAS (bento interactivo) -->
-  <IndustryBento />
+      <div class="mt-8">
+        <ServiceIndex />
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIAS (después de servicios) -->
+  <section class="surface-paper-soft overflow-hidden py-12 lg:py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6" data-reveal>
+      <Kicker text="Tu sector" />
+      <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
+        Industrias con las que <em class="accent" style="font-style:italic">trabajamos</em>
+      </h2>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-body">
+        Cada industria tiene sus reglas, sus riesgos y sus oportunidades fiscales. Estas son algunas
+        de las que asesoramos hace años:
+      </p>
+    </div>
+
+    <div class="mt-10 flex flex-col gap-4 border-y border-line py-6">
+      <div class="marquee">
+        <div class="marquee__track">
+          {[...INDUSTRIES, ...INDUSTRIES].map((i) => (
+            <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-xl text-ink/85 sm:text-2xl" style="font-weight:700">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-brand"></span>
+              {i}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div class="marquee">
+        <div class="marquee__track marquee__track--reverse">
+          {[...[...INDUSTRIES].reverse(), ...[...INDUSTRIES].reverse()].map((i) => (
+            <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-xl text-ink/85 sm:text-2xl" style="font-weight:700">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-brand"></span>
+              {i}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- DIAGNÓSTICO EXPRESS (simulador interactivo -> WhatsApp prellenado) -->
   <Diagnostico />
