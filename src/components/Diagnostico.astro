@@ -44,7 +44,7 @@ const total = steps.length;
         ¿Por dónde te conviene <em class="accent" style="font-style:italic">empezar</em>?
       </h2>
       <p class="mt-4 text-base leading-relaxed text-body">
-        Respondé 3 preguntas rápidas y te decimos cómo puede ayudarte un socio. La primera charla es sin costo.
+        Respondé 3 preguntas rápidas y te decimos por dónde empezar. Lleva un minuto.
       </p>
     </div>
 
@@ -93,8 +93,8 @@ const total = steps.length;
         <h3 class="mt-4 font-display text-xl text-ink sm:text-2xl" style="font-weight:700">
           Un socio puede ayudarte con <span id="diag-area" class="text-brand-ink">tu consulta</span>.
         </h3>
-        <p class="mt-2 text-base leading-relaxed text-body">
-          Con tu perfil hay oportunidades concretas para revisar. Coordinemos tu primera charla: sin costo y sin compromiso.
+        <p id="diag-detail" class="mt-2 text-base leading-relaxed text-body">
+          Coordinemos una primera charla, sin compromiso.
         </p>
         <div class="mt-6 flex flex-wrap items-center gap-4">
           <a
@@ -151,6 +151,19 @@ const total = steps.length;
         if (counter) counter.textContent = 'Diagnóstico listo';
         const area = answers['Área'] || '';
         if (areaOut) areaOut.textContent = (!area || area === 'No estoy seguro') ? 'lo que tu empresa necesita' : area.toLowerCase();
+        const detailEl = document.getElementById('diag-detail');
+        if (detailEl) {
+          const map = {
+            'Impuestos y planificación': 'Conviene arrancar por una revisión de tu carga fiscal y las oportunidades de planificación.',
+            'Contabilidad y auditoría': 'Empezaríamos por ordenar tus estados contables y los controles internos.',
+            'Sociedades': 'Lo primero sería revisar tu estructura societaria y los pasos para lo que necesitás hacer.',
+            'Agro': 'Arrancaríamos por la tributación del agro y las oportunidades propias del sector.',
+            'Outsourcing contable': 'Definimos qué tareas tercerizás y armamos el esquema de trabajo mensual.',
+          };
+          let d = map[area] || 'Un socio revisa tu caso y te dice por dónde conviene arrancar.';
+          if (answers['Opera al exterior'] === 'Sí') d += ' Y como operás al exterior, sumamos la mirada internacional.';
+          detailEl.textContent = d;
+        }
         const msg =
           `Hola, hice el diagnóstico express en la web. ` +
           `Necesito ayuda con: ${answers['Área'] || '-'}. ` +

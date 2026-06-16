@@ -317,6 +317,11 @@ body::before {
   animation-direction: reverse;
   animation-duration: 46s;
 }
+/* En celular: más lenta para que se lea sin marear */
+@media (max-width: 640px) {
+  .marquee__track { animation-duration: 60s; }
+  .marquee__track--reverse { animation-duration: 72s; }
+}
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-50%, 0, 0); }

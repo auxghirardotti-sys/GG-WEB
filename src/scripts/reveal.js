@@ -135,11 +135,41 @@ function initHaptics() {
   );
 }
 
+// Puntos indicadores de carrusel: marcan la tarjeta visible al deslizar en mobile.
+function initCarouselDots() {
+  document.querySelectorAll('[data-carousel]').forEach((wrap) => {
+    const track = wrap.querySelector('[data-carousel-track]');
+    const dots = Array.from(wrap.querySelectorAll('[data-carousel-dot]'));
+    if (!track || dots.length === 0) return;
+    let ticking = false;
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const idx = max > 4 ? Math.round((track.scrollLeft / max) * (dots.length - 1)) : 0;
+      dots.forEach((d, i) => {
+        d.classList.toggle('bg-brand', i === idx);
+        d.classList.toggle('bg-line', i !== idx);
+      });
+    };
+    track.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(() => { update(); ticking = false; });
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+    update();
+  });
+}
+
 function init() {
   initReveal();
   initScrollFx();
   initSmoothScroll();
   initHaptics();
+  initCarouselDots();
 }
 
 if (document.readyState === 'loading') {

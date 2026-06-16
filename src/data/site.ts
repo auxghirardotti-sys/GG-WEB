@@ -55,7 +55,7 @@ export const PROCESS = [
     step: '04',
     icon: 'handshake',
     title: 'Te acompañamos',
-    text: 'Un socio como interlocutor directo todo el año, no solo en vencimientos.',
+    text: 'Un interlocutor directo todo el año, no solo en los vencimientos.',
   },
 ];
 

@@ -11,14 +11,14 @@ import Process from '../components/Process.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { SITE, waLink, TEAM, INDUSTRIES, DIFFERENTIALS, FAQ } from '../data/site';
+import { SITE, waLink, waLinkFor, TEAM, INDUSTRIES, DIFFERENTIALS, FAQ } from '../data/site';
 import { fmtDate } from '../data/format';
 import { Image } from 'astro:assets';
 import { img } from '../data/images';
 
 const posts = (await getCollection('novedades'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+  .slice(0, 2);
 
 const stats = [
   { value: 40, suffix: '+', label: 'años de trayectoria' },
@@ -56,16 +56,16 @@ const faqJsonLd = {
         <div class="hero-in hero-in-1">
           <Kicker text="Est. 1984 · San Isidro · BOKS International" light />
         </div>
-        <h1 class="hero-in hero-in-2 font-display mt-6 leading-[1.08] tracking-tight text-white" style="font-weight:800; font-size: clamp(1.7rem, 5.5vw, 3rem)">
+        <h1 class="hero-in hero-in-2 font-display mt-6 leading-[1.05] tracking-tight text-white" style="font-weight:800; font-size: clamp(1.95rem, 6.2vw, 3.6rem)">
           Tu contabilidad y tus impuestos, atendidos por un <em class="accent is-visible">socio</em> del estudio.
         </h1>
         <p class="hero-in hero-in-3 mt-6 max-w-xl text-lg leading-[1.6] text-white/85">
-          Contadores y abogados, +40 años y tercera generación. Asesoría estratégica con la atención
-          directa de un socio.
+          Asesoría impositiva, contable y societaria con criterio estratégico, no solo para cumplir
+          vencimientos.
         </p>
         <div class="hero-in hero-in-4 mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
           <a
-            href={waLink}
+            href={waLinkFor('Hola, quisiera que un socio del estudio me asesore.')}
             target="_blank"
             rel="noopener"
             class="inline-flex items-center gap-2 rounded-md bg-brand px-7 py-4 text-base font-bold text-white shadow-[0_16px_40px_-12px_rgba(205,51,51,0.7)] transition-transform hover:-translate-y-0.5"
@@ -76,7 +76,7 @@ const faqJsonLd = {
             </svg>
             Hablar con un socio
           </a>
-          <a href="#servicios" class="underline-grow text-base font-semibold text-white">Ver servicios</a>
+          <a href="#servicios" class="inline-flex items-center rounded-md border border-white/35 px-7 py-4 text-base font-semibold text-white transition-colors hover:bg-white/10">Ver servicios</a>
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@ const faqJsonLd = {
           Nuestros <em class="accent" style="font-style:italic">servicios</em>
         </h2>
         <p class="mt-4 text-base leading-relaxed text-body">
-          Contadores y abogados sobre las cinco áreas clave de tu negocio.
+          Todo lo contable, impositivo y societario de tu empresa, en un solo lugar.
         </p>
       </div>
 
@@ -171,8 +171,8 @@ const faqJsonLd = {
       </div>
       <div class="mt-10 grid gap-x-8 gap-y-8 sm:grid-cols-2" data-reveal-stagger>
         {DIFFERENTIALS.map((d) => (
-          <div class="group flex gap-4">
-            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brand/40 bg-surface text-brand transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-white">
+          <div class="flex gap-4">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-brand/10 text-brand">
               <Icon name={d.icon as any} class="h-6 w-6" />
             </span>
             <div>
@@ -185,51 +185,44 @@ const faqJsonLd = {
     </div>
   </section>
 
-  <!-- EQUIPO (teaser compacto) -->
+  <!-- TESTIMONIOS (prueba social justo después de "Por qué G&G") -->
+  <Testimonials />
+
+  <!-- EQUIPO (más presencia: monograma + nombre + rol) -->
   <section id="equipo" class="scroll-mt-20">
     <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
-      <div class="surface-card flex flex-col items-start gap-6 rounded-sm p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9" data-reveal>
-        <div class="flex items-center gap-5">
-          <div class="flex -space-x-3">
-            {TEAM.map((m) => (
-              <span class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-surface bg-ink font-display text-sm text-white" style="font-weight:700">
-                {m.initials}
-              </span>
-            ))}
-          </div>
-          <div>
-            <p class="kicker">El equipo</p>
-            <h2 class="mt-1 font-display text-xl text-brand sm:text-2xl" style="font-weight:700">
-              Tres generaciones, un mismo estudio
-            </h2>
-          </div>
-        </div>
-        <a href="/quienes-somos" class="underline-grow shrink-0 text-sm font-semibold text-brand-ink">
-          Conocé al equipo →
-        </a>
+      <div class="max-w-2xl" data-reveal>
+        <Kicker text="El equipo" />
+        <h2 class="mt-4 font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
+          Tres generaciones, un mismo estudio
+        </h2>
       </div>
+      <div class="mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-2" data-reveal-stagger>
+        {TEAM.map((m) => (
+          <div class="flex items-center gap-4">
+            <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-brand/30 bg-surface font-display text-lg text-brand" style="font-weight:800">
+              {m.initials}
+            </span>
+            <div>
+              <p class="font-display text-base text-ink" style="font-weight:700">{m.name}</p>
+              <p class="text-sm text-muted">{m.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <a href="/quienes-somos" class="underline-grow mt-8 inline-block text-sm font-semibold text-brand-ink">
+        Conocé al equipo →
+      </a>
     </div>
   </section>
 
-  <!-- MANIFIESTO (movido abajo) -->
-  <Manifesto
-    pre="El asesoramiento como valor agregado, no como"
-    accent="trámite."
-  />
-
-  <!-- FAQ -->
-  <Faq />
-
-  <!-- TESTIMONIOS -->
-  <Testimonials />
-
-  <!-- NOVEDADES -->
+  <!-- NOVEDADES (2 más recientes) -->
   <div class="brush-band" aria-hidden="true"></div>
   <section class="surface-paper-soft">
     <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
       <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
         <div>
-          <Kicker text="Novedades" />
+          <Kicker text="Prensa" />
           <h2 class="mt-4 font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
             El estudio en los <em class="accent" style="font-style:italic">medios</em>
           </h2>
@@ -237,7 +230,7 @@ const faqJsonLd = {
         <a href="/novedades" class="underline-grow text-sm font-semibold text-brand-ink">Ver todas →</a>
       </div>
 
-      <div class="mt-10 grid gap-6 md:grid-cols-3" data-reveal-stagger>
+      <div class="mt-10 grid gap-6 md:grid-cols-2" data-reveal-stagger>
         {posts.map((p) => (
           <a
             href={`/novedades/${p.id}`}
@@ -256,6 +249,9 @@ const faqJsonLd = {
       </div>
     </div>
   </section>
+
+  <!-- FAQ (pegada al cierre: responde objeciones antes de decidir) -->
+  <Faq />
 
   <CtaBand />
 </Base>
