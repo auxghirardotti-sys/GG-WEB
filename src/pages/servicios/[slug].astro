@@ -6,6 +6,8 @@ import ServiceIndex from '../../components/ServiceIndex.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { SERVICES } from '../../data/services';
 import { waLinkFor } from '../../data/site';
+import { Image } from 'astro:assets';
+import { img } from '../../data/images';
 
 export function getStaticPaths() {
   return SERVICES.map((service) => ({
@@ -23,10 +25,13 @@ const [lead, ...restIntro] = service.intro;
   <!-- HERO -->
   <section class="surface-ink grid-ink masthead-top relative overflow-hidden">
     {service.heroImage && (
-      <img
-        src={service.heroImage}
+      <Image
+        src={img(service.heroImage)}
         alt=""
         aria-hidden="true"
+        widths={[640, 960, 1200]}
+        sizes="100vw"
+        format="webp"
         class="kenburns absolute inset-0 h-full w-full object-cover opacity-[0.14] mix-blend-luminosity"
         loading="eager"
       />

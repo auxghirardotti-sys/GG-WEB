@@ -37,7 +37,7 @@ const divide = light ? 'divide-white/15' : 'divide-line-strong';
           {s.text ? (
             <span>{s.text}</span>
           ) : (
-            <span data-countup={s.value} data-suffix={s.suffix ?? ''}>0{s.suffix ?? ''}</span>
+            <span data-countup={s.value} data-suffix={s.suffix ?? ''}>{s.value}{s.suffix ?? ''}</span>
           )}
         </dt>
         <dd class:list={['mt-2 text-xs font-medium uppercase tracking-[0.14em]', labelColor]}>

@@ -4,6 +4,8 @@ import Kicker from '../components/Kicker.astro';
 import TeamCard from '../components/TeamCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { TEAM } from '../data/site';
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
 ---
 
 <Base
@@ -68,9 +70,12 @@ import { TEAM } from '../data/site';
   <!-- BOKS -->
   <section>
     <div class="mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 py-12 sm:px-6 md:flex-row lg:py-16" data-reveal>
-      <img
-        src="/img/boks.jpg"
+      <Image
+        src={img('/img/boks.jpg')}
         alt="Miembro independiente de BOKS International"
+        widths={[400, 768]}
+        sizes="(min-width: 768px) 384px, 100vw"
+        format="webp"
         class="w-full max-w-sm border border-line"
         loading="lazy"
       />

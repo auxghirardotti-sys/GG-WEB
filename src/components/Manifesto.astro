@@ -8,11 +8,13 @@ interface Props {
   image?: string;
 }
 const { pre, accent, post = '', image = '/img/campo-vinedo.jpg' } = Astro.props;
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
 ---
 
 <section class="cine masthead-top">
   <div class="cine__media" data-parallax="0.16">
-    <img src={image} alt="" aria-hidden="true" class="kenburns" />
+    <Image src={img(image)} alt="" aria-hidden="true" widths={[640, 1024, 1366]} sizes="100vw" format="webp" quality={70} class="kenburns" />
   </div>
   <div class="cine__veil"></div>
   <div class="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:py-24" data-reveal>
