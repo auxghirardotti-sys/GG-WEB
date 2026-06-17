@@ -112,6 +112,58 @@ body::before {
   font-style: italic;
 }
 
+/* Liquid glass (look "VEX"): vidrio esmerilado con borde de gradiente.
+   En @layer components para que las utilidades (hover:bg-white, etc.) ganen el cascade. */
+@layer components {
+  .liquid-glass {
+    background: rgba(0, 0, 0, 0.4);
+    background-blend-mode: luminosity;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.1) 20%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0) 60%,
+      rgba(255, 255, 255, 0.1) 80%,
+      rgba(255, 255, 255, 0.3) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+/* Título del hero: entrada letra por letra (estilo VEX) */
+.hero-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.hero-h1-animate .hero-char {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-char {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Resaltador rojo que se "pinta" detrás de una frase clave (texto blanco encima) */
 .hl-mark {
   position: relative;
@@ -467,7 +519,8 @@ details[open] .faq-chevron { transform: rotate(180deg); }
   z-index: -2;
   will-change: transform;
 }
-.cine__media img {
+.cine__media img,
+.cine__media video {
   height: 100%;
   width: 100%;
   object-fit: cover;

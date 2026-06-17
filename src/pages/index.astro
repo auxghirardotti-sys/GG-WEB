@@ -27,6 +27,18 @@ const stats = [
   { text: 'BOKS', value: 0, label: 'red internacional' },
 ];
 
+// Título del hero animado letra por letra (estilo VEX). "auditoría" en acento rojo; el punto en blanco.
+const heroWords: { ch: string; accent: boolean }[][] = [
+  ...'Asesoramiento fiscal, societario, contable y'
+    .split(' ')
+    .map((w) => [...w].map((ch) => ({ ch, accent: false }))),
+  [
+    ...[...'auditoría'].map((ch) => ({ ch, accent: true })),
+    { ch: '.', accent: false },
+  ],
+];
+let heroCharIndex = 0;
+
 // JSON-LD de FAQ para SEO
 const faqJsonLd = {
   '@context': 'https://schema.org',
@@ -44,33 +56,42 @@ const faqJsonLd = {
   description={SITE.description}
   jsonLdExtra={faqJsonLd}
 >
-  <!-- HERO cinematográfico (imagen de fondo + parallax + Ken Burns) -->
-  <section class="cine masthead-top">
+  <!-- HERO full-screen con video de fondo (look "VEX": media a sangre + liquid glass) -->
+  <section class="cine masthead-top relative flex min-h-screen flex-col">
     <div class="cine__media" data-parallax="0.12">
-      <Image src={img('/img/hero-impositivo.jpg')} alt="" aria-hidden="true" widths={[640, 960, 1200]} sizes="100vw" format="webp" loading="eager" class="kenburns h-full w-full object-cover" />
+      <video class="kenburns h-full w-full object-cover" autoplay loop muted playsinline preload="metadata" aria-hidden="true" poster={img('/img/hero-impositivo.jpg').src}>
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4" type="video/mp4" />
+      </video>
     </div>
-    <div class="cine__veil"></div>
+    <!-- velo en gradiente: video crudo arriba, oscurecido abajo para legibilidad -->
+    <div class="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent"></div>
 
-    <div class="relative z-10 mx-auto max-w-6xl px-4 pb-10 pt-16 sm:px-6 lg:pb-14 lg:pt-24">
-      <div class="max-w-2xl">
+    <div class="relative z-10 flex flex-1 flex-col justify-end">
+      <div class="mx-auto w-full max-w-6xl px-4 pb-10 pt-28 sm:px-6 lg:pb-14">
+        <div class="lg:grid lg:grid-cols-2 lg:items-end lg:gap-10">
+          <div class="max-w-2xl">
         <div class="hero-in hero-in-1">
           <Kicker text="Est. 1967 · San Isidro" light />
         </div>
-        <h1 class="hero-in hero-in-2 font-display mt-6 leading-[1.05] tracking-tight text-white" style="font-weight:800; font-size: clamp(1.95rem, 6.2vw, 3.6rem)">
-          Asesoramiento fiscal, societario, contable y <em class="accent is-visible">auditoría</em>.
+        <h1 id="hero-h1" class="font-display mt-6 leading-[1.05] tracking-tight text-white" style="font-weight:800; font-size: clamp(1.95rem, 6.2vw, 3.6rem)">
+          {heroWords.map((word, wi) => (
+            <Fragment>
+              {wi > 0 && ' '}
+              <span class="inline-block whitespace-nowrap">
+                {word.map((c) => {
+                  const i = heroCharIndex++;
+                  return (
+                    <span class:list={['hero-char', c.accent && 'accent']} style={`transition-delay:${i * 30}ms`}>{c.ch}</span>
+                  );
+                })}
+              </span>
+            </Fragment>
+          ))}
         </h1>
         <p class="hero-in hero-in-3 mt-6 max-w-xl text-lg leading-[1.6] text-white/85">
           Acompañamos a empresas y grupos —locales e internacionales— con criterio estratégico, no
           solo para cumplir vencimientos.
         </p>
-        <div class="hero-in hero-in-4 mt-7">
-          <span class="inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/[0.06] px-4 py-2.5 backdrop-blur-sm">
-            <span class="text-brand-bright"><Icon name="globe" class="h-5 w-5" /></span>
-            <span class="text-sm font-semibold text-white sm:text-base">
-              Miembro de <span class="text-brand-bright">BOKS International</span> · red global de firmas legales y contables
-            </span>
-          </span>
-        </div>
         <div class="hero-in hero-in-5 mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
           <a
             href={waLinkFor('Hola, quisiera que un socio del estudio me asesore.')}
@@ -84,15 +105,28 @@ const faqJsonLd = {
             </svg>
             Hablar con un socio
           </a>
-          <a href="#servicios" class="inline-flex items-center rounded-md border border-white/35 px-7 py-4 text-base font-semibold text-white transition-colors hover:bg-white/10">Ver servicios</a>
+          <a href="#servicios" class="liquid-glass inline-flex items-center rounded-md px-7 py-4 text-base font-semibold text-white transition-colors hover:bg-white hover:text-black">Ver servicios</a>
+            </div>
+          </div>
+
+          <!-- columna derecha: tag de cristal (estilo VEX) -->
+          <div class="mt-10 flex lg:mt-0 lg:justify-end">
+            <div class="hero-in hero-in-4 liquid-glass max-w-sm rounded-xl px-6 py-4">
+              <div class="flex items-center gap-2.5">
+                <span class="text-brand-bright"><Icon name="globe" class="h-5 w-5" /></span>
+                <span class="font-display text-base text-white" style="font-weight:700">Miembro de BOKS International</span>
+              </div>
+              <p class="mt-1 text-sm leading-relaxed text-white/70">Red global de firmas legales y contables</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Banda de stats sobre el hero oscuro -->
-    <div class="relative z-10 border-t border-white/15">
-      <div class="mx-auto max-w-6xl px-4 sm:px-6">
-        <StatBand stats={stats} light />
+      <!-- Banda de stats sobre el hero -->
+      <div class="relative z-10 border-t border-white/15">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6">
+          <StatBand stats={stats} light />
+        </div>
       </div>
     </div>
   </section>
@@ -262,4 +296,14 @@ const faqJsonLd = {
   <Faq />
 
   <CtaBand />
+
+  <script>
+    // Dispara la entrada letra por letra del título del hero (estilo VEX).
+    const h1 = document.getElementById('hero-h1');
+    if (h1) {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) h1.classList.add('hero-h1-animate');
+      else window.setTimeout(() => h1.classList.add('hero-h1-animate'), 200);
+    }
+  </script>
 </Base>
