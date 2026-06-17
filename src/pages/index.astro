@@ -59,7 +59,9 @@ const faqJsonLd = {
   <!-- HERO full-screen con video de fondo (look "VEX": media a sangre + liquid glass) -->
   <section class="cine masthead-top relative flex min-h-screen flex-col">
     <div class="cine__media" data-parallax="0.12">
-      <Image src={img('/img/campo-vinedo.jpg')} alt="" aria-hidden="true" widths={[640, 960, 1366, 1920]} sizes="100vw" format="webp" loading="eager" class="kenburns h-full w-full object-cover" />
+      <video class="kenburns h-full w-full object-cover" autoplay loop muted playsinline preload="metadata" aria-hidden="true" poster={img('/img/hero-impositivo.jpg').src}>
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4" type="video/mp4" />
+      </video>
     </div>
     <!-- velo en gradiente: video crudo arriba, oscurecido abajo para legibilidad -->
     <div class="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent"></div>
