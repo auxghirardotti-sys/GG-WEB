@@ -6,3 +6,6 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Tooling local (Claude Code) — no va al repo
+.claude/
