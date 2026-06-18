@@ -6,7 +6,7 @@
       "initials": "AG",
       "bio": "Fundador del estudio, con más de 40 años de experiencia en auditoría y asesoramiento impositivo. Su liderazgo y dedicación lo convierten en una figura respetada, siendo un ejemplo de compromiso y profesionalismo.",
       "credentials": ["Contador Público", "+40 años de ejercicio"],
-      "photo": "armando.webp"
+      "photo": "armando-2.webp"
     },
     {
       "name": "Mariano Ghirardotti",
@@ -19,7 +19,7 @@
         "Docente universitario",
         "Miembro de la AAEF"
       ],
-      "photo": "mariano.webp"
+      "photo": "mariano-2.webp"
     },
     {
       "name": "Florencia Ghirardotti",
@@ -27,7 +27,7 @@
       "initials": "FG",
       "bio": "Abogada con diploma de honor de la U.C.A. en 2001. Especialista en asesoramiento societario y líder del Departamento de Sociedades en nuestro estudio. Amplia experiencia en adquisiciones, fusiones y reorganizaciones empresariales.",
       "credentials": ["Abogada (UCA, diploma de honor)", "Asesoramiento corporativo"],
-      "photo": "florencia.webp"
+      "photo": "florencia-2.webp"
     }
   ]
 }
