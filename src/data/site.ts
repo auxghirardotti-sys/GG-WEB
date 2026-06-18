@@ -19,15 +19,18 @@ export interface Client {
   name: string;
   /** Ruta al logo real cuando esté disponible (ej: /clients/icbc.svg). Vacío = se muestra el nombre como wordmark. */
   logo?: string;
+  /** Override de alto del logo en el marquee. Los logos cuadrados/apilados (ej. emblemas) necesitan más alto
+   *  para tener presencia pareja junto a los wordmarks anchos. Default: 'h-10 w-auto'. */
+  imgClass?: string;
 }
 
 /** Clientes / empresas que confían en el estudio — se muestran en el marquee de la home.
  *  Para usar logos reales: dejar el archivo en public/clients/ y completar `logo` (ej: '/clients/icbc.svg'). */
 export const CLIENTS: Client[] = [
-  { name: 'Tandanor' },
-  { name: 'OCA' },
-  { name: 'ICBC' },
-  { name: 'Ocutech' },
+  { name: 'Tandanor', logo: '/clients/tandanor.png', imgClass: 'h-14 w-auto' },
+  { name: 'OCA', logo: '/clients/oca.svg' },
+  { name: 'ICBC', logo: '/clients/icbc.svg' },
+  { name: 'Ocutech', logo: '/clients/ocutech.png' },
 ];
 
 export interface TeamMember {

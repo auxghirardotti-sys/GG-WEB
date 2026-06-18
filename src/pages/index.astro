@@ -248,9 +248,9 @@ const faqJsonLd = {
       <div class="marquee">
         <div class="marquee__track">
           {clientStrip.concat(clientStrip).map((c) => (
-            <span class="client-logo mx-10 flex h-10 shrink-0 items-center whitespace-nowrap">
+            <span class="client-logo mx-10 flex h-16 shrink-0 items-center whitespace-nowrap">
               {c.logo ? (
-                <img src={c.logo} alt={c.name} class="h-9 w-auto" loading="lazy" />
+                <img src={c.logo} alt={c.name} class:list={[c.imgClass ?? 'h-10 w-auto']} loading="lazy" />
               ) : (
                 <span class="font-display text-2xl tracking-tight sm:text-3xl" style="font-weight:800">{c.name}</span>
               )}
