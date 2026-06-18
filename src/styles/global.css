@@ -432,18 +432,22 @@ body::before {
 details[open] .faq-answer { grid-template-rows: 1fr; }
 details[open] .faq-chevron { transform: rotate(180deg); }
 
-/* Servicios: al abrir la card, los items aparecen con fade + slide suave.
-   No usa el truco grid-rows porque la card es un grid-item dentro de otro grid y ahí no resuelve la altura.
-   El display:block de la card rompe el auto-ocultado nativo de <details>, así que lo ocultamos explícito. */
-details.service-card:not([open]) > .service-reveal {
-  display: none;
+/* Servicios: los items NO se despliegan hacia abajo. Un panel sube SOBRE la propia card
+   (overlay absoluto dentro del <summary>), así la grilla nunca se descuadra ni empuja el layout.
+   Tocar la card otra vez lo cierra. Listas largas hacen scroll interno dentro del panel. */
+.service-panel {
+  transform: translateY(101%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.42s var(--ease-editorial),
+    opacity 0.3s var(--ease-editorial),
+    visibility 0.42s var(--ease-editorial);
 }
-details.service-card[open] > .service-reveal {
-  animation: serviceReveal 0.35s var(--ease-editorial) both;
-}
-@keyframes serviceReveal {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
+details.service-card[open] .service-panel {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
 }
 
 /* ---- Motion: revelado al scroll ---- */
