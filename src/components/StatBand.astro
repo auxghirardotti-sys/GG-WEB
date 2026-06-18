@@ -17,11 +17,17 @@ const { stats, light = false, class: className = '' } = Astro.props;
 const numColor = light ? 'text-brand-bright' : 'text-brand';
 const labelColor = light ? 'text-white/55' : 'text-muted';
 const divide = light ? 'divide-white/15' : 'divide-line-strong';
+// Columnas según cantidad de cifras (evita celdas vacías al cambiar el set de stats).
+const colsClass =
+  ({ 2: 'sm:grid-cols-2', 3: 'sm:grid-cols-3', 4: 'sm:grid-cols-4', 5: 'sm:grid-cols-5' } as Record<number, string>)[
+    stats.length
+  ] ?? 'sm:grid-cols-4';
 ---
 
 <dl
   class:list={[
-    'grid grid-cols-2 divide-y sm:grid-cols-4 sm:divide-y-0 sm:divide-x',
+    'grid grid-cols-2 divide-y sm:divide-y-0 sm:divide-x',
+    colsClass,
     divide,
     className,
   ]}

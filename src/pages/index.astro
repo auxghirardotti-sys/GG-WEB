@@ -11,7 +11,7 @@ import Process from '../components/Process.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { SITE, waLink, waLinkFor, TEAM, INDUSTRIES, DIFFERENTIALS, FAQ } from '../data/site';
+import { SITE, waLink, waLinkFor, TEAM, INDUSTRIES, DIFFERENTIALS, FAQ, CLIENTS } from '../data/site';
 import { fmtDate } from '../data/format';
 import { Image } from 'astro:assets';
 import { img } from '../data/images';
@@ -22,7 +22,6 @@ const posts = (await getCollection('novedades'))
 
 const stats = [
   { value: 60, suffix: '+', label: 'años de trayectoria' },
-  { value: 3, label: 'generaciones al frente' },
   { value: 500, suffix: '+', label: 'clientes asesorados' },
   { text: 'BOKS', value: 0, label: 'red internacional' },
 ];
@@ -38,6 +37,9 @@ const heroWords: { ch: string; accent: boolean }[][] = [
   ],
 ];
 let heroCharIndex = 0;
+
+// Logos de clientes repetidos para que el marquee (translate -50%) cierre sin saltos.
+const clientStrip = [...CLIENTS, ...CLIENTS, ...CLIENTS, ...CLIENTS];
 
 // JSON-LD de FAQ para SEO
 const faqJsonLd = {
@@ -230,8 +232,37 @@ const faqJsonLd = {
   <!-- TESTIMONIOS (prueba social justo después de "Por qué G&G") -->
   <Testimonials />
 
+  <!-- NUESTROS CLIENTES (logos en marquee continuo, estilo Cloudflare) -->
+  <section class="surface-paper-soft overflow-hidden py-12 lg:py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6" data-reveal>
+      <Kicker text="Confían en nosotros" />
+      <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
+        Nuestros <em class="accent" style="font-style:italic">clientes</em>
+      </h2>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-body">
+        Empresas y grupos de distintos sectores que confían su día a día impositivo, contable y societario al estudio.
+      </p>
+    </div>
+
+    <div class="mt-10 border-y border-line py-8">
+      <div class="marquee">
+        <div class="marquee__track">
+          {clientStrip.concat(clientStrip).map((c) => (
+            <span class="client-logo mx-10 flex h-10 shrink-0 items-center whitespace-nowrap">
+              {c.logo ? (
+                <img src={c.logo} alt={c.name} class="h-9 w-auto" loading="lazy" />
+              ) : (
+                <span class="font-display text-2xl tracking-tight sm:text-3xl" style="font-weight:800">{c.name}</span>
+              )}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- EQUIPO (más presencia: monograma + nombre + rol) -->
-  <section id="equipo" class="scroll-mt-20">
+  <section id="equipo" class="mesh scroll-mt-20 overflow-hidden">
     <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
       <div class="max-w-2xl" data-reveal>
         <Kicker text="El equipo" />
@@ -239,10 +270,10 @@ const faqJsonLd = {
           Tres generaciones, un mismo estudio
         </h2>
       </div>
-      <div class="mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-2" data-reveal-stagger>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2" data-reveal-stagger>
         {TEAM.map((m) => (
-          <div class="flex items-center gap-4">
-            <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-brand/30 bg-surface font-display text-lg text-brand" style="font-weight:800">
+          <div class="lift flex items-center gap-4 rounded-xl surface-card p-5">
+            <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-bright to-brand-ink font-display text-lg text-white shadow-[0_10px_24px_-8px_rgba(205,51,51,0.75)] ring-1 ring-white/40" style="font-weight:800">
               {m.initials}
             </span>
             <div>

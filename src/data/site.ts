@@ -15,6 +15,21 @@ export const waLink = `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComp
 export const waLinkFor = (message: string) =>
   `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
+export interface Client {
+  name: string;
+  /** Ruta al logo real cuando esté disponible (ej: /clients/icbc.svg). Vacío = se muestra el nombre como wordmark. */
+  logo?: string;
+}
+
+/** Clientes / empresas que confían en el estudio — se muestran en el marquee de la home.
+ *  Para usar logos reales: dejar el archivo en public/clients/ y completar `logo` (ej: '/clients/icbc.svg'). */
+export const CLIENTS: Client[] = [
+  { name: 'Tandanor' },
+  { name: 'OCA' },
+  { name: 'ICBC' },
+  { name: 'Ocutech' },
+];
+
 export interface TeamMember {
   name: string;
   role: string;

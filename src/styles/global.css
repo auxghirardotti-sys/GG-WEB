@@ -384,6 +384,25 @@ body::before {
   will-change: transform;
 }
 
+/* Logos de clientes en el marquee: desaturados/grises, toman color al hover (estilo Cloudflare).
+   El nombre se muestra como wordmark si no hay logo real cargado. */
+.client-logo {
+  color: var(--color-line-strong);
+  transition: color 0.3s var(--ease-editorial);
+}
+.client-logo:hover {
+  color: var(--color-brand);
+}
+.client-logo img {
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter 0.3s var(--ease-editorial), opacity 0.3s var(--ease-editorial);
+}
+.client-logo:hover img {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
 /* Ocultar scrollbar (carrusel de servicios en mobile) */
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
