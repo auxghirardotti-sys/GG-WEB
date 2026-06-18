@@ -432,6 +432,20 @@ body::before {
 details[open] .faq-answer { grid-template-rows: 1fr; }
 details[open] .faq-chevron { transform: rotate(180deg); }
 
+/* Servicios: al abrir la card, los items aparecen con fade + slide suave.
+   No usa el truco grid-rows porque la card es un grid-item dentro de otro grid y ahí no resuelve la altura.
+   El display:block de la card rompe el auto-ocultado nativo de <details>, así que lo ocultamos explícito. */
+details.service-card:not([open]) > .service-reveal {
+  display: none;
+}
+details.service-card[open] > .service-reveal {
+  animation: serviceReveal 0.35s var(--ease-editorial) both;
+}
+@keyframes serviceReveal {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ---- Motion: revelado al scroll ---- */
 [data-reveal] {
   opacity: 0;

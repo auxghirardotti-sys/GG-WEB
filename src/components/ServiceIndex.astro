@@ -1,5 +1,6 @@
 ---
 // Cards de servicio: imagen temática de fondo (todo el cuadro) + efecto glass (frost) encima.
+// "Ver más" NO navega: despliega los ítems del servicio hacia abajo, en la misma página (<details> nativo).
 import Icon from './Icon.astro';
 import { Image } from 'astro:assets';
 import { SERVICES } from '../data/services';
@@ -21,7 +22,7 @@ const featured = bento && items.length === 5;
 <div data-carousel>
   <div
     class:list={[
-      'no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0',
+      'no-scrollbar flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0',
       bento ? 'lg:grid-cols-6' : 'lg:grid-cols-3',
     ]}
     data-carousel-track
@@ -31,45 +32,64 @@ const featured = bento && items.length === 5;
     items.map((s, i) => {
       const big = featured && i < 2;
       return (
-      <a
-        href={`/servicios/${s.slug}`}
+      <details
         class:list={[
-          'lift group relative flex min-h-[220px] flex-col overflow-hidden rounded-md border border-line bg-surface hover:border-brand',
+          'service-card group lift relative block overflow-hidden rounded-md border border-line bg-surface hover:border-brand',
           'shrink-0 basis-[78%] snap-start sm:basis-auto sm:shrink',
-          bento && (big ? 'lg:col-span-3 lg:min-h-[260px]' : 'lg:col-span-2'),
+          bento && (big ? 'lg:col-span-3' : 'lg:col-span-2'),
         ]}
       >
-        <Image
-          src={img(s.cardImage)}
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          widths={[400, 800]}
-          sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
-          format="webp"
-          class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        <div class="absolute inset-0 bg-brand/10 mix-blend-multiply"></div>
-        <div class="relative flex flex-1 flex-col p-5 backdrop-blur-[5px]">
-          <div class="absolute inset-0 bg-gradient-to-t from-white/97 via-white/90 to-white/72"></div>
-          <div class="relative flex h-full flex-col">
-            <span class="flex h-12 w-12 items-center justify-center rounded-md bg-brand text-white shadow-[0_8px_20px_-8px_rgba(205,51,51,0.7)] transition-colors group-hover:bg-brand-ink">
-              <Icon name={s.icon} class="h-7 w-7" />
-            </span>
-            <h3 class="mt-5 font-display text-lg text-ink transition-colors group-hover:text-brand-ink" style="font-weight:700">
-              {s.title}
-            </h3>
-            <p class="mt-2 text-sm leading-relaxed text-body">{s.card}</p>
-            <div class="flex-1"></div>
-            <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-[0.08em] text-brand-ink">
-              Ver más
-              <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </span>
+        <summary class="relative flex min-h-[220px] cursor-pointer list-none flex-col">
+          <Image
+            src={img(s.cardImage)}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            widths={[400, 800]}
+            sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+            format="webp"
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-brand/10 mix-blend-multiply"></div>
+          <div class="relative flex flex-1 flex-col p-5 backdrop-blur-[5px]">
+            <div class="absolute inset-0 bg-gradient-to-t from-white/97 via-white/90 to-white/72"></div>
+            <div class="relative flex h-full flex-col">
+              <span class="flex h-12 w-12 items-center justify-center rounded-md bg-brand text-white shadow-[0_8px_20px_-8px_rgba(205,51,51,0.7)] transition-colors group-hover:bg-brand-ink">
+                <Icon name={s.icon} class="h-7 w-7" />
+              </span>
+              <h3 class="mt-5 font-display text-lg text-ink transition-colors group-hover:text-brand-ink" style="font-weight:700">
+                {s.title}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-body">{s.card}</p>
+              <div class="flex-1"></div>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-[0.08em] text-brand-ink">
+                <span class="group-open:hidden">Ver más</span>
+                <span class="hidden group-open:inline">Ver menos</span>
+                <svg class="faq-chevron h-4 w-4 shrink-0 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </div>
           </div>
+        </summary>
+
+        <div class="service-reveal border-t border-line p-5">
+          <ul class="space-y-2.5">
+            {s.items.map((it) => (
+              <li class="flex items-start gap-2.5 text-sm leading-snug text-body">
+                <svg class="mt-0.5 h-[18px] w-[18px] shrink-0 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M8.4 12.4l2.4 2.4 4.7-5.1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>{it}</span>
+              </li>
+            ))}
+          </ul>
+          <a href={`/servicios/${s.slug}`} class="underline-grow mt-5 inline-block text-sm font-semibold text-brand-ink">
+            Ver servicio completo →
+          </a>
         </div>
-      </a>
+      </details>
       );
     })
   }
