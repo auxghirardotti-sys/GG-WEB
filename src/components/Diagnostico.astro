@@ -166,11 +166,15 @@ const total = steps.length;
           if (answers['Opera al exterior'] === 'Sí') d += ' Y como operás al exterior, sumamos la mirada internacional.';
           detailEl.textContent = d;
         }
+        const exterior =
+          answers['Opera al exterior'] === 'Sí' ? 'opero en el exterior'
+          : answers['Opera al exterior'] === 'No' ? 'no opero en el exterior'
+          : '';
+        // Solo las respuestas, sin repetir las preguntas. Ej: "Outsourcing contable, PyME, opero en el exterior".
+        const resumen = [answers['Área'], answers['Tamaño'], exterior].filter(Boolean).join(', ');
         const msg =
-          `Hola, hice el diagnóstico express en la web. ` +
-          `Necesito ayuda con: ${answers['Área'] || '-'}. ` +
-          `Tamaño de mi empresa: ${answers['Tamaño'] || '-'}. ` +
-          `¿Opera al exterior?: ${answers['Opera al exterior'] || '-'}. ` +
+          `Hola, vengo del diagnóstico express de la web. ` +
+          `${resumen}. ` +
           `Quiero coordinar mi primera charla, sin costo.`;
         if (waA) waA.setAttribute('href', `https://wa.me/${wa}?text=${encodeURIComponent(msg)}`);
         result?.classList.remove('hidden');
