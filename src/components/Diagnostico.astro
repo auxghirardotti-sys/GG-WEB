@@ -166,16 +166,19 @@ const total = steps.length;
           if (answers['Opera al exterior'] === 'Sí') d += ' Y como operás al exterior, sumamos la mirada internacional.';
           detailEl.textContent = d;
         }
-        const exterior =
-          answers['Opera al exterior'] === 'Sí' ? 'opero en el exterior'
-          : answers['Opera al exterior'] === 'No' ? 'no opero en el exterior'
-          : '';
-        // Solo las respuestas, sin repetir las preguntas. Ej: "Outsourcing contable, PyME, opero en el exterior".
-        const resumen = [answers['Área'], answers['Tamaño'], exterior].filter(Boolean).join(', ');
-        const msg =
-          `Hola, vengo del diagnóstico express de la web. ` +
-          `${resumen}. ` +
-          `Quiero coordinar mi primera charla, sin costo.`;
+        // Mensaje natural y breve: teje las respuestas en una frase, sin repetir las preguntas.
+        const tamMap = {
+          'Monotributo / Emprendedor': 'soy monotributista',
+          'PyME': 'somos una PyME',
+          'Grupo o gran empresa': 'somos un grupo / gran empresa',
+        };
+        const tamTxt = tamMap[answers['Tamaño']] || '';
+        const areaTxt = (!area || area === 'No estoy seguro')
+          ? 'no sé bien por dónde empezar'
+          : `consulto por ${area.toLowerCase()}`;
+        const extTxt = answers['Opera al exterior'] === 'Sí' ? ' y opero al exterior' : '';
+        const resumen = [tamTxt, areaTxt + extTxt].filter(Boolean).join(', ');
+        const msg = `¡Hola! Hice el diagnóstico de la web. ${resumen.charAt(0).toUpperCase()}${resumen.slice(1)}. ¿Coordinamos una charla?`;
         if (waA) waA.setAttribute('href', `https://wa.me/${wa}?text=${encodeURIComponent(msg)}`);
         result?.classList.remove('hidden');
       };
