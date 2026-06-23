@@ -60,8 +60,8 @@ export const PROCESS = [
   {
     step: '02',
     icon: 'clipboard',
-    title: 'Diagnóstico sin cargo',
-    text: 'Un socio revisa tu situación y te dice cómo ayudarte. Gratis.',
+    title: 'Vemos tu situación',
+    text: 'Revisamos tu caso y te decimos por dónde conviene empezar.',
   },
   {
     step: '03',
@@ -73,7 +73,7 @@ export const PROCESS = [
     step: '04',
     icon: 'handshake',
     title: 'Te acompañamos',
-    text: 'Un interlocutor directo todo el año, no solo en los vencimientos.',
+    text: 'Un interlocutor directo todo el año, que conoce tu empresa.',
   },
 ];
 

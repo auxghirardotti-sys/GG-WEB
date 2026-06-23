@@ -7,14 +7,14 @@ interface Props {
   pre: string;
   accent: string;
   post?: string;
-  /** Imagen de fondo */
-  image?: string;
+  /** Imagen de fondo (requerida) */
+  image: string;
   /** object-position del recorte, ej '50% 80%' para mostrar más la parte de abajo */
   objectPos?: string;
   /** Velo oscuro: 'normal' o 'soft' (más claro + imagen con un toque de brillo) */
   veil?: 'normal' | 'soft';
 }
-const { pre, accent, post = '', image = '/img/campo-vinedo.jpg', objectPos, veil = 'normal' } = Astro.props;
+const { pre, accent, post = '', image, objectPos, veil = 'normal' } = Astro.props;
 const imgStyle = [
   objectPos && `object-position:${objectPos}`,
   veil === 'soft' && 'filter:brightness(1.12) saturate(1.04)',

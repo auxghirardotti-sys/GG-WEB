@@ -81,7 +81,7 @@ const total = steps.length;
       ))}
 
       <div id="diag-loading" class="mt-6 hidden">
-        <p class="font-display text-xl text-ink" style="font-weight:700">Analizando tu perfil…</p>
+        <p class="font-display text-xl text-ink" style="font-weight:700">Preparando tu diagnóstico…</p>
         <div class="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-line">
           <div id="diag-loadbar" class="h-full w-0 rounded-full bg-brand transition-[width] duration-1000 ease-out"></div>
         </div>
@@ -95,7 +95,7 @@ const total = steps.length;
           Un socio puede ayudarte con <span id="diag-area" class="text-brand-ink">tu consulta</span>.
         </h3>
         <p id="diag-detail" class="mt-2 text-base leading-relaxed text-body">
-          Coordinemos una primera charla, sin compromiso.
+          Coordinemos una primera charla.
         </p>
         <div class="mt-6 flex flex-wrap items-center gap-4">
           <a
@@ -190,7 +190,7 @@ const total = steps.length;
           loadbar.style.width = '0%';
           requestAnimationFrame(() => { loadbar.style.width = '100%'; });
         }
-        setTimeout(reveal, 1100);
+        setTimeout(reveal, 550);
       }
     }
 

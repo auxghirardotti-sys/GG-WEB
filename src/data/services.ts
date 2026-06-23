@@ -39,7 +39,6 @@ export const SERVICES: Service[] = [
       'Asesoramiento tributario integral',
       'Estrategias de planificación fiscal',
       'Reorganizaciones empresarias',
-      'Planificación hereditaria y protección patrimonial',
       'Tercerización del departamento de impuestos',
       'Determinación de impuestos nacionales, provinciales y municipales',
       'Auditorías de compra / due diligence',
@@ -92,7 +91,7 @@ export const SERVICES: Service[] = [
     cardImage: '/img/agro-a.jpg',
     intro: [
       'La contabilidad agropecuaria no es una contabilidad más: ciclos biológicos, estacionalidad, clima, retenciones y regímenes especiales hacen que las recetas genéricas queden cortas.',
-      'Nuestra socia a cargo del área es especialista en impuestos agropecuarios y productora agropecuaria: conocemos el negocio desde el campo y desde los números. Eso nos permite asesorar a empresas agrícolas y ganaderas con criterio real, no solo normativo.',
+      'En el agro no alcanza con saber de impuestos: hay que conocer la campaña, el clima y el riesgo. Lo conocemos desde el campo y desde los números, y eso nos permite asesorar a empresas agrícolas y ganaderas con criterio real, no solo de escritorio.',
     ],
     itemsTitle: 'Cómo acompañamos a las empresas del agro',
     items: [

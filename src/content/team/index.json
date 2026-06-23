@@ -4,15 +4,15 @@
       "name": "Armando Ghirardotti",
       "role": "Socio Fundador",
       "initials": "AG",
-      "bio": "Fundador del estudio, con más de 40 años de experiencia en auditoría y asesoramiento impositivo. Su liderazgo y dedicación lo convierten en una figura respetada, siendo un ejemplo de compromiso y profesionalismo.",
-      "credentials": ["Contador Público", "+40 años de ejercicio"],
+      "bio": "Fundó el estudio en 1967. Su criterio en auditoría y asesoramiento impositivo es la base sobre la que trabaja todo el equipo.",
+      "credentials": ["Contador Público", "Desde 1967"],
       "photo": "armando-4.webp"
     },
     {
       "name": "Mariano Ghirardotti",
       "role": "Socio Director",
       "initials": "MG",
-      "bio": "Experto en impuestos con 20 años de experiencia, líder en planificación fiscal para empresas locales e internacionales, miembro destacado de la Asociación Argentina de Estudios Fiscales, docente universitario y autor reconocido en tributación y agropecuaria.",
+      "bio": "Lidera la planificación fiscal del estudio para empresas locales e internacionales, con foco en tributación y en el sector agropecuario. Docente universitario y autor de publicaciones del área.",
       "credentials": [
         "Contador Público",
         "Especialista en Tributación",
@@ -25,7 +25,7 @@
       "name": "Florencia Ghirardotti",
       "role": "Asociada · Dpto. de Sociedades",
       "initials": "FG",
-      "bio": "Abogada con diploma de honor de la U.C.A. en 2001. Especialista en asesoramiento societario y líder del Departamento de Sociedades en nuestro estudio. Amplia experiencia en adquisiciones, fusiones y reorganizaciones empresariales.",
+      "bio": "Abogada (UCA, diploma de honor, 2001). Lidera el Departamento de Sociedades del estudio: adquisiciones, fusiones y reorganizaciones empresariales.",
       "credentials": ["Abogada (UCA, diploma de honor)", "Asesoramiento corporativo"],
       "photo": "florencia-4.webp"
     }

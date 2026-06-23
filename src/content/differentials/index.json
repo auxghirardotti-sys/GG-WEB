@@ -6,19 +6,19 @@
       "icon": "people"
     },
     {
-      "title": "+60 años de trayectoria",
-      "text": "Tres generaciones cuidando la utilidad y los activos de tu empresa.",
-      "icon": "shield"
+      "title": "Anticipamos, no solo cumplimos",
+      "text": "Más que presentar papeles a tiempo: te avisamos antes del vencimiento y planificamos el próximo paso.",
+      "icon": "brain"
     },
     {
       "title": "Contadores y abogados",
-      "text": "Mirada tributaria, societaria y de auditoría en un mismo lugar.",
+      "text": "Lo impositivo y lo legal se resuelven acá mismo: no tenés que derivar a otro estudio.",
       "icon": "team"
     },
     {
-      "title": "Alcance internacional",
-      "text": "Miembros de BOKS International: te acompañamos más allá de Argentina.",
-      "icon": "globe"
+      "title": "También somos productores agropecuarios",
+      "text": "Conocemos la campaña, el clima y el riesgo del agro porque también es nuestro: asesoramos con criterio de campo, no solo normativo.",
+      "icon": "agropecuario"
     }
   ]
 }
