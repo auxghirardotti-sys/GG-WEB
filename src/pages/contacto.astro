@@ -138,6 +138,8 @@ import { SITE, waLink } from '../data/site';
 </Base>
 
 <script>
+  // Con View Transitions el form se renueva en cada navegación: re-bindear por página.
+  document.addEventListener('astro:page-load', () => {
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const status = document.getElementById('form-status');
   // El mail de contacto sale de site.json (SITE.email) vía data-attribute, no hardcodeado.
@@ -186,5 +188,6 @@ import { SITE, waLink } from '../data/site';
       btn.disabled = false;
       btn.textContent = 'Enviar consulta';
     }
+  });
   });
 </script>

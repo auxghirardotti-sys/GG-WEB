@@ -661,6 +661,19 @@ html {
   outline-offset: 3px;
 }
 
+/* Parallax nativo por scroll-driven animation (CSS puro, corre en el compositor).
+   Donde hay soporte, reveal.js deja de mover estos elementos por JS. */
+@supports (animation-timeline: view()) {
+  .sd-parallax {
+    animation: sdParallax linear both;
+    animation-timeline: view();
+  }
+  @keyframes sdParallax {
+    from { transform: translate3d(0, -5%, 0); }
+    to { transform: translate3d(0, 5%, 0); }
+  }
+}
+
 /* Lenis smooth scroll */
 html.lenis,
 html.lenis body { height: auto; }
@@ -686,4 +699,5 @@ html.lenis body { height: auto; }
   .surface-ink::after { animation: none !important; }
   .title-clip { clip-path: none !important; }
   .btn-shine::before { display: none; }
+  .sd-parallax { animation: none !important; }
 }

@@ -170,35 +170,40 @@ const isActive = (href: string) => current === href || current.startsWith(href +
 </header>
 
 <script>
-  const btn = document.getElementById('menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('icon-open');
-  const iconClose = document.getElementById('icon-close');
-  const header = document.getElementById('site-header');
-
-  function setMenu(open) {
+  // Con View Transitions el header se swapea en cada navegación: los bindings a
+  // elementos se rehacen en astro:page-load; los listeners de document/window se
+  // registran una vez y consultan el DOM en vivo.
+  function setMenu(open: boolean) {
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
     if (!menu || !btn) return;
     menu.classList.toggle('hidden', !open);
     btn.setAttribute('aria-expanded', String(open));
     btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-    iconOpen?.classList.toggle('hidden', open);
-    iconClose?.classList.toggle('hidden', !open);
+    document.getElementById('icon-open')?.classList.toggle('hidden', open);
+    document.getElementById('icon-close')?.classList.toggle('hidden', !open);
   }
 
-  btn?.addEventListener('click', () => setMenu(menu?.classList.contains('hidden') ?? false));
-
-  // Cerrar el menú mobile al tocar cualquier link
-  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  function initHeader() {
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn?.addEventListener('click', () => setMenu(menu?.classList.contains('hidden') ?? false));
+    // Cerrar el menú mobile al tocar cualquier link
+    menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    onScroll();
+  }
 
   // Escape cierra el menú mobile y suelta el foco del dropdown de servicios
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
+    const menu = document.getElementById('mobile-menu');
     if (menu && !menu.classList.contains('hidden')) setMenu(false);
     if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
   });
 
   // Shrink + sombra del header al scrollear
   const onScroll = () => {
+    const header = document.getElementById('site-header');
     if (!header) return;
     if (window.scrollY > 8) {
       header.classList.add('shadow-[0_8px_30px_-20px_rgba(20,23,31,0.45)]');
@@ -209,5 +214,6 @@ const isActive = (href: string) => current === href || current.startsWith(href +
     }
   };
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+
+  document.addEventListener('astro:page-load', initHeader);
 </script>

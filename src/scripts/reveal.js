@@ -4,9 +4,20 @@
 // - [data-countup]: cuenta de 0 a data-target al entrar en viewport.
 // - [data-parallax]: desplazamiento suave según scroll (factor en el atributo).
 // - #scroll-progress: barra roja de progreso de lectura.
+//
+// Con View Transitions (ClientRouter) el módulo carga UNA vez y el DOM se swapea
+// en cada navegación: los listeners de window/document se registran una sola vez
+// y todo lo que apunta a elementos se re-consulta en cada astro:page-load.
 import Lenis from 'lenis';
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Si el browser soporta scroll-driven animations, el parallax .sd-parallax lo hace CSS puro.
+const sdSupported =
+  typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()');
+
+let lenis = null;
+let parallaxEls = [];
+let progressBar = null;
 
 function runCountUp(el) {
   const target = parseFloat(el.dataset.countup || '0');
@@ -57,29 +68,26 @@ function initReveal() {
   });
 }
 
-function initScrollFx() {
-  const bar = document.getElementById('scroll-progress');
-  const parallax = Array.from(document.querySelectorAll('[data-parallax]'));
+function updateScrollFx() {
+  const scroll = window.scrollY;
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  if (progressBar) progressBar.style.transform = `scaleX(${docH > 0 ? scroll / docH : 0})`;
+  if (reduce) return;
+  const vh = window.innerHeight;
+  parallaxEls.forEach((el) => {
+    const factor = parseFloat(el.dataset.parallax || '0.12');
+    const rect = el.getBoundingClientRect();
+    const center = rect.top + rect.height / 2 - vh / 2;
+    el.style.transform = `translate3d(0, ${(-center * factor).toFixed(1)}px, 0)`;
+  });
+}
 
-  function update() {
-    const scroll = window.scrollY;
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    if (bar) bar.style.transform = `scaleX(${docH > 0 ? scroll / docH : 0})`;
-    if (reduce) return;
-    const vh = window.innerHeight;
-    parallax.forEach((el) => {
-      const factor = parseFloat(el.dataset.parallax || '0.12');
-      const rect = el.getBoundingClientRect();
-      const center = rect.top + rect.height / 2 - vh / 2;
-      el.style.transform = `translate3d(0, ${(-center * factor).toFixed(1)}px, 0)`;
-    });
-  }
-
+function initScrollFxOnce() {
   let ticking = false;
   function onScroll() {
     if (!ticking) {
       requestAnimationFrame(() => {
-        update();
+        updateScrollFx();
         ticking = false;
       });
       ticking = true;
@@ -87,12 +95,11 @@ function initScrollFx() {
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
-  update();
 }
 
-function initSmoothScroll() {
+function initSmoothScrollOnce() {
   if (reduce) return;
-  const lenis = new Lenis({
+  lenis = new Lenis({
     duration: 1.1,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
@@ -102,8 +109,12 @@ function initSmoothScroll() {
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
+}
 
-  // Anclas internas con scroll suave (#... y /#... en la misma página)
+// Anclas internas con scroll suave (#... y /#... en la misma página).
+// Los <a> son nuevos en cada navegación, así que se re-bindea por página.
+function bindAnchors() {
+  if (!lenis) return;
   document.querySelectorAll('a[href*="#"]').forEach((a) => {
     const href = a.getAttribute('href') || '';
     const hashIndex = href.indexOf('#');
@@ -123,7 +134,7 @@ function initSmoothScroll() {
 }
 
 // Vibración háptica sutil en elementos con [data-haptic] (Android/Chrome; iOS lo ignora).
-function initHaptics() {
+function initHapticsOnce() {
   if (reduce || !('vibrate' in navigator)) return;
   document.addEventListener(
     'click',
@@ -166,7 +177,7 @@ function initCarouselDots() {
 
 // Spotlight: la luz de las tarjetas sigue el cursor (setea --mx/--my del CSS).
 // Un solo listener delegado para todas las cards.
-function initSpotlight() {
+function initSpotlightOnce() {
   if (!window.matchMedia('(pointer: fine)').matches) return;
   document.addEventListener(
     'pointermove',
@@ -202,18 +213,23 @@ function initMagnetic() {
   });
 }
 
-function init() {
+// Se ejecuta en cada navegación (y en la carga inicial): re-consulta el DOM nuevo.
+function initPage() {
+  progressBar = document.getElementById('scroll-progress');
+  parallaxEls = Array.from(document.querySelectorAll('[data-parallax]')).filter(
+    (el) => !(sdSupported && el.classList.contains('sd-parallax'))
+  );
   initReveal();
-  initScrollFx();
-  initSmoothScroll();
-  initHaptics();
   initCarouselDots();
-  initSpotlight();
   initMagnetic();
+  bindAnchors();
+  updateScrollFx();
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
+initScrollFxOnce();
+initSmoothScrollOnce();
+initHapticsOnce();
+initSpotlightOnce();
+
+// astro:page-load dispara en la carga inicial y después de cada view transition.
+document.addEventListener('astro:page-load', initPage);

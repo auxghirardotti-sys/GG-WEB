@@ -44,9 +44,11 @@ import { waLink } from '../data/site';
 </style>
 
 <script>
-  // El label se contrae a solo ícono pasados 4s.
-  const float = document.getElementById('wsp-float');
-  if (float && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    window.setTimeout(() => float.classList.add('collapsed'), 4000);
-  }
+  // El label se contrae a solo ícono pasados 4s (se rearma en cada navegación).
+  document.addEventListener('astro:page-load', () => {
+    const float = document.getElementById('wsp-float');
+    if (float && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.setTimeout(() => float.classList.add('collapsed'), 4000);
+    }
+  });
 </script>
