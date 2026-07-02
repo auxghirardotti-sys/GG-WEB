@@ -1,18 +1,18 @@
 {
   "items": [
     {
-      "quote": "Ordenamos toda la parte impositiva del campo y se nota: cada campaña la arrancamos sabiendo con qué contamos y sin sorpresas con los impuestos.",
-      "who": "Empresa agropecuaria · Pergamino, Bs. As.",
+      "quote": "Arrancamos cada campaña sabiendo con qué contamos y sin sorpresas con los impuestos.",
+      "who": "Empresa agropecuaria",
       "icon": "agropecuario"
     },
     {
-      "quote": "Nos guiaron en la reorganización del grupo familiar con criterio y sin vueltas. Lo que era un nudo societario quedó ordenado y protegido para las próximas generaciones.",
-      "who": "Grupo familiar · Industria metalmecánica",
+      "quote": "Lo que era un nudo societario quedó ordenado y protegido para la próxima generación.",
+      "who": "Grupo familiar industrial",
       "icon": "factory"
     },
     {
-      "quote": "Tercerizamos toda la administración contable e impositiva y nos sacamos un peso de encima: cumplen los vencimientos, nos avisan antes y siempre hablamos con la misma persona.",
-      "who": "Empresa de tecnología · CABA",
+      "quote": "Cumplen los vencimientos, nos avisan antes y siempre hablamos con la misma persona.",
+      "who": "Empresa de tecnología",
       "icon": "code"
     }
   ]
