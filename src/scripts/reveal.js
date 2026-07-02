@@ -164,12 +164,52 @@ function initCarouselDots() {
   });
 }
 
+// Spotlight: la luz de las tarjetas sigue el cursor (setea --mx/--my del CSS).
+// Un solo listener delegado para todas las cards.
+function initSpotlight() {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  document.addEventListener(
+    'pointermove',
+    (e) => {
+      if (!(e.target instanceof Element)) return;
+      const card = e.target.closest('.surface-card, .service-card');
+      if (!card) return;
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      card.style.setProperty('--my', `${e.clientY - r.top}px`);
+    },
+    { passive: true }
+  );
+}
+
+// Botones magnéticos [data-magnetic]: se inclinan unos px hacia el cursor y vuelven solos.
+function initMagnetic() {
+  if (reduce || !window.matchMedia('(pointer: fine)').matches) return;
+  document.querySelectorAll('[data-magnetic]').forEach((el) => {
+    el.addEventListener(
+      'pointermove',
+      (e) => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) / r.width;
+        const y = (e.clientY - r.top - r.height / 2) / r.height;
+        el.style.transform = `translate(${(x * 8).toFixed(1)}px, ${(y * 6).toFixed(1)}px)`;
+      },
+      { passive: true }
+    );
+    el.addEventListener('pointerleave', () => {
+      el.style.transform = '';
+    });
+  });
+}
+
 function init() {
   initReveal();
   initScrollFx();
   initSmoothScroll();
   initHaptics();
   initCarouselDots();
+  initSpotlight();
+  initMagnetic();
 }
 
 if (document.readyState === 'loading') {

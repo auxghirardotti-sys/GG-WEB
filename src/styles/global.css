@@ -582,6 +582,85 @@ details.service-card[open] .service-panel {
 .zoom-host img { transition: transform 0.7s var(--ease-editorial); }
 .zoom-host:hover img { transform: scale(1.06); }
 
+/* ---- Micro-interacciones premium ---- */
+
+/* Spotlight: luz roja sutil que sigue el cursor sobre las tarjetas (solo mouse).
+   reveal.js setea --mx/--my; el radial queda contenido en el pseudo-elemento. */
+@media (pointer: fine) {
+  .surface-card,
+  .service-card {
+    position: relative;
+  }
+  .surface-card::after,
+  .service-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.45s var(--ease-editorial);
+    background: radial-gradient(
+      460px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(205, 51, 51, 0.09),
+      transparent 65%
+    );
+  }
+  .surface-card:hover::after,
+  .service-card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Barrido de luz diagonal en CTAs principales (hover) */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -70%;
+  width: 45%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.65s var(--ease-editorial);
+  pointer-events: none;
+}
+.btn-shine:hover::before {
+  left: 140%;
+}
+
+/* Títulos de sección: se destapan con un barrido izquierda→derecha al revelarse.
+   Los inset negativos evitan recortar descendentes e itálicas. */
+.title-clip {
+  clip-path: inset(-0.25em 100% -0.25em -0.05em);
+  transition: clip-path 0.95s var(--ease-editorial) 0.12s;
+}
+.is-visible .title-clip {
+  clip-path: inset(-0.25em -0.12em -0.25em -0.05em);
+}
+
+/* Botones magnéticos: reveal.js mueve el transform, acá va la suavidad del retorno */
+[data-magnetic] {
+  transition: transform 0.35s var(--ease-editorial);
+  will-change: transform;
+}
+
+/* Scrollbar fina con acento de marca */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand) transparent;
+}
+
+/* Foco visible de marca para navegación por teclado */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
 /* Lenis smooth scroll */
 html.lenis,
 html.lenis body { height: auto; }
@@ -605,4 +684,6 @@ html.lenis body { height: auto; }
   .rule-draw, .kicker::before { transform: scaleX(1) !important; }
   .marquee__track { animation: none !important; }
   .surface-ink::after { animation: none !important; }
+  .title-clip { clip-path: none !important; }
+  .btn-shine::before { display: none; }
 }
