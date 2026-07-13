@@ -1,6 +1,6 @@
 ---
 title: 'RIMI: el nuevo régimen de beneficios fiscales que puede ayudar al campo'
-date: 2026-05-19
+date: 2026-06-12
 source: 'Clarín'
 excerpt: 'El Régimen de Incentivo para Medianas Inversiones (RIMI) trae amortización acelerada en Ganancias y recupero anticipado de IVA. Repasamos por qué le interesa al agro.'
 externalUrl: 'https://www.clarin.com/economia/rimi-10-claves-nuevo-regimen-beneficios-fiscales-puede-ayudar-campo_0_ATZew9297a.html'

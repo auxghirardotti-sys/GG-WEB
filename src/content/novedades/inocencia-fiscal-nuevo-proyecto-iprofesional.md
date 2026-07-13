@@ -1,6 +1,6 @@
 ---
 title: 'Inocencia Fiscal: qué propone el nuevo proyecto de ley'
-date: 2026-07-02
+date: 2026-06-26
 source: 'iProfesional'
 excerpt: 'El nuevo proyecto de Inocencia Fiscal eleva los umbrales penales, suma una DDJJ simplificada y un "tapón fiscal". Repasamos los puntos centrales.'
 externalUrl: 'https://www.iprofesional.com/impuestos/456377-inocencia-fiscal-que-se-sabe-hasta-el-momento-del-nuevo-proyecto-de-ley'

@@ -1,6 +1,6 @@
 ---
 title: 'Inocencia Fiscal: los puntos en discusión, según los especialistas'
-date: 2026-07-01
+date: 2026-06-24
 source: 'El Economista'
 excerpt: 'Más allá del título, la nueva propuesta de Inocencia Fiscal abre varios debates técnicos. Un repaso de los puntos centrales y las opiniones de los especialistas.'
 externalUrl: 'https://eleconomista.com.ar/economia/inocencia-fiscal-puntos-centrales-opinion-especialistas-sobre-nueva-propuesta-n95589'
