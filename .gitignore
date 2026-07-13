@@ -9,3 +9,6 @@ dist/
 
 # Tooling local (Claude Code) — no va al repo
 .claude/
+
+.vercel
+.env*
