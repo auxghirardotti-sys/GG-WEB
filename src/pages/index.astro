@@ -333,7 +333,9 @@ const faqJsonLd = {
         <div class="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3" data-carousel-track data-reveal-stagger>
           {posts.map((p) => (
             <a
-              href={`/novedades/${p.id}`}
+              href={p.data.externalUrl ?? `/novedades/${p.id}`}
+              target={p.data.externalUrl ? '_blank' : undefined}
+              rel={p.data.externalUrl ? 'noopener' : undefined}
               class="surface-card lift group flex shrink-0 basis-[80%] snap-start flex-col rounded-lg p-5 sm:basis-[46%] lg:basis-[31.5%]"
             >
               <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
