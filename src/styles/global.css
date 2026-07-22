@@ -384,39 +384,39 @@ body::before {
   will-change: transform;
 }
 
-/* Logos de clientes en el marquee: desaturados/grises, toman color al hover (estilo Cloudflare).
+/* Logos de clientes en el marquee: SIEMPRE a color y a full opacidad.
+   (Antes iban en grayscale al 60% y solo tomaban color al hover: en mobile no hay hover,
+   así que se veían apagados hasta que el usuario los tocaba.)
    El nombre se muestra como wordmark si no hay logo real cargado. */
 .client-logo {
-  color: var(--color-line-strong);
-  transition: color 0.3s var(--ease-editorial);
-}
-.client-logo:hover {
   color: var(--color-brand);
 }
 .client-logo img {
-  filter: grayscale(1);
-  opacity: 0.6;
-  transition: filter 0.3s var(--ease-editorial), opacity 0.3s var(--ease-editorial);
-}
-.client-logo:hover img {
-  filter: grayscale(0);
+  filter: none;
   opacity: 1;
 }
 
 /* Ocultar scrollbar (carrusel de servicios en mobile) */
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
-.marquee:hover .marquee__track {
-  animation-play-state: paused;
+/* La pausa al hover solo en dispositivos con puntero real: en touch el :hover queda
+   "pegado" tras un tap y dejaba la marquesina frenada. */
+@media (hover: hover) {
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
 }
 .marquee__track--reverse {
   animation-direction: reverse;
   animation-duration: 46s;
 }
+/* Marquesina de clientes: más rápida que la de industrias. */
+.marquee__track--fast { animation-duration: 20s; }
 /* En celular: más lenta para que se lea sin marear */
 @media (max-width: 640px) {
   .marquee__track { animation-duration: 60s; }
   .marquee__track--reverse { animation-duration: 72s; }
+  .marquee__track--fast { animation-duration: 28s; }
 }
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
