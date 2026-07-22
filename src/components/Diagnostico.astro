@@ -38,74 +38,74 @@ const total = steps.length;
 ---
 
 <section class="scroll-mt-20">
-  <div class="mx-auto max-w-6xl px-4 py-9 sm:px-6 sm:py-12 lg:py-16">
+  <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-12 lg:py-16">
     <div class="max-w-2xl" data-reveal>
       <Kicker text="Diagnóstico express" />
-      <h2 class="mt-4 font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
+      <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">
         ¿Por dónde te conviene <em class="accent" style="font-style:italic">empezar</em>?
       </h2>
-      <p class="mt-4 text-base leading-relaxed text-body">
+      <p class="mt-2 text-[13px] leading-snug text-body sm:mt-4 sm:text-base sm:leading-relaxed">
         Respondé 3 preguntas rápidas y te decimos por dónde empezar. Lleva un minuto.
       </p>
     </div>
 
-    <div id="diag" data-wa={SITE.whatsappNumber} data-total={total} class="surface-card mt-8 flex min-h-[32rem] max-w-3xl flex-col rounded-lg p-6 sm:min-h-[24rem] sm:p-8" data-reveal>
+    <div id="diag" data-wa={SITE.whatsappNumber} data-total={total} class="surface-card mt-5 flex min-h-[20rem] max-w-3xl flex-col rounded-2xl p-4 sm:mt-8 sm:min-h-[24rem] sm:rounded-lg sm:p-8" data-reveal>
       <div class="flex items-center justify-between gap-4">
-        <span id="diag-counter" class="text-xs font-bold uppercase tracking-[0.16em] text-muted">Paso 1 de {total}</span>
+        <span id="diag-counter" class="text-[11px] font-bold uppercase tracking-[0.16em] text-muted sm:text-xs">Paso 1 de {total}</span>
         <div class="h-1.5 w-32 overflow-hidden rounded-full bg-line sm:w-40">
           <div id="diag-bar" class="h-full rounded-full bg-brand transition-[width] duration-300" style={`width:${Math.round(100 / total)}%`}></div>
         </div>
       </div>
 
       {steps.map((s, idx) => (
-        <div data-diag-step={idx} data-diag-key={s.key} class:list={['mt-6', idx !== 0 && 'hidden']}>
-          <h3 class="font-display text-xl text-ink sm:text-2xl" style="font-weight:700">{s.q}</h3>
-          <div class="mt-5 grid gap-3 sm:grid-cols-2">
+        <div data-diag-step={idx} data-diag-key={s.key} class:list={['mt-4 sm:mt-6', idx !== 0 && 'hidden']}>
+          <h3 class="font-display text-base text-ink sm:text-2xl" style="font-weight:700">{s.q}</h3>
+          <div class="mt-4 grid grid-cols-2 gap-2 sm:mt-5 sm:grid-cols-2 sm:gap-3">
             {s.options.map((o) => (
               <button
                 type="button"
                 data-diag-opt
                 data-haptic
                 data-value={o.v}
-                class="flex items-center gap-3 rounded-md border border-line bg-surface px-5 py-4 text-left text-base font-semibold text-ink transition-all hover:border-brand hover:bg-brand/5 active:scale-[0.98]"
+                class="flex min-h-[44px] items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2.5 text-left text-[13px] font-semibold leading-snug text-ink transition-all hover:border-brand hover:bg-brand/5 active:scale-[0.98] sm:min-h-0 sm:gap-3 sm:rounded-md sm:px-5 sm:py-4 sm:text-base sm:leading-normal"
               >
-                {'i' in o && o.i && <span class="text-brand"><Icon name={o.i as any} class="h-5 w-5" /></span>}
+                {'i' in o && o.i && <span class="shrink-0 text-brand sm:shrink"><Icon name={o.i as any} class="h-4 w-4 sm:h-5 sm:w-5" /></span>}
                 <span>{o.v}</span>
               </button>
             ))}
           </div>
           {idx > 0 && (
-            <button type="button" data-diag-back class="mt-5 text-sm font-semibold text-muted transition-colors hover:text-brand-ink">← Volver</button>
+            <button type="button" data-diag-back class="mt-3 text-sm font-semibold text-muted transition-colors hover:text-brand-ink sm:mt-5">← Volver</button>
           )}
         </div>
       ))}
 
-      <div id="diag-loading" class="mt-6 hidden">
-        <p class="font-display text-xl text-ink" style="font-weight:700">Preparando tu diagnóstico…</p>
-        <div class="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-line">
+      <div id="diag-loading" class="mt-4 hidden sm:mt-6">
+        <p class="font-display text-base text-ink sm:text-xl" style="font-weight:700">Preparando tu diagnóstico…</p>
+        <div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-line sm:mt-4">
           <div id="diag-loadbar" class="h-full w-0 rounded-full bg-brand transition-[width] duration-1000 ease-out"></div>
         </div>
       </div>
 
-      <div id="diag-result" class="mt-6 hidden">
-        <span class="inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-brand-ink">
+      <div id="diag-result" class="mt-4 hidden sm:mt-6">
+        <span class="inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-brand-ink sm:text-xs">
           <Icon name="check" class="h-4 w-4" /> Diagnóstico listo
         </span>
-        <h3 class="mt-4 font-display text-xl text-ink sm:text-2xl" style="font-weight:700">
+        <h3 class="mt-3 font-display text-base text-ink sm:mt-4 sm:text-2xl" style="font-weight:700">
           Un socio puede ayudarte con <span id="diag-area" class="text-brand-ink">tu consulta</span>.
         </h3>
-        <p id="diag-detail" class="mt-2 text-base leading-relaxed text-body">
+        <p id="diag-detail" class="mt-2 text-[13px] leading-snug text-body sm:text-base sm:leading-relaxed">
           Coordinemos una primera charla.
         </p>
-        <div class="mt-6 flex flex-wrap items-center gap-4">
+        <div class="mt-4 flex flex-wrap items-center gap-3 sm:mt-6 sm:gap-4">
           <a
             id="diag-wa"
             href="#"
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center gap-2 rounded-md bg-brand px-7 py-3.5 text-base font-bold text-white shadow-[0_14px_34px_-14px_rgba(205,51,51,0.7)] transition-colors hover:bg-brand-ink"
+            class="inline-flex items-center gap-2 rounded-md bg-brand px-5 py-3 text-sm font-bold text-white shadow-[0_14px_34px_-14px_rgba(205,51,51,0.7)] transition-colors hover:bg-brand-ink sm:px-7 sm:py-3.5 sm:text-base"
           >
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <svg class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />
               <path d="M12.04 2C6.56 2 2.1 6.45 2.1 11.93c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.92 9.92 0 0 0 4.79 1.22h.01c5.47 0 9.93-4.45 9.93-9.93A9.86 9.86 0 0 0 12.04 2Zm0 18.16a8.24 8.24 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38 8.27 8.27 0 0 1 8.25-8.25 8.2 8.2 0 0 1 5.83 2.42 8.2 8.2 0 0 1 2.41 5.84 8.27 8.27 0 0 1-8.24 8.23Z" />
             </svg>

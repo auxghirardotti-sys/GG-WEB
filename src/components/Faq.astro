@@ -5,21 +5,21 @@ import { FAQ } from '../data/site';
 ---
 
 <section id="faq" class="scroll-mt-20">
-  <div class="mx-auto max-w-6xl px-4 py-9 sm:px-6 sm:py-12 lg:py-16">
+  <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-12 lg:py-16">
     <div data-reveal>
-      <h2 class="font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
+      <h2 class="font-display text-2xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
         Preguntas frecuentes
       </h2>
     </div>
 
-    <div class="mt-10 max-w-3xl border-t border-line" data-reveal>
+    <div class="mt-5 max-w-3xl border-t border-line sm:mt-10" data-reveal>
       {
         FAQ.map((item) => (
           <details class="group border-b border-line">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left">
-              <span class="font-display text-lg text-ink sm:text-xl" style="font-weight:700">{item.q}</span>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-3 py-3.5 text-left sm:gap-4 sm:py-5">
+              <span class="font-display text-[15px] text-ink sm:text-xl" style="font-weight:700">{item.q}</span>
               <svg
-                class="faq-chevron h-5 w-5 shrink-0 text-brand transition-transform duration-300"
+                class="faq-chevron h-4 w-4 shrink-0 text-brand transition-transform duration-300 sm:h-5 sm:w-5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -31,7 +31,7 @@ import { FAQ } from '../data/site';
             </summary>
             <div class="faq-answer">
               <div class="overflow-hidden">
-                <p class="pb-6 pr-8 text-base leading-relaxed text-body">{item.a}</p>
+                <p class="pb-4 pr-2 text-[13px] leading-snug text-body sm:pb-6 sm:pr-8 sm:text-base sm:leading-relaxed">{item.a}</p>
               </div>
             </div>
           </details>
