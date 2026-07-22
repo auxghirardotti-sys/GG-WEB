@@ -411,12 +411,12 @@ body::before {
   animation-duration: 46s;
 }
 /* Marquesina de clientes: más rápida que la de industrias. */
-.marquee__track--fast { animation-duration: 20s; }
+.marquee__track--fast { animation-duration: 40s; }
 /* En celular: más lenta para que se lea sin marear */
 @media (max-width: 640px) {
   .marquee__track { animation-duration: 60s; }
   .marquee__track--reverse { animation-duration: 72s; }
-  .marquee__track--fast { animation-duration: 28s; }
+  .marquee__track--fast { animation-duration: 40s; }
 }
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }

@@ -25,14 +25,14 @@ export const SERVICES: Service[] = [
       'Asesoramiento impositivo y planificación fiscal nacional e internacional para empresas y grupos: impuestos nacionales y provinciales, defensa tributaria, precios de transferencia y operaciones internacionales.',
     heroTitle: 'Asesoramiento impositivo y planificación fiscal nacional e internacional',
     heroSub:
-      'Planificación fiscal y reducción de riesgos: que los impuestos dejen de ser un problema y pasen a ser una variable más, bajo control.',
+      'Planificación fiscal y reducción de riesgos: los impuestos, bajo control.',
     heroImage: '/img/hero-impositivo.jpg',
     icon: 'impositivo',
     card: 'Que los impuestos dejen de ser un problema. Bajo control.',
     cardImage: '/img/svc-impositivo.jpg',
     intro: [
-      'Los impuestos son, para la mayoría de las empresas, uno de sus mayores costos. Nuestro trabajo es que ese costo esté planificado, optimizado y bajo control, con una mirada estratégica que va mucho más allá de presentar declaraciones juradas a tiempo.',
-      'Trabajamos con la dirección de cada empresa para entender su negocio y diseñar la estructura fiscal que mejor le quede: desde la operación diaria hasta reorganizaciones, sucesiones y operaciones internacionales.',
+      'Los impuestos suelen ser uno de los mayores costos de una empresa. Nuestro trabajo es planificarlos y controlarlos.',
+      'Trabajamos con la dirección para diseñar la estructura fiscal que mejor le quede: de la operación diaria a reorganizaciones y sucesiones.',
     ],
     itemsTitle: 'Qué resolvemos en materia impositiva',
     items: [
@@ -55,13 +55,13 @@ export const SERVICES: Service[] = [
       'Auditoría externa de estados contables en normas locales e IFRS, auditoría interna y de fraudes, control interno y due diligence para empresas de todos los sectores.',
     heroTitle: 'Asesoramiento contable y auditoría',
     heroSub:
-      'Estados contables confiables y procesos sólidos, para que los números reflejen la realidad del negocio y sirvan para decidir.',
+      'Estados contables confiables, que reflejen la realidad y sirvan para decidir.',
     icon: 'contable',
     card: 'Números confiables para decidir créditos, inversiones y operaciones.',
     cardImage: '/img/svc-contable.jpg',
     intro: [
-      'Unos estados contables bien armados no son un trámite: son la base sobre la que se deciden créditos, inversiones, ventas de empresas y relaciones con socios. Por eso los tratamos con el rigor que merecen.',
-      'Nuestro equipo audita y analiza estados contables bajo normas locales e IFRS, y trabaja sobre los procesos y controles internos que están detrás de esos números, en empresas de los más variados sectores e industrias.',
+      'Los estados contables no son un trámite: sobre ellos se deciden créditos, inversiones y ventas de empresas.',
+      'Auditamos y analizamos estados contables bajo normas locales e IFRS, y trabajamos sobre los procesos y controles internos que están detrás.',
     ],
     itemsTitle: 'Servicios contables y de auditoría',
     items: [
@@ -84,14 +84,14 @@ export const SERVICES: Service[] = [
       'Especialistas en el agro: planificación fiscal agropecuaria, impuestos del sector, costos de producción, inventarios de hacienda y granos, y rentabilidad por actividad.',
     heroTitle: 'Planificación fiscal agropecuaria',
     heroSub:
-      'El agro tiene sus propios ciclos, sus riesgos y su régimen fiscal. Lo conocemos de adentro: también somos productores.',
+      'El agro tiene sus ciclos, sus riesgos y su régimen fiscal. Los conocemos.',
     heroImage: '/img/agro-a.jpg',
     icon: 'agropecuario',
-    card: 'Impuestos del agro, costos y rentabilidad. Somos productores.',
+    card: 'Impuestos del agro, costos y rentabilidad. Conocemos el sector.',
     cardImage: '/img/agro-a.jpg',
     intro: [
-      'La contabilidad agropecuaria no es una contabilidad más: ciclos biológicos, estacionalidad, clima, retenciones y regímenes especiales hacen que las recetas genéricas queden cortas.',
-      'En el agro no alcanza con saber de impuestos: hay que conocer la campaña, el clima y el riesgo. Lo conocemos desde el campo y desde los números, y eso nos permite asesorar a empresas agrícolas y ganaderas con criterio real, no solo de escritorio.',
+      'Ciclos biológicos, clima, retenciones, regímenes especiales: en el agro las recetas genéricas quedan cortas.',
+      'Asesoramos a empresas agrícolas y ganaderas con criterio real: no alcanza con saber de impuestos, hay que conocer la campaña.',
     ],
     itemsTitle: 'Cómo acompañamos a las empresas del agro',
     items: [
@@ -113,13 +113,13 @@ export const SERVICES: Service[] = [
       'Asesoramiento societario para empresas: constitución y estructuras, convenios de accionistas, fusiones y adquisiciones, inspecciones ante IGJ y Justicia.',
     heroTitle: 'Asesoramiento societario',
     heroSub:
-      'La estructura legal correcta para cada negocio: desde la constitución de una sociedad hasta fusiones, adquisiciones y convenios entre socios.',
+      'Desde constituir una sociedad hasta fusiones, adquisiciones y convenios entre socios.',
     icon: 'sociedades',
     card: 'La estructura legal correcta para crecer, asociarte o vender.',
     cardImage: '/img/svc-sociedades.jpg',
     intro: [
-      'Detrás de todo negocio sólido hay una estructura societaria pensada: protege el patrimonio, ordena la relación entre socios y prepara a la empresa para crecer, asociarse o venderse bien.',
-      'Ya sea que estés por iniciar una empresa, quieras optimizar la estructura existente o estés frente a una fusión o adquisición, nuestro departamento de sociedades —liderado por una abogada con larga trayectoria corporativa— diseña la solución a medida.',
+      'Detrás de todo negocio sólido hay una estructura pensada: protege el patrimonio y ordena la relación entre socios.',
+      'Nuestro departamento de sociedades, liderado por una abogada con larga trayectoria corporativa, diseña la solución a medida.',
     ],
     itemsTitle: 'Gestiones y servicios societarios',
     items: [
@@ -138,14 +138,14 @@ export const SERVICES: Service[] = [
       'Planificación patrimonial y sucesoria con mirada legal, fiscal y jurídica: protección del patrimonio, estructuras familiares, sucesiones y transmisión ordenada entre generaciones.',
     heroTitle: 'Planificación patrimonial y sucesoria',
     heroSub:
-      'Ordenar, proteger y transmitir el patrimonio familiar y empresario desde la óptica legal, fiscal y jurídica, para que cada generación reciba claridad y no conflictos.',
+      'Ordenar, proteger y transmitir el patrimonio familiar y empresario.',
     heroImage: '/img/campo-atardecer.jpg',
     icon: 'shield',
     card: 'Protegé y transmití tu patrimonio. Mirada legal, fiscal y jurídica.',
     cardImage: '/img/campo-atardecer.jpg',
     intro: [
-      'El patrimonio que se construye a lo largo de una vida —empresas, inmuebles, inversiones— necesita una estrategia para protegerse y transmitirse en orden. Sin planificación, la sucesión suele terminar en impuestos evitables, trámites largos y conflictos entre herederos.',
-      'Abordamos la planificación patrimonial y sucesoria de forma integral, combinando la óptica legal, fiscal y jurídica: diseñamos la estructura que protege los activos, ordena la relación familiar y prepara la transmisión entre generaciones con la menor carga impositiva posible.',
+      'El patrimonio de toda una vida —empresas, inmuebles, inversiones— necesita una estrategia para transmitirse en orden.',
+      'Diseñamos la estructura que protege los activos y prepara la transmisión entre generaciones con la menor carga impositiva posible.',
     ],
     itemsTitle: 'Cómo planificamos tu patrimonio y tu sucesión',
     items: [
@@ -166,13 +166,13 @@ export const SERVICES: Service[] = [
       'Tercerización contable e impositiva para empresas: contabilización de operaciones, declaraciones juradas nacionales y provinciales, libros y soluciones a medida.',
     heroTitle: 'Outsourcing contable e impositivo',
     heroSub:
-      'Tu administración contable e impositiva, en manos de un equipo profesional: vos te dedicás al negocio, nosotros a los números.',
+      'Tu administración contable e impositiva, en manos de un equipo profesional.',
     icon: 'outsourcing',
     card: 'Vos al negocio, nosotros a tus números. Sin departamento propio.',
     cardImage: '/img/svc-outsourcing.jpg',
     intro: [
-      'Mantener un departamento contable propio es caro y, en muchas empresas, innecesario. Tercerizar la contabilidad y los impuestos en un estudio con trayectoria reduce costos, errores y contingencias.',
-      'Armamos esquemas de outsourcing a medida: desde la contabilización de operaciones hasta la presentación de todas las declaraciones juradas, con la información siempre disponible para la dirección.',
+      'Mantener un departamento contable propio es caro y, en muchas empresas, innecesario.',
+      'Tercerizar en un estudio con trayectoria reduce costos, errores y contingencias: armamos el esquema a medida, declaraciones juradas incluidas.',
     ],
     itemsTitle: 'Qué incluye nuestro outsourcing',
     items: [
