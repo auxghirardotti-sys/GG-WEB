@@ -19,7 +19,23 @@ const bento = !exclude;
 const featured = bento && items.length === 5;
 ---
 
-<div data-carousel>
+{/* MOBILE: cuadros compactos estilo "¿Qué necesitás resolver?" (mismo patrón de chip).
+    Tocar lleva a la página del servicio. En sm+ se ocultan y vuelven las cards grandes. */}
+<div class="grid grid-cols-2 gap-2 sm:hidden" data-reveal-stagger>
+  {
+    items.map((s) => (
+      <a
+        href={`/servicios/${s.slug}`}
+        class="flex min-h-[44px] items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2.5 text-left text-[13px] font-semibold leading-snug text-ink transition-all hover:border-brand hover:bg-brand/5 active:scale-[0.98]"
+      >
+        <span class="shrink-0 text-brand"><Icon name={s.icon} class="h-4 w-4" /></span>
+        <span>{s.nav}</span>
+      </a>
+    ))
+  }
+</div>
+
+<div class="hidden sm:block" data-carousel>
   <div
     class:list={[
       'no-scrollbar flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0',
@@ -100,10 +116,5 @@ const featured = bento && items.length === 5;
       );
     })
   }
-  </div>
-  <div class="mt-3 flex justify-center gap-2 sm:hidden">
-    {items.map(() => (
-      <span data-carousel-dot class="h-2 w-2 rounded-full bg-line transition-colors"></span>
-    ))}
   </div>
 </div>
