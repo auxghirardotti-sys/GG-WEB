@@ -13,8 +13,26 @@ import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { SITE, waLink, waLinkFor, TEAM, INDUSTRIES, DIFFERENTIALS, FAQ, CLIENTS } from '../data/site';
 import { fmtDate } from '../data/format';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import { img } from '../data/images';
+
+// Portada: fotos de la Catedral de San Isidro (ancla geográfica del estudio).
+// Mobile = toma vertical de la torre; desktop = lateral con la plaza y la estatua.
+// Para cambiar la de escritorio por la versión nítida: 'catedral-lateral-hd.jpg'.
+const heroMobile = await getImage({
+  src: img('catedral-frontal.jpg'),
+  // width fija el src de respaldo (si no, Astro usa el original de 1800px = 418KB)
+  width: 900,
+  widths: [420, 640, 900, 1280],
+  format: 'webp',
+  quality: 76,
+});
+const heroDesktop = await getImage({
+  src: img('catedral-lateral.jpg'),
+  widths: [1024],
+  format: 'webp',
+  quality: 82,
+});
 
 const posts = (await getCollection('novedades'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -60,10 +78,21 @@ const faqJsonLd = {
   <!-- HERO full-screen con video de fondo (look "VEX": media a sangre + liquid glass) -->
   <section class="cine masthead-top relative flex min-h-[58svh] flex-col sm:min-h-[92svh] lg:min-h-screen">
     <div class="cine__media sd-parallax" data-parallax="0.12">
-      <video class="h-full w-full object-cover" autoplay loop muted playsinline preload="metadata" aria-hidden="true" poster={img('/img/hero-impositivo.jpg').src}>
-        <source src="/hero-video.webm" type="video/webm" />
-        <source src="/hero-video.mp4" type="video/mp4" />
-      </video>
+      {/* Art direction: en celular la toma vertical de la torre; en ≥640px la lateral con la plaza.
+          El navegador descarga SOLO la que corresponde a su ancho, nunca las dos. */}
+      <picture>
+        <source media="(min-width: 640px)" srcset={heroDesktop.srcSet.attribute} sizes="100vw" type="image/webp" />
+        <img
+          src={heroMobile.src}
+          srcset={heroMobile.srcSet.attribute}
+          sizes="100vw"
+          alt="Catedral de San Isidro"
+          class="h-full w-full object-cover"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
     </div>
     <!-- velo en gradiente: video crudo arriba, oscurecido abajo para legibilidad -->
     <div class="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent"></div>

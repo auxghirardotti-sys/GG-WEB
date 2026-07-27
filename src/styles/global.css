@@ -557,10 +557,17 @@ details.service-card[open] .service-panel {
   will-change: transform;
 }
 .cine__media img,
-.cine__media video {
+.cine__media video,
+.cine__media img {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+/* <picture> es inline por defecto: sin esto la imagen no tiene contra qué medir el 100% de alto */
+.cine__media picture {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 .cine__veil {
   position: absolute;
