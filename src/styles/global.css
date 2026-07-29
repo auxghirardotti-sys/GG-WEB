@@ -708,3 +708,9 @@ html.lenis body { height: auto; }
   .btn-shine::before { display: none; }
   .sd-parallax { animation: none !important; }
 }
+
+/* Portada en celular: título más aireado (pisa el -0.02em de .font-display,
+   que al ser CSS sin capa le gana a las utilidades tracking-*) */
+@media (max-width: 639px) {
+  #hero-h1 { letter-spacing: 0.01em; }
+}
