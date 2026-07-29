@@ -14,12 +14,12 @@ import { img } from '../data/images';
 >
   <!-- HERO -->
   <section class="masthead-top grid-paper border-b border-line">
-    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16" data-reveal>
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16" data-reveal>
       <Kicker text="Quiénes somos" />
-      <h1 class="font-display mt-6 max-w-4xl text-4xl leading-[1.05] text-brand sm:text-6xl" style="font-weight:800">
+      <h1 class="font-display mt-6 max-w-4xl text-3xl leading-[1.05] text-brand sm:text-6xl" style="font-weight:800">
         Tres generaciones cuidando los números de las empresas
       </h1>
-      <p class="mt-7 max-w-2xl text-lg leading-[1.7] text-body">
+      <p class="mt-7 max-w-2xl text-sm leading-snug text-body sm:text-lg sm:leading-[1.7]">
         Una compañía que, con un enfoque propio, moderno y eficiente, y con el importante aporte de su
         cuerpo de asociados, brinda soluciones empresarias en un entorno cada vez más complejo.
       </p>
@@ -28,25 +28,25 @@ import { img } from '../data/images';
 
   <!-- HISTORIA + MISIÓN -->
   <section>
-    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:py-16">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-6 sm:px-6 sm:py-12 lg:grid-cols-2 lg:py-16">
       <div data-reveal="left">
         <Kicker text="Nuestra historia" />
-        <h2 class="mt-4 font-display text-3xl text-brand sm:text-4xl" style="font-weight:700">Sesenta años de criterio</h2>
-        <p class="mt-5 text-lg leading-[1.7] text-body">
+        <h2 class="mt-2 font-display text-2xl text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">Sesenta años de criterio</h2>
+        <p class="mt-5 text-[13px] leading-snug text-body sm:text-lg sm:leading-[1.7]">
           El estudio nació en 1967 de la mano del Dr. Armando Ghirardotti, y creció
           junto a sus clientes: empresas que necesitaban algo más que el cumplimiento de formalidades
           administrativas. Hoy la segunda generación dirige el estudio, combinando esa trayectoria
           con un enfoque moderno y eficiente.
         </p>
-        <p class="mt-4 text-lg leading-[1.7] text-body">
+        <p class="mt-4 text-[13px] leading-snug text-body sm:text-lg sm:leading-[1.7]">
           Quienes trabajan con nosotros buscan el asesoramiento como valor agregado distintivo: una
           mirada profesional que anticipa problemas, planifica y propone, en lugar de limitarse a
           presentar papeles a tiempo.
         </p>
       </div>
-      <div class="surface-ink masthead-top flex flex-col justify-center p-10 lg:p-12" data-reveal="right">
+      <div class="surface-ink masthead-top flex flex-col justify-center p-6 sm:p-10 lg:p-12" data-reveal="right">
         <Kicker text="Nuestra misión" light />
-        <blockquote class="mt-6 font-display text-2xl leading-[1.3] text-white sm:text-3xl" style="font-weight:800">
+        <blockquote class="mt-6 font-display text-lg leading-[1.3] text-white sm:text-3xl" style="font-weight:800">
           Proteger y manejar con eficiencia la utilidad y los activos de las empresas, desde las
           ópticas <em class="text-brand-bright" style="font-style:italic">tributaria, societaria y de auditoría.</em>
         </blockquote>
@@ -56,12 +56,12 @@ import { img } from '../data/images';
 
   <!-- EQUIPO -->
   <section class="surface-paper-soft">
-    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-12 lg:py-16">
       <div data-reveal>
         <Kicker text="El equipo" />
-        <h2 class="mt-4 font-display text-3xl text-brand sm:text-4xl" style="font-weight:700">Los socios del estudio</h2>
+        <h2 class="mt-2 font-display text-2xl text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">Los socios del estudio</h2>
       </div>
-      <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+      <div class="mt-5 grid gap-8 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
         {TEAM.map((m) => <TeamCard member={m} />)}
       </div>
     </div>
@@ -69,7 +69,7 @@ import { img } from '../data/images';
 
   <!-- BOKS -->
   <section>
-    <div class="mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 py-12 sm:px-6 md:flex-row lg:py-16" data-reveal>
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 py-6 sm:px-6 sm:py-12 md:flex-row lg:py-16" data-reveal>
       <Image
         src={img('/img/boks.jpg')}
         alt="Miembro independiente de BOKS International"
@@ -81,10 +81,10 @@ import { img } from '../data/images';
       />
       <div>
         <Kicker text="Red internacional" />
-        <h2 class="mt-4 font-display text-3xl text-brand sm:text-4xl" style="font-weight:700">
+        <h2 class="mt-2 font-display text-2xl text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">
           Alcance internacional, atención local
         </h2>
-        <p class="mt-5 max-w-xl text-lg leading-[1.7] text-body">
+        <p class="mt-5 max-w-xl text-[13px] leading-snug text-body sm:text-lg sm:leading-[1.7]">
           Somos miembro independiente de <strong class="font-semibold text-ink">BOKS International</strong>,
           una red global de firmas de contadores, auditores y consultores. Eso nos permite acompañar a
           nuestros clientes en operaciones internacionales con corresponsales de confianza en decenas de

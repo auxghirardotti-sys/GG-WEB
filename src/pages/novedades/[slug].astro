@@ -18,7 +18,7 @@ const { Content } = await render(post);
 
 <Base title={`${post.data.title} | Novedades G&G`} description={post.data.excerpt}>
   <article class="masthead-top grid-paper">
-    <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:py-16">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
       <nav class="text-xs font-medium uppercase tracking-[0.14em] text-muted" aria-label="Migas de pan">
         <a href="/" class="hover:text-brand-ink">Inicio</a>
         <span class="mx-2">/</span>
@@ -35,7 +35,7 @@ const { Content } = await render(post);
       </h1>
 
       <div
-        class="mt-9 space-y-5 text-lg leading-[1.75] text-body [&_a]:font-semibold [&_a]:text-brand-ink [&_a:hover]:underline [&_strong]:font-semibold [&_strong]:text-ink"
+        class="mt-5 space-y-5 text-sm leading-snug text-body sm:mt-9 sm:text-lg sm:leading-[1.75] [&_a]:font-semibold [&_a]:text-brand-ink [&_a:hover]:underline [&_strong]:font-semibold [&_strong]:text-ink"
       >
         <Content />
       </div>
@@ -45,13 +45,13 @@ const { Content } = await render(post);
           href={post.data.externalUrl}
           target="_blank"
           rel="noopener"
-          class="mt-9 inline-flex items-center gap-2 rounded-md border border-line px-6 py-3 text-sm font-bold text-ink transition-colors hover:border-brand hover:text-brand-ink"
+          class="mt-5 inline-flex items-center gap-2 rounded-md border border-line px-6 py-3 text-sm font-bold text-ink transition-colors hover:border-brand hover:text-brand-ink sm:mt-9"
         >
           Leer la nota original en {post.data.source}
         </a>
       )}
 
-      <a href="/novedades" class="mt-10 block text-sm font-bold text-brand-ink hover:underline">
+      <a href="/novedades" class="mt-5 block text-sm font-bold text-brand-ink hover:underline sm:mt-10">
         ← Volver a novedades
       </a>
     </div>

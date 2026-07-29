@@ -15,12 +15,12 @@ const posts = (await getCollection('novedades')).sort(
   description="Novedades del estudio Ghirardotti & Ghirardotti: columnas en medios, cursos y análisis sobre actualidad impositiva, societaria y del agro."
 >
   <section class="masthead-top grid-paper border-b border-line">
-    <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:py-16" data-reveal>
+    <div class="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16" data-reveal>
       <Kicker text="Novedades" />
-      <h1 class="font-display mt-6 text-4xl leading-[1.05] text-brand sm:text-6xl" style="font-weight:800">
+      <h1 class="font-display mt-6 text-3xl leading-[1.05] text-brand sm:text-6xl" style="font-weight:800">
         El estudio en los medios
       </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-[1.7] text-body">
+      <p class="mt-6 max-w-2xl text-sm leading-snug text-body sm:text-lg sm:leading-[1.7]">
         Columnas, cursos y análisis de nuestros socios sobre actualidad impositiva, societaria y del
         negocio agropecuario.
       </p>
@@ -28,7 +28,7 @@ const posts = (await getCollection('novedades')).sort(
   </section>
 
   <section>
-    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:py-14">
+    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10 lg:py-14">
       <div data-carousel>
         <div class="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3" data-carousel-track data-reveal-stagger>
           {
@@ -37,7 +37,7 @@ const posts = (await getCollection('novedades')).sort(
                 href={p.data.externalUrl ?? `/novedades/${p.id}`}
                 target={p.data.externalUrl ? '_blank' : undefined}
                 rel={p.data.externalUrl ? 'noopener' : undefined}
-                class="surface-card lift group flex shrink-0 basis-[80%] snap-start flex-col rounded-lg p-5 sm:basis-[46%] lg:basis-[31.5%]"
+                class="surface-card lift group flex shrink-0 basis-[70%] snap-start flex-col rounded-lg p-5 sm:basis-[46%] lg:basis-[31.5%]"
               >
                 <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
                   <time datetime={p.data.date.toISOString()}>{fmtDate(p.data.date)}</time>

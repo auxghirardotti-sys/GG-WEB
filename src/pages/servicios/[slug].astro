@@ -39,7 +39,7 @@ const [lead, ...restIntro] = service.intro;
     <span class="pointer-events-none absolute -right-6 top-1/2 -translate-y-1/2 select-none text-white/[0.06]" aria-hidden="true">
       <Icon name={service.icon} class="h-64 w-64 sm:h-80 sm:w-80" />
     </span>
-    <div class="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:py-20">
+    <div class="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-14 lg:py-20">
       <nav class="text-xs font-medium uppercase tracking-[0.16em] text-white/65" aria-label="Migas de pan">
         <a href="/" class="hover:text-white">Inicio</a>
         <span class="mx-2">/</span>
@@ -48,16 +48,16 @@ const [lead, ...restIntro] = service.intro;
         <span class="text-white/80">{service.nav}</span>
       </nav>
       <Kicker text="Servicio" light class="mt-6 is-visible" />
-      <h1 class="font-display mt-4 max-w-3xl text-4xl leading-[1.05] text-white sm:text-6xl" style="font-weight:800">
+      <h1 class="font-display mt-4 max-w-3xl text-3xl leading-[1.05] text-white sm:text-6xl" style="font-weight:800">
         {service.heroTitle}
       </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">{service.heroSub}</p>
-      <div class="mt-9 flex flex-wrap gap-3">
+      <p class="mt-6 max-w-2xl text-sm leading-snug text-white/70 sm:text-lg sm:leading-relaxed">{service.heroSub}</p>
+      <div class="mt-5 flex flex-wrap gap-3 sm:mt-9">
         <a
           href={wa}
           target="_blank"
           rel="noopener"
-          class="inline-flex items-center gap-2 rounded-md bg-brand px-7 py-3.5 text-base font-bold text-white transition-colors hover:bg-brand-ink"
+          class="inline-flex items-center gap-2 rounded-md bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink sm:px-7 sm:py-3.5 sm:text-base"
         >
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />
@@ -67,7 +67,7 @@ const [lead, ...restIntro] = service.intro;
         </a>
         <a
           href="/contacto"
-          class="inline-flex items-center rounded-md border border-white/25 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10"
+          class="inline-flex items-center rounded-md border border-white/25 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 sm:px-7 sm:py-3.5 sm:text-base"
         >
           Ir a contacto
         </a>
@@ -77,14 +77,14 @@ const [lead, ...restIntro] = service.intro;
 
   <!-- INTRO + ASIDE -->
   <section>
-    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.5fr_1fr] lg:py-16">
+    <div class="mx-auto grid max-w-6xl gap-5 px-4 py-6 sm:gap-10 sm:px-6 sm:py-12 lg:grid-cols-[1.5fr_1fr] lg:py-16">
       <div data-reveal>
-        <p class="font-display text-2xl leading-[1.4] text-ink sm:text-[1.6rem]" style="font-weight:800">{lead}</p>
+        <p class="font-display text-lg leading-[1.4] text-ink sm:text-[1.6rem]" style="font-weight:800">{lead}</p>
         {restIntro.map((p) => (
-          <p class="mt-5 text-lg leading-[1.7] text-body">{p}</p>
+          <p class="mt-5 text-[13px] leading-snug text-body sm:text-lg sm:leading-[1.7]">{p}</p>
         ))}
       </div>
-      <aside class="h-fit surface-card rounded-sm p-7 lg:sticky lg:top-24" data-reveal>
+      <aside class="h-fit surface-card rounded-sm p-5 sm:p-7 lg:sticky lg:top-24" data-reveal>
         <span class="relative flex h-12 w-12 items-center justify-center bg-ink text-white">
           <span class="absolute right-0 top-0 h-4 w-4 border-b border-l border-brand-bright"></span>
           <Icon name={service.icon} class="h-6 w-6" />
@@ -111,20 +111,20 @@ const [lead, ...restIntro] = service.intro;
 
   <!-- ITEMS -->
   <section class="surface-paper-soft">
-    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-12 lg:py-16">
       <div data-reveal>
         <Kicker text="Alcance" />
-        <h2 class="mt-4 max-w-2xl font-display text-3xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
+        <h2 class="mt-2 max-w-2xl font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">
           {service.itemsTitle}
         </h2>
       </div>
-      <ul class="mt-10 grid gap-x-12 border-t border-line sm:grid-cols-2" data-reveal>
+      <ul class="mt-5 grid gap-x-12 border-t border-line sm:mt-10 sm:grid-cols-2" data-reveal>
         {service.items.map((item) => (
-          <li class="flex items-start gap-4 border-b border-line py-5">
+          <li class="flex items-start gap-4 border-b border-line py-3 sm:py-5">
             <span class="mt-0.5 shrink-0 text-brand">
               <Icon name="check" class="h-5 w-5" />
             </span>
-            <span class="text-base font-medium text-ink">{item}</span>
+            <span class="text-sm font-medium text-ink sm:text-base">{item}</span>
           </li>
         ))}
       </ul>
@@ -133,14 +133,14 @@ const [lead, ...restIntro] = service.intro;
 
   <!-- OTROS SERVICIOS -->
   <section>
-    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-12 lg:py-16">
       <div data-reveal>
         <Kicker text="Seguir explorando" />
-        <h2 class="mt-4 font-display text-2xl text-brand sm:text-3xl" style="font-weight:700">
+        <h2 class="mt-2 font-display text-2xl text-brand sm:mt-4 sm:text-3xl" style="font-weight:700">
           Otros servicios del estudio
         </h2>
       </div>
-      <div class="mt-10">
+      <div class="mt-5 sm:mt-10">
         <ServiceIndex exclude={service.slug} />
       </div>
     </div>
