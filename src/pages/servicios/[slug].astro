@@ -43,7 +43,7 @@ const heroPhoto = service.heroImage ?? service.cardImage;
     <span class="pointer-events-none absolute -right-6 top-1/2 hidden -translate-y-1/2 select-none text-white/[0.07] lg:block" aria-hidden="true">
       <Icon name={service.icon} class="h-64 w-64" />
     </span>
-    <div class="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-14">
+    <div class="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-10">
       <nav class="text-xs font-medium uppercase tracking-[0.16em] text-white/65" aria-label="Migas de pan">
         <a href="/" class="hover:text-white">Inicio</a>
         <span class="mx-2">/</span>
@@ -83,7 +83,7 @@ const heroPhoto = service.heroImage ?? service.cardImage;
   <section>
     {/* pb reducido: la sección de abajo ("Otros servicios") aporta su propio pt y entre las dos
         quedaban 170px de aire cuando el servicio tiene pocos ítems */}
-    <div class="mx-auto grid max-w-6xl gap-5 px-4 pb-4 pt-6 sm:gap-8 sm:px-6 sm:pb-6 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-10 lg:pb-4 lg:pt-16">
+    <div class="mx-auto grid max-w-6xl gap-5 px-4 pb-4 pt-6 sm:gap-8 sm:px-6 sm:pb-6 sm:pt-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-10 lg:pb-4 lg:pt-8">
       <div data-reveal>
         <p class="font-display text-lg leading-[1.35] text-ink sm:text-xl lg:text-[1.375rem]" style="font-weight:800">{lead}</p>
         {restIntro.map((p) => (
@@ -135,7 +135,7 @@ const heroPhoto = service.heroImage ?? service.cardImage;
 
   <!-- OTROS SERVICIOS -->
   <section>
-    <div class="mx-auto max-w-6xl px-4 pb-6 pt-3 sm:px-6 sm:pb-12 sm:pt-6 lg:pb-16 lg:pt-6">
+    <div class="mx-auto max-w-6xl px-4 pb-6 pt-3 sm:px-6 sm:pb-8 sm:pt-6 lg:pb-8 lg:pt-6">
       <div data-reveal>
         <Kicker text="Seguir explorando" />
         <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">
