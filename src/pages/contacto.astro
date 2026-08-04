@@ -10,10 +10,10 @@ import { SITE, waLink } from '../data/site';
   description="Contactá al estudio Ghirardotti & Ghirardotti: WhatsApp, teléfono, email o visitanos en Chacabuco 511, San Isidro, Buenos Aires."
 >
   <section class="masthead-top grid-paper border-b border-line">
-    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16" data-reveal>
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-14" data-reveal>
       <Kicker text="Contacto" />
-      <h1 class="font-display mt-6 text-3xl leading-[1.05] text-brand sm:text-6xl" style="font-weight:800">Hablemos</h1>
-      <p class="mt-6 max-w-2xl text-sm leading-snug text-body sm:text-lg sm:leading-[1.7]">
+      <h1 class="font-display mt-5 text-3xl leading-[1.05] text-brand sm:text-[2.5rem] lg:text-[3rem]" style="font-weight:800">Hablemos</h1>
+      <p class="mt-4 max-w-2xl text-sm leading-snug text-body sm:mt-5 sm:text-base sm:leading-relaxed lg:text-lg">
         Elegí el canal que te quede más cómodo. Tu consulta la responde un socio del estudio.
       </p>
     </div>
@@ -21,47 +21,47 @@ import { SITE, waLink } from '../data/site';
 
   <section>
     <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-12 lg:py-16">
-      <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+      <div class="grid gap-6 lg:grid-cols-[1fr_1.2fr] lg:gap-10">
         <!-- Datos / canales -->
         <div class="space-y-4" data-reveal="left">
           <a
             href={waLink}
             target="_blank"
             rel="noopener"
-            class="flex items-center gap-5 bg-brand p-6 text-white shadow-[0_16px_40px_-18px_rgba(205,51,51,0.7)] transition-colors hover:bg-brand-ink"
+            class="flex items-center gap-4 rounded-2xl bg-brand p-4 text-white shadow-[0_16px_40px_-18px_rgba(205,51,51,0.7)] transition-colors hover:bg-brand-ink sm:gap-5 sm:rounded-lg sm:p-5"
           >
-            <svg class="h-10 w-10 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <svg class="h-8 w-8 shrink-0 sm:h-10 sm:w-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.11.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35Z" />
               <path d="M12.04 2C6.56 2 2.1 6.45 2.1 11.93c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.92 9.92 0 0 0 4.79 1.22h.01c5.47 0 9.93-4.45 9.93-9.93A9.86 9.86 0 0 0 12.04 2Zm0 18.16a8.24 8.24 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38 8.27 8.27 0 0 1 8.25-8.25 8.2 8.2 0 0 1 5.83 2.42 8.2 8.2 0 0 1 2.41 5.84 8.27 8.27 0 0 1-8.24 8.23Z" />
             </svg>
             <span>
-              <span class="font-display block text-xl" style="font-weight:700">Escribinos por WhatsApp</span>
-              <span class="mt-0.5 block text-sm text-white/85">Es la vía más rápida — respondemos en horario de oficina.</span>
+              <span class="font-display block text-base sm:text-lg" style="font-weight:700">Escribinos por WhatsApp</span>
+              <span class="mt-0.5 block text-[13px] leading-snug text-white/85 sm:text-sm">Es la vía más rápida — respondemos en horario de oficina.</span>
             </span>
           </a>
 
           <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <a href={SITE.phoneHref} class="group surface-card rounded-sm p-5 transition-colors hover:border-brand">
-              <span class="text-brand"><Icon name="phone" class="h-6 w-6" /></span>
-              <p class="kicker mt-3">Teléfono</p>
-              <p class="mt-1.5 font-display text-lg text-ink group-hover:text-brand-ink" style="font-weight:700">{SITE.phoneDisplay}</p>
+            <a href={SITE.phoneHref} class="group surface-card rounded-2xl p-4 transition-colors hover:border-brand sm:rounded-lg sm:p-5">
+              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand sm:h-12 sm:w-12 sm:rounded-md"><Icon name="phone" class="h-5 w-5 sm:h-6 sm:w-6" /></span>
+              <p class="kicker mt-2 sm:mt-3">Teléfono</p>
+              <p class="mt-1.5 font-display text-base text-ink group-hover:text-brand-ink sm:text-lg" style="font-weight:700">{SITE.phoneDisplay}</p>
             </a>
-            <a href={`mailto:${SITE.email}`} class="group surface-card rounded-sm p-5 transition-colors hover:border-brand">
-              <span class="text-brand"><Icon name="mail" class="h-6 w-6" /></span>
-              <p class="kicker mt-3">Email</p>
-              <p class="mt-1.5 break-all font-display text-lg text-ink group-hover:text-brand-ink" style="font-weight:700">{SITE.email}</p>
+            <a href={`mailto:${SITE.email}`} class="group surface-card rounded-2xl p-4 transition-colors hover:border-brand sm:rounded-lg sm:p-5">
+              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand sm:h-12 sm:w-12 sm:rounded-md"><Icon name="mail" class="h-5 w-5 sm:h-6 sm:w-6" /></span>
+              <p class="kicker mt-2 sm:mt-3">Email</p>
+              <p class="mt-1.5 break-all font-display text-base text-ink group-hover:text-brand-ink sm:text-lg" style="font-weight:700">{SITE.email}</p>
             </a>
           </div>
 
-          <a href={SITE.mapsLink} target="_blank" rel="noopener" class="group block surface-card rounded-sm p-5 transition-colors hover:border-brand">
-            <span class="text-brand"><Icon name="pin" class="h-6 w-6" /></span>
-            <p class="kicker mt-3">Dónde estamos</p>
-            <p class="mt-1.5 font-display text-lg text-ink group-hover:text-brand-ink" style="font-weight:700">{SITE.addressFull}</p>
+          <a href={SITE.mapsLink} target="_blank" rel="noopener" class="group block surface-card rounded-2xl p-4 transition-colors hover:border-brand sm:rounded-lg sm:p-5">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand sm:h-12 sm:w-12 sm:rounded-md"><Icon name="pin" class="h-5 w-5 sm:h-6 sm:w-6" /></span>
+            <p class="kicker mt-2 sm:mt-3">Dónde estamos</p>
+            <p class="mt-1.5 font-display text-base text-ink group-hover:text-brand-ink sm:text-lg" style="font-weight:700">{SITE.addressFull}</p>
           </a>
 
-          <div class="surface-card rounded-sm p-5">
+          <div class="surface-card rounded-2xl p-4 sm:rounded-lg sm:p-5">
             <p class="kicker">Buscamos talentos</p>
-            <p class="mt-2 text-sm leading-relaxed text-body">
+            <p class="mt-2 text-[13px] leading-snug text-body sm:text-sm sm:leading-relaxed">
               ¿Sos contador, abogado o estudiante avanzado y querés sumarte al estudio?
             </p>
             <a
@@ -74,17 +74,17 @@ import { SITE, waLink } from '../data/site';
         </div>
 
         <!-- Formulario -->
-        <div class="surface-card rounded-sm p-7 sm:p-9" data-reveal="right">
+        <div class="surface-card rounded-2xl p-4 sm:rounded-lg sm:p-6" data-reveal="right">
           <Kicker text="Dejanos tu consulta" />
-          <h2 class="mt-3 font-display text-2xl text-brand" style="font-weight:700">Te respondemos por email</h2>
+          <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-3 sm:text-[1.75rem] lg:text-3xl" style="font-weight:700">Te respondemos por email</h2>
           <p class="mt-1.5 text-sm text-muted">Los campos marcados con * son obligatorios.</p>
 
-          <form id="contact-form" class="mt-7 space-y-5" novalidate data-contact-email={SITE.email}>
+          <form id="contact-form" class="mt-5 space-y-4" novalidate data-contact-email={SITE.email}>
             <input type="hidden" name="access_key" value={SITE.web3formsKey} />
             <input type="hidden" name="subject" value="Nueva consulta desde la web G&G" />
             <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
 
-            <div class="grid gap-5 sm:grid-cols-2">
+            <div class="grid gap-4 sm:grid-cols-2">
               <div>
                 <label for="name" class="mb-1.5 block text-sm font-semibold text-ink">Nombre *</label>
                 <input id="name" name="name" type="text" required autocomplete="name" class="w-full rounded-md border border-line bg-paper px-4 py-2.5 text-base text-ink outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-brand/40" />
@@ -95,7 +95,7 @@ import { SITE, waLink } from '../data/site';
               </div>
             </div>
 
-            <div class="grid gap-5 sm:grid-cols-2">
+            <div class="grid gap-4 sm:grid-cols-2">
               <div>
                 <label for="phone" class="mb-1.5 block text-sm font-semibold text-ink">Teléfono</label>
                 <input id="phone" name="phone" type="tel" autocomplete="tel" class="w-full rounded-md border border-line bg-paper px-4 py-2.5 text-base text-ink outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-brand/40" />
@@ -113,7 +113,7 @@ import { SITE, waLink } from '../data/site';
 
             <button
               type="submit"
-              class="inline-flex items-center gap-2 rounded-md bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink disabled:cursor-not-allowed disabled:opacity-60 sm:px-7 sm:text-base"
+              class="inline-flex items-center gap-2 rounded-md bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink disabled:cursor-not-allowed disabled:opacity-60 sm:px-7 sm:py-3.5 sm:text-base"
             >
               Enviar consulta
             </button>
@@ -130,7 +130,7 @@ import { SITE, waLink } from '../data/site';
     <iframe
       src={SITE.mapsEmbed}
       title="Ubicación del estudio: Chacabuco 511, San Isidro"
-      class="h-[420px] w-full"
+      class="h-[300px] w-full sm:h-[380px]"
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
     ></iframe>

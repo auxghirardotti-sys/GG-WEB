@@ -18,24 +18,24 @@ const { Content } = await render(post);
 
 <Base title={`${post.data.title} | Novedades G&G`} description={post.data.excerpt}>
   <article class="masthead-top grid-paper">
-    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12 lg:py-14">
       <nav class="text-xs font-medium uppercase tracking-[0.14em] text-muted" aria-label="Migas de pan">
         <a href="/" class="hover:text-brand-ink">Inicio</a>
         <span class="mx-2">/</span>
         <a href="/novedades" class="hover:text-brand-ink">Novedades</a>
       </nav>
 
-      <div class="mt-6 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+      <div class="mt-5 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
         <time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
         {post.data.source && <span class="text-brand-ink">· {post.data.source}</span>}
       </div>
 
-      <h1 class="font-display mt-4 text-3xl leading-[1.1] text-brand sm:text-5xl" style="font-weight:800">
+      <h1 class="font-display mt-3 text-3xl leading-[1.1] text-brand sm:mt-4 sm:text-[2.5rem] lg:text-[3rem]" style="font-weight:800">
         {post.data.title}
       </h1>
 
       <div
-        class="mt-5 space-y-5 text-sm leading-snug text-body sm:mt-9 sm:text-lg sm:leading-[1.75] [&_a]:font-semibold [&_a]:text-brand-ink [&_a:hover]:underline [&_strong]:font-semibold [&_strong]:text-ink"
+        class="mt-5 space-y-4 text-sm leading-snug text-body sm:mt-6 sm:text-base sm:leading-relaxed lg:text-[17px] lg:leading-[1.75] [&_a]:font-semibold [&_a]:text-brand-ink [&_a:hover]:underline [&_strong]:font-semibold [&_strong]:text-ink"
       >
         <Content />
       </div>
@@ -45,13 +45,13 @@ const { Content } = await render(post);
           href={post.data.externalUrl}
           target="_blank"
           rel="noopener"
-          class="mt-5 inline-flex items-center gap-2 rounded-md border border-line px-6 py-3 text-sm font-bold text-ink transition-colors hover:border-brand hover:text-brand-ink sm:mt-9"
+          class="mt-5 inline-flex items-center gap-2 rounded-md border border-line px-6 py-3 text-sm font-bold text-ink transition-colors hover:border-brand hover:text-brand-ink sm:mt-7"
         >
           Leer la nota original en {post.data.source}
         </a>
       )}
 
-      <a href="/novedades" class="mt-5 block text-sm font-bold text-brand-ink hover:underline sm:mt-10">
+      <a href="/novedades" class="mt-5 block text-sm font-bold text-brand-ink hover:underline sm:mt-8">
         ← Volver a novedades
       </a>
     </div>

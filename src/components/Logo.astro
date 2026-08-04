@@ -1,0 +1,30 @@
+---
+/**
+ * Isotipo "öö" de G&G, reconstruido en SVG con la geometría exacta del manual de
+ * identidad (Mateo Ghirardotti, lámina 2.4 "Grilla isotipo"). Proporciones medidas
+ * sobre la lámina original y normalizadas al diámetro del aro (D = 120):
+ *   trazo 0.204 D · separación entre aros 0.108 D · punto 0.192 D · gap aros→arcos 0.258 D
+ * Usa currentColor, así que toma el color del contenedor (rojo sobre claro, blanco
+ * sobre oscuro) y queda nítido en cualquier tamaño y densidad de pantalla.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = 'h-9 w-auto' } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 272 211"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <circle cx="60" cy="60" r="47.75" stroke="currentColor" stroke-width="24.5" />
+  <circle cx="193" cy="60" r="47.75" stroke="currentColor" stroke-width="24.5" />
+  <circle cx="126.5" cy="11.5" r="11.5" fill="currentColor" />
+  <circle cx="259.5" cy="11.5" r="11.5" fill="currentColor" />
+  <path d="M12.25 151a47.75 47.75 0 0 0 95.5 0" stroke="currentColor" stroke-width="24.5" />
+  <path d="M145.25 151a47.75 47.75 0 0 0 95.5 0" stroke="currentColor" stroke-width="24.5" />
+</svg>
