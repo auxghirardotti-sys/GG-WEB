@@ -9,25 +9,29 @@ const { member } = Astro.props;
 ---
 
 <article class="lift surface-card group flex flex-col overflow-hidden rounded-2xl sm:rounded-lg">
-  <div class="portrait relative aspect-square overflow-hidden bg-ink-2">
-    {
-      member.photo ? (
-        <img src={member.photo} alt={member.name} class="h-full w-full object-cover" loading="lazy" />
-      ) : (
-        <div class="surface-ink grid-ink flex h-full w-full items-center justify-center">
-          <span class="font-display text-6xl text-white/90" style="font-weight:800">{member.initials}</span>
-        </div>
-      )
-    }
+  {/* Retrato circular centrado: las fotos vienen con fondo rojo de marca, y en cuadrado
+      se veía el borde recto del recorte. En círculo cierran solas. */}
+  <div class="flex justify-center px-4 pt-5 sm:pt-6">
+    <div class="portrait relative aspect-square w-32 overflow-hidden rounded-full bg-ink-2 ring-1 ring-line sm:w-36">
+      {
+        member.photo ? (
+          <img src={member.photo} alt={member.name} class="h-full w-full object-cover" loading="lazy" />
+        ) : (
+          <div class="surface-ink flex h-full w-full items-center justify-center">
+            <span class="font-display text-4xl text-white/90" style="font-weight:800">{member.initials}</span>
+          </div>
+        )
+      }
+    </div>
   </div>
-  <div class="flex flex-1 flex-col p-4 sm:p-5">
-    <p class="kicker">{member.role}</p>
+  <div class="flex flex-1 flex-col p-4 text-center sm:p-5">
+    <p class="kicker justify-center">{member.role}</p>
     <h3 class="mt-2 font-display text-lg text-ink" style="font-weight:700">{member.name}</h3>
     <p class="mt-2 text-sm leading-relaxed text-body">{member.bio}</p>
     <ul class="mt-4 space-y-1.5 border-t border-line pt-4">
       {
         member.credentials.map((c) => (
-          <li class="flex items-start gap-2 text-[13px] text-muted">
+          <li class="flex items-start justify-center gap-2 text-left text-[13px] text-muted">
             <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand"></span>
             {c}
           </li>
