@@ -213,6 +213,17 @@ function initMagnetic() {
   });
 }
 
+// Footer: en celular las columnas arrancan plegadas; en ≥640px siempre abiertas.
+// El markup las trae con [open] para que sin JS se vea como antes (todo visible).
+function initFooterAccordion() {
+  const cols = document.querySelectorAll('.foot-col');
+  if (!cols.length) return;
+  const wide = window.matchMedia('(min-width: 640px)');
+  const sync = () => cols.forEach((c) => { c.open = wide.matches; });
+  sync();
+  wide.addEventListener('change', sync);
+}
+
 // Se ejecuta en cada navegación (y en la carga inicial): re-consulta el DOM nuevo.
 function initPage() {
   progressBar = document.getElementById('scroll-progress');
@@ -221,6 +232,7 @@ function initPage() {
   );
   initReveal();
   initCarouselDots();
+  initFooterAccordion();
   initMagnetic();
   bindAnchors();
   updateScrollFx();

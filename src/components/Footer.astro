@@ -20,33 +20,54 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="relative z-10 mx-auto grid max-w-6xl gap-6 px-4 py-7 sm:gap-10 sm:px-6 sm:py-12 md:grid-cols-2 lg:grid-cols-4">
-    <nav aria-label="Servicios">
-      <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-bright">Servicios</p>
-      <ul class="mt-3 space-y-2.5 sm:mt-4">
-        {SERVICES.map((s) => (
+    {/* En celular cada columna es un acordeón (arranca cerrado, lo abre el usuario);
+        en ≥640px el script las deja abiertas y el <summary> queda inerte: se ve igual que siempre. */}
+    <details class="foot-col" open>
+      <summary class="foot-col__head text-xs font-bold uppercase leading-4 tracking-[0.2em] text-brand-bright">
+        <span>Servicios</span>
+        <svg class="foot-col__chev h-4 w-4 shrink-0 text-brand-bright sm:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </summary>
+      <nav aria-label="Servicios">
+        <ul class="mt-3 space-y-2.5 sm:mt-4">
+          {SERVICES.map((s) => (
+            <li>
+              <a href={`/servicios/${s.slug}`} class="text-sm transition-colors hover:text-white">{s.title}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+
+    <details class="foot-col" open>
+      <summary class="foot-col__head text-xs font-bold uppercase leading-4 tracking-[0.2em] text-brand-bright">
+        <span>El estudio</span>
+        <svg class="foot-col__chev h-4 w-4 shrink-0 text-brand-bright sm:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </summary>
+      <nav aria-label="El estudio">
+        <ul class="mt-3 space-y-2.5 sm:mt-4">
+          <li><a href="/quienes-somos" class="text-sm transition-colors hover:text-white">Quiénes somos</a></li>
+          <li><a href="/novedades" class="text-sm transition-colors hover:text-white">Novedades</a></li>
+          <li><a href="/contacto" class="text-sm transition-colors hover:text-white">Contacto</a></li>
           <li>
-            <a href={`/servicios/${s.slug}`} class="text-sm transition-colors hover:text-white">{s.title}</a>
+            <a href={`mailto:${SITE.email}?subject=${encodeURIComponent('CV - Buscamos talentos')}`} class="text-sm transition-colors hover:text-white">
+              Buscamos talentos · Enviá tu CV
+            </a>
           </li>
-        ))}
-      </ul>
-    </nav>
+        </ul>
+      </nav>
+    </details>
 
-    <nav aria-label="El estudio">
-      <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-bright">El estudio</p>
-      <ul class="mt-3 space-y-2.5 sm:mt-4">
-        <li><a href="/quienes-somos" class="text-sm transition-colors hover:text-white">Quiénes somos</a></li>
-        <li><a href="/novedades" class="text-sm transition-colors hover:text-white">Novedades</a></li>
-        <li><a href="/contacto" class="text-sm transition-colors hover:text-white">Contacto</a></li>
-        <li>
-          <a href={`mailto:${SITE.email}?subject=${encodeURIComponent('CV - Buscamos talentos')}`} class="text-sm transition-colors hover:text-white">
-            Buscamos talentos · Enviá tu CV
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <div>
-      <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-bright">Contacto</p>
+    <details class="foot-col" open>
+      <summary class="foot-col__head text-xs font-bold uppercase leading-4 tracking-[0.2em] text-brand-bright">
+        <span>Contacto</span>
+        <svg class="foot-col__chev h-4 w-4 shrink-0 text-brand-bright sm:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </summary>
       <ul class="mt-3 space-y-3 text-sm sm:mt-4">
         <li>
           <a href={SITE.mapsLink} target="_blank" rel="noopener" class="transition-colors hover:text-white">{SITE.addressFull}</a>
@@ -59,10 +80,15 @@ const year = new Date().getFullYear();
           </a>
         </li>
       </ul>
-    </div>
+    </details>
 
-    <div>
-      <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-bright">Red internacional</p>
+    <details class="foot-col" open>
+      <summary class="foot-col__head text-xs font-bold uppercase leading-4 tracking-[0.2em] text-brand-bright">
+        <span>Red internacional</span>
+        <svg class="foot-col__chev h-4 w-4 shrink-0 text-brand-bright sm:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </summary>
       <p class="mt-3 text-[13px] leading-relaxed text-white/70 sm:mt-4 sm:text-sm">
         Miembro independiente de <span class="font-semibold text-white">BOKS International</span>, una red global de firmas profesionales.
       </p>
@@ -77,7 +103,7 @@ const year = new Date().getFullYear();
         </svg>
         LinkedIn
       </a>
-    </div>
+    </details>
   </div>
 
   <div class="border-t border-white/10">

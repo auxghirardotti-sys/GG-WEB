@@ -714,3 +714,31 @@ html.lenis body { height: auto; }
 @media (max-width: 639px) {
   #hero-h1 { letter-spacing: 0.01em; }
 }
+
+/* Footer: columnas como acordeón en celular. El JS (initFooterAccordion) las cierra
+   por debajo de 640px y las reabre arriba; sin JS quedan abiertas = comportamiento previo. */
+.foot-col > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 44px; /* target táctil */
+}
+.foot-col > summary::-webkit-details-marker { display: none; }
+.foot-col__chev { transition: transform 0.3s var(--ease-editorial); }
+.foot-col[open] > summary .foot-col__chev { transform: rotate(180deg); }
+/* Separador entre columnas plegadas (solo celular) */
+.foot-col + .foot-col { border-top: 1px solid rgba(255, 255, 255, 0.1); }
+
+@media (min-width: 640px) {
+  /* En escritorio el encabezado es solo un título: ni clickeable ni con alto mínimo */
+  .foot-col > summary {
+    cursor: default;
+    pointer-events: none;
+    min-height: 0;
+    display: block;
+  }
+  .foot-col + .foot-col { border-top: 0; }
+}
