@@ -26,6 +26,19 @@ import { img } from '../data/images';
     </div>
   </section>
 
+  <!-- EQUIPO -->
+  <section class="surface-paper-soft">
+    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-12 lg:py-16">
+      <div data-reveal>
+        <Kicker text="El equipo" />
+        <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">Los socios del estudio</h2>
+      </div>
+      <div class="mt-5 grid gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4" data-reveal-stagger>
+        {TEAM.map((m) => <TeamCard member={m} />)}
+      </div>
+    </div>
+  </section>
+
   <!-- HISTORIA + MISIÓN -->
   <section>
     <div class="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:gap-10 sm:px-6 sm:py-12 lg:grid-cols-2 lg:py-16">
@@ -50,19 +63,6 @@ import { img } from '../data/images';
           Proteger y manejar con eficiencia la utilidad y los activos de las empresas, desde las
           ópticas <em class="text-brand-bright" style="font-style:italic">tributaria, societaria y de auditoría.</em>
         </blockquote>
-      </div>
-    </div>
-  </section>
-
-  <!-- EQUIPO -->
-  <section class="surface-paper-soft">
-    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-12 lg:py-16">
-      <div data-reveal>
-        <Kicker text="El equipo" />
-        <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">Los socios del estudio</h2>
-      </div>
-      <div class="mt-5 grid gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4" data-reveal-stagger>
-        {TEAM.map((m) => <TeamCard member={m} />)}
       </div>
     </div>
   </section>
