@@ -31,6 +31,10 @@ export const CLIENTS: Client[] = [
   { name: 'OCA', logo: '/clients/oca.svg' },
   { name: 'ICBC', logo: '/clients/icbc.svg' },
   { name: 'Ocutech', logo: '/clients/ocutech.png' },
+  // Cambre es un logo apilado (emblema arriba + palabra): con h-10 la palabra queda
+  // la mitad de alta que los wordmarks de al lado, así que va con h-14 como Tandanor.
+  { name: 'Cambre', logo: '/clients/cambre.png', imgClass: 'h-14 w-auto' },
+  { name: 'Lentax', logo: '/clients/lentax.svg' },
 ];
 
 export interface TeamMember {
