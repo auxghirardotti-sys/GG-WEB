@@ -17,15 +17,17 @@ import { Image, getImage } from 'astro:assets';
 import { img } from '../data/images';
 
 // Portada: fotos de la Catedral de San Isidro (ancla geográfica del estudio).
-// Mobile = toma vertical de la torre; desktop = lateral con la plaza y la estatua.
+// Mobile = foto PROPIA del estudio desde la Plaza Mitre (960x1280, sin licencia
+// de terceros); desktop = lateral con la plaza y la estatua (dominio público).
 // Para cambiar la de escritorio por la versión nítida: 'catedral-lateral-hd.jpg'.
 const heroMobile = await getImage({
-  src: img('catedral-frontal.jpg'),
-  // width fija el src de respaldo (si no, Astro usa el original de 1800px = 418KB)
-  width: 900,
-  widths: [420, 640, 900, 1280],
+  src: img('catedral-plaza.jpg'),
+  // width fija el src de respaldo. Tope en 820px: el hero mide 375 CSS, así que a
+  // densidad 2x alcanza de sobra, y el ramaje fino de la foto compone muy pesado más arriba.
+  width: 640,
+  widths: [400, 560, 820],
   format: 'webp',
-  quality: 76,
+  quality: 70,
 });
 const heroDesktop = await getImage({
   src: img('catedral-lateral.jpg'),
