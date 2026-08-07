@@ -78,7 +78,9 @@ const faqJsonLd = {
   jsonLdExtra={faqJsonLd}
 >
   <!-- HERO full-screen con video de fondo (look "VEX": media a sangre + liquid glass) -->
-  <section class="cine masthead-top relative flex min-h-[58svh] flex-col sm:min-h-[92svh] lg:min-h-screen">
+  {/* En celular el alto sigue la proporción de la foto (3:4 -> 133vw) para que entre
+      completa; el min() evita un hero desmesurado en celular apaisado. */}
+  <section class="cine masthead-top relative flex min-h-[min(133vw,80svh)] flex-col sm:min-h-[92svh] lg:min-h-screen">
     <div class="cine__media sd-parallax" data-parallax="0.12">
       {/* Art direction: en celular la toma vertical de la torre; en ≥640px la lateral con la plaza.
           El navegador descarga SOLO la que corresponde a su ancho, nunca las dos. */}

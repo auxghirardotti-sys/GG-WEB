@@ -742,3 +742,24 @@ html.lenis body { height: auto; }
   }
   .foot-col + .foot-col { border-top: 0; }
 }
+
+/* Portada en celular: la foto se ve ENTERA.
+   El sobrebarrido de -14% que usa el parallax agrandaba la imagen y le recortaba
+   los costados (17% del ancho en un celular de 390px). En celular no hay parallax
+   que justifique ese costo, así que el contenedor va a ras y la foto entra completa. */
+@media (max-width: 639px) {
+  /* La foto ocupa una caja con SU proporcion (3:4), anclada arriba: asi entra
+     completa en cualquier ancho de celular, sin importar cuanto crezca el texto.
+     Si el contenido pide mas alto que la foto, lo que sobra abajo queda en tinta
+     y el velo en gradiente lo funde sin costura. */
+  .cine__media {
+    inset: 0 0 auto 0;
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+  .cine__media.sd-parallax {
+    animation: none !important;
+    transform: none !important;
+  }
+  .cine { background-color: var(--color-ink); }
+}
