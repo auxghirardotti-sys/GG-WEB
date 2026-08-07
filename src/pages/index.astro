@@ -80,7 +80,9 @@ const faqJsonLd = {
   <!-- HERO full-screen con video de fondo (look "VEX": media a sangre + liquid glass) -->
   {/* En celular el alto sigue la proporción de la foto (3:4 -> 133vw) para que entre
       completa; el min() evita un hero desmesurado en celular apaisado. */}
-  <section class="cine masthead-top relative flex min-h-[min(133vw,80svh)] flex-col sm:min-h-[92svh] lg:min-h-screen">
+  {/* cine--hero marca SOLO esta portada: las reglas de celular que hacen entrar la foto
+      completa no deben tocar las otras bandas .cine (Manifesto y CtaBand). */}
+  <section class="cine cine--hero masthead-top relative flex min-h-[min(133vw,80svh)] flex-col sm:min-h-[92svh] lg:min-h-screen">
     <div class="cine__media sd-parallax" data-parallax="0.12">
       {/* Art direction: en celular la toma vertical de la torre; en ≥640px la lateral con la plaza.
           El navegador descarga SOLO la que corresponde a su ancho, nunca las dos. */}
@@ -108,7 +110,7 @@ const faqJsonLd = {
         <div class="hero-in hero-in-1">
           <Kicker text="Est. 1967 · San Isidro" light />
         </div>
-        <h1 id="hero-h1" class="font-display mt-3 leading-[1.18] [word-spacing:0.12em] text-white sm:mt-6 sm:leading-[1.05] sm:[word-spacing:normal]" style="font-weight:800; font-size: clamp(1.65rem, 6.2vw, 3.6rem)">
+        <h1 id="hero-h1" class="font-display hero-legible mt-3 leading-[1.18] [word-spacing:0.12em] text-white sm:mt-6 sm:leading-[1.05] sm:[word-spacing:normal]" style="font-weight:800; font-size: clamp(1.65rem, 6.2vw, 3.6rem)">
           {heroWords.map((word, wi) => (
             <Fragment>
               {wi > 0 && ' '}
@@ -123,7 +125,7 @@ const faqJsonLd = {
             </Fragment>
           ))}
         </h1>
-        <p class="hero-in hero-in-3 mt-3 max-w-xl text-[15px] leading-[1.55] text-brand-soft sm:mt-6 sm:text-lg sm:leading-[1.6] sm:text-white/85">
+        <p class="hero-in hero-in-3 hero-legible mt-3 max-w-xl text-[15px] leading-[1.55] text-white sm:mt-6 sm:text-lg sm:leading-[1.6] sm:text-white/85">
           Acompañamos a empresas y grupos —locales e internacionales— con criterio estratégico, no
           solo para cumplir vencimientos.
         </p>

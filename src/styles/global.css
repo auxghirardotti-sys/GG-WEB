@@ -752,14 +752,24 @@ html.lenis body { height: auto; }
      completa en cualquier ancho de celular, sin importar cuanto crezca el texto.
      Si el contenido pide mas alto que la foto, lo que sobra abajo queda en tinta
      y el velo en gradiente lo funde sin costura. */
-  .cine__media {
+  .cine--hero .cine__media {
     inset: 0 0 auto 0;
     height: auto;
     aspect-ratio: 3 / 4;
   }
-  .cine__media.sd-parallax {
+  .cine--hero .cine__media.sd-parallax {
     animation: none !important;
     transform: none !important;
   }
-  .cine { background-color: var(--color-ink); }
+  .cine--hero { background-color: var(--color-ink); }
+}
+
+/* Portada: el texto va sobre una foto con cielo claro. Una sombra suave lo despega
+   sin oscurecer la imagen (alternativa a subir la opacidad del velo). */
+.hero-legible {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 4px 20px rgba(0, 0, 0, 0.55);
+}
+.hero-legible .kicker,
+.hero-in-1 .kicker {
+  text-shadow: inherit;
 }
