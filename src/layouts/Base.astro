@@ -44,6 +44,21 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script is:inline>
+      // Va inline y arriba de todo: es lo único que no puede fallar en llegar.
+      // El CSS oculta el contenido revelable sólo bajo html.js, así que si el bundle no
+      // baja (red móvil cortada, chunk 404) la página se ve entera, sin animación.
+      document.documentElement.classList.add('js');
+      // Y si el bundle baja pero no alcanza a revelar en 2s, mostramos todo igual.
+      // reveal.js prende 'reveal-on' apenas toma el control y desarma esta red.
+      // El número es la perilla: más bajo = menos espera en el peor caso, pero se pierde la
+      // animación de revelado más seguido en redes lentas. El contenido vale más que la animación.
+      setTimeout(function () {
+        var raiz = document.documentElement;
+        if (!raiz.classList.contains('reveal-on')) raiz.classList.add('sin-reveal');
+      }, 2000);
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#cd3333" />
@@ -64,7 +79,9 @@ const jsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     {jsonLdExtra && <script type="application/ld+json" set:html={JSON.stringify(jsonLdExtra)} />}
     <ClientRouter />
-    {import.meta.env.PROD && <script is:inline defer src="/_vercel/insights/script.js"></script>}
+    {/* Vercel Web Analytics no está habilitado en el proyecto: el script devolvía un 404 de
+        30 KB de HTML en cada carga, sin cachear. Para activarlo de verdad va por el adapter
+        (webAnalytics: { enabled: true } en astro.config.mjs) + el toggle del panel de Vercel. */}
   </head>
   <body>
     <a

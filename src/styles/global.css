@@ -146,19 +146,26 @@ body::before {
   }
 }
 
-/* Título del hero: entrada letra por letra (estilo VEX) */
+/* Título del hero: entrada letra por letra (estilo VEX).
+   CSS puro a propósito. Antes la disparaba un <script> colgado de astro:page-load, que en la
+   carga inicial el ClientRouter emite recién en window.load: lo más grande de la pantalla se
+   quedaba invisible hasta que bajaba la última imagen. El escalonado por letra va en
+   animation-delay inline (index.astro). */
 .hero-char {
   display: inline-block;
   opacity: 0;
   transform: translateX(-18px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  animation: heroChar 0.5s ease forwards;
 }
-.hero-h1-animate .hero-char {
-  opacity: 1;
-  transform: translateX(0);
+@keyframes heroChar {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-char {
+    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
@@ -450,8 +457,12 @@ details.service-card[open] .service-panel {
   visibility: visible;
 }
 
-/* ---- Motion: revelado al scroll ---- */
-[data-reveal] {
+/* ---- Motion: revelado al scroll ----
+   Esconder contenido y depender del JS para mostrarlo es la receta de la página en blanco.
+   Por eso todo lo que oculta cuelga de html.js, que pone un script inline del <head>: si el
+   bundle no llega, la clase no está y no se oculta nada. Y si llega pero no alcanza a revelar,
+   ese mismo script prende .sin-reveal a los 3s y se muestra todo (ver más abajo). */
+html.js [data-reveal] {
   opacity: 0;
   transform: translateY(26px);
   filter: blur(6px);
@@ -460,20 +471,20 @@ details.service-card[open] .service-panel {
     transform 0.8s var(--ease-editorial),
     filter 0.8s var(--ease-editorial);
 }
-[data-reveal].is-visible {
+html.js [data-reveal].is-visible {
   opacity: 1;
   transform: none;
   filter: blur(0);
 }
 
-[data-reveal-stagger] > * {
+html.js [data-reveal-stagger] > * {
   opacity: 0;
   transform: translateY(24px);
   transition:
     opacity 0.6s var(--ease-editorial),
     transform 0.6s var(--ease-editorial);
 }
-[data-reveal-stagger].is-visible > * {
+html.js [data-reveal-stagger].is-visible > * {
   opacity: 1;
   transform: none;
 }
@@ -529,10 +540,31 @@ details.service-card[open] .service-panel {
   transform: scale(1.04);
 }
 
-/* Reveals direccionales y de escala (más variedad de entrada al scroll) */
-[data-reveal="left"] { transform: translateX(-36px); }
-[data-reveal="right"] { transform: translateX(36px); }
-[data-reveal="scale"] { transform: scale(0.93); }
+/* Reveals direccionales y de escala (más variedad de entrada al scroll).
+   Van bajo html.js igual que la regla base: sin JS no hay que desplazar nada. */
+html.js [data-reveal="left"] { transform: translateX(-36px); }
+html.js [data-reveal="right"] { transform: translateX(36px); }
+html.js [data-reveal="scale"] { transform: scale(0.93); }
+
+/* ---- Red de seguridad: sueltan de una vez TODOS los candados de visibilidad del sitio ----
+   El sitio esconde contenido en varios lugares distintos y siempre espera al JS para soltarlo:
+   [data-reveal], la entrada del hero, el título letra por letra, los títulos recortados con
+   clip-path y el resaltador rojo (que lleva texto blanco encima, o sea que sin la barra el
+   texto es invisible). Cualquiera de esos candados trabado deja la página a medio mostrar.
+     · html:not(.js)     → el JS no corrió nunca (deshabilitado, o el bundle no llegó).
+     · html.sin-reveal   → la prende el <head> si a los 3s el revelado no arrancó.
+   En los dos casos: mostrar todo, sin animación. El contenido vale más que la animación. */
+html:not(.js) .hero-in,      html.sin-reveal .hero-in,
+html.sin-reveal [data-reveal],
+html.sin-reveal [data-reveal-stagger] > * {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+html:not(.js) .title-clip,     html.sin-reveal .title-clip { clip-path: none !important; }
+html:not(.js) .hl-mark::before, html.sin-reveal .hl-mark::before,
+html:not(.js) .kicker::before,  html.sin-reveal .kicker::before,
+html:not(.js) .rule-draw,       html.sin-reveal .rule-draw { transform: scaleX(1) !important; }
 
 /* Ken Burns: zoom lento cinematográfico para imágenes de fondo */
 .kenburns {

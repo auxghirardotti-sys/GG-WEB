@@ -118,7 +118,7 @@ const faqJsonLd = {
                 {word.map((c) => {
                   const i = heroCharIndex++;
                   return (
-                    <span class:list={['hero-char', c.accent && 'accent']} style={`transition-delay:${i * 30}ms`}>{c.ch}</span>
+                    <span class:list={['hero-char', c.accent && 'accent']} style={`animation-delay:${i * 30}ms`}>{c.ch}</span>
                   );
                 })}
               </span>
@@ -403,15 +403,4 @@ const faqJsonLd = {
 
   <CtaBand />
 
-  <script>
-    // Dispara la entrada letra por letra del título del hero (estilo VEX).
-    // astro:page-load corre en la carga inicial y en cada view transition.
-    document.addEventListener('astro:page-load', () => {
-      const h1 = document.getElementById('hero-h1');
-      if (!h1) return;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce) h1.classList.add('hero-h1-animate');
-      else window.setTimeout(() => h1.classList.add('hero-h1-animate'), 200);
-    });
-  </script>
 </Base>

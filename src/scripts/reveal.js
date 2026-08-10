@@ -51,7 +51,10 @@ function initReveal() {
   const observer = new IntersectionObserver(
     (entries, obs) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
+        // Lo que ya quedó ARRIBA del viewport nunca vuelve a intersectar si el usuario sigue
+        // bajando: pasa al recargar a media página o si scrolleó mientras cargaba. Se revela igual.
+        const yaPaso = entry.boundingClientRect.bottom <= 0;
+        if (!entry.isIntersecting && !yaPaso) return;
         const el = entry.target;
         el.classList.add('is-visible');
         if (el.hasAttribute('data-countup')) runCountUp(el);
@@ -225,23 +228,59 @@ function initFooterAccordion() {
 }
 
 // Se ejecuta en cada navegación (y en la carga inicial): re-consulta el DOM nuevo.
+// En la carga inicial nos llaman dos veces (DOMContentLoaded y después astro:page-load),
+// así que lleva guard. Con view transitions el guard se suelta antes de cada swap.
+let paginaLista = false;
+document.addEventListener('astro:before-swap', () => {
+  paginaLista = false;
+});
+
 function initPage() {
+  if (paginaLista) return;
+  paginaLista = true;
+  // Desarma la red de seguridad del <head>: de acá en adelante revelamos nosotros.
+  document.documentElement.classList.add('reveal-on');
+
+  // Lo primero y aislado: el contenido tiene que aparecer aunque falle todo lo demás.
+  try {
+    initReveal();
+  } catch (err) {
+    console.error('[gg] initReveal falló; se muestra todo sin animación', err);
+    document.documentElement.classList.add('sin-reveal');
+  }
+
   progressBar = document.getElementById('scroll-progress');
   parallaxEls = Array.from(document.querySelectorAll('[data-parallax]')).filter(
     (el) => !(sdSupported && el.classList.contains('sd-parallax'))
   );
-  initReveal();
-  initCarouselDots();
-  initFooterAccordion();
-  initMagnetic();
-  bindAnchors();
-  updateScrollFx();
+  for (const fn of [initCarouselDots, initFooterAccordion, initMagnetic, bindAnchors, updateScrollFx]) {
+    try {
+      fn();
+    } catch (err) {
+      console.error(`[gg] ${fn.name} falló`, err);
+    }
+  }
 }
 
-initScrollFxOnce();
-initSmoothScrollOnce();
-initHapticsOnce();
-initSpotlightOnce();
-
-// astro:page-load dispara en la carga inicial y después de cada view transition.
+// Los listeners van ANTES de los init globales: si Lenis explota, el revelado igual queda enganchado.
+// after-swap: en una navegación interna el DOM nuevo ya está en pantalla pero Astro todavía no
+// corrió los <script> de la página entrante, y recién después emite page-load. Revelando en el
+// swap no queda ni un frame de cuerpo vacío. El guard de initPage absorbe el disparo duplicado.
+document.addEventListener('astro:after-swap', initPage);
 document.addEventListener('astro:page-load', initPage);
+
+// Cada init global va aislado: ninguno puede dejar la página en blanco si tira una excepción.
+for (const fn of [initScrollFxOnce, initSmoothScrollOnce, initHapticsOnce, initSpotlightOnce]) {
+  try {
+    fn();
+  } catch (err) {
+    console.error(`[gg] ${fn.name} falló`, err);
+  }
+}
+
+// El ClientRouter emite astro:page-load en cada view transition, pero en la CARGA INICIAL lo
+// emite recién en window.load, que espera a que bajen todas las imágenes. Como el contenido
+// arranca en opacity:0 hasta que lo revelamos, eso dejaba la página medio en blanco varios
+// segundos (y para siempre si alguna imagen se colgaba). Arrancamos con el DOM listo.
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPage);
+else initPage();
