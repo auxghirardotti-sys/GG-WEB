@@ -238,8 +238,10 @@ document.addEventListener('astro:before-swap', () => {
 function initPage() {
   if (paginaLista) return;
   paginaLista = true;
-  // Desarma la red de seguridad del <head>: de acá en adelante revelamos nosotros.
-  document.documentElement.classList.add('reveal-on');
+  // El swap de las view transitions reemplaza los atributos de <html>, así que la clase 'js'
+  // que puso el script inline del <head> se pierde en cada navegación interna: hay que reponerla
+  // o el CSS deja de ocultar y se pierde el revelado. 'reveal-on' desarma la red del <head>.
+  document.documentElement.classList.add('js', 'reveal-on');
 
   // Lo primero y aislado: el contenido tiene que aparecer aunque falle todo lo demás.
   try {
