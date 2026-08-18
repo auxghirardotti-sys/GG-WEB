@@ -26,15 +26,18 @@ export interface Client {
 
 /** Clientes / empresas que confían en el estudio — se muestran en el marquee de la home.
  *  Para usar logos reales: dejar el archivo en public/clients/ y completar `logo` (ej: '/clients/icbc.svg'). */
+// El sufijo -v2 de los archivos rompe la cache: public/ se sirve con max-age de 7 dias,
+// y sin cambiarle el nombre al archivo quien ya visito el sitio se queda una semana con
+// la version vieja y mas pesada. Si se vuelve a optimizar un logo, subirle el numero.
 export const CLIENTS: Client[] = [
-  { name: 'Tandanor', logo: '/clients/tandanor.png', imgClass: 'h-14 w-auto' },
-  { name: 'OCA', logo: '/clients/oca.svg' },
-  { name: 'ICBC', logo: '/clients/icbc.svg' },
-  { name: 'Ocutech', logo: '/clients/ocutech.png' },
+  { name: 'Tandanor', logo: '/clients/tandanor-v2.png', imgClass: 'h-14 w-auto' },
+  { name: 'OCA', logo: '/clients/oca-v2.svg' },
+  { name: 'ICBC', logo: '/clients/icbc-v2.svg' },
+  { name: 'Ocutech', logo: '/clients/ocutech-v2.png' },
   // Cambre es un logo apilado (emblema arriba + palabra): con h-10 la palabra queda
   // la mitad de alta que los wordmarks de al lado, así que va con h-14 como Tandanor.
-  { name: 'Cambre', logo: '/clients/cambre.png', imgClass: 'h-14 w-auto' },
-  { name: 'Lentax', logo: '/clients/lentax.svg' },
+  { name: 'Cambre', logo: '/clients/cambre-v2.png', imgClass: 'h-14 w-auto' },
+  { name: 'Lentax', logo: '/clients/lentax-v2.svg' },
 ];
 
 export interface TeamMember {
