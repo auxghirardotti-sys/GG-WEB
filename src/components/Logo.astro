@@ -1,9 +1,17 @@
 ---
 /**
- * Isotipo "öö" de G&G, reconstruido en SVG con la geometría exacta del manual de
- * identidad (Mateo Ghirardotti, lámina 2.4 "Grilla isotipo"). Proporciones medidas
- * sobre la lámina original y normalizadas al diámetro del aro (D = 120):
- *   trazo 0.204 D · separación entre aros 0.108 D · punto 0.192 D · gap aros→arcos 0.258 D
+ * Isotipo de G&G en SVG, con la geometría exacta del manual de identidad
+ * (Mateo Ghirardotti, lámina 2.4 "Grilla isotipo").
+ *
+ * La grilla azul de la lámina define la unidad X = el diámetro del aro, y todas las
+ * medidas caen en pasos de 0,05 X. Con X = 200 en este viewBox:
+ *   aro        exterior 0,50 X (r 100) · interior 0,30 X (r 60) · trazo 0,20 X (40)
+ *   separación entre los dos aros: 1,10 X entre centros (220)
+ *   punto      r 0,10 X (20) — medio trazo — a +0,55 X / −0,40 X del centro del aro,
+ *              o sea con el borde de arriba alineado al borde de arriba del aro
+ *   arco       mitad inferior de un aro igual, con el centro 0,75 X debajo (150)
+ *   total      2,25 X × 1,75 X = 450 × 350, que es el "1 y 3/4 X" que rotula la lámina
+ *
  * Usa currentColor, así que toma el color del contenedor (rojo sobre claro, blanco
  * sobre oscuro) y queda nítido en cualquier tamaño y densidad de pantalla.
  */
@@ -15,16 +23,16 @@ const { class: className = 'h-9 w-auto' } = Astro.props;
 
 <svg
   class={className}
-  viewBox="0 0 272 211"
+  viewBox="0 0 450 350"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   aria-hidden="true"
   focusable="false"
 >
-  <circle cx="60" cy="60" r="47.75" stroke="currentColor" stroke-width="24.5" />
-  <circle cx="193" cy="60" r="47.75" stroke="currentColor" stroke-width="24.5" />
-  <circle cx="126.5" cy="11.5" r="11.5" fill="currentColor" />
-  <circle cx="259.5" cy="11.5" r="11.5" fill="currentColor" />
-  <path d="M12.25 151a47.75 47.75 0 0 0 95.5 0" stroke="currentColor" stroke-width="24.5" />
-  <path d="M145.25 151a47.75 47.75 0 0 0 95.5 0" stroke="currentColor" stroke-width="24.5" />
+  <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="40" />
+  <circle cx="320" cy="100" r="80" stroke="currentColor" stroke-width="40" />
+  <circle cx="210" cy="20" r="20" fill="currentColor" />
+  <circle cx="430" cy="20" r="20" fill="currentColor" />
+  <path d="M20 250a80 80 0 0 0 160 0" stroke="currentColor" stroke-width="40" />
+  <path d="M240 250a80 80 0 0 0 160 0" stroke="currentColor" stroke-width="40" />
 </svg>

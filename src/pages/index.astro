@@ -57,8 +57,12 @@ const heroWords: { ch: string; accent: boolean }[][] = [
 ];
 let heroCharIndex = 0;
 
-// Logos de clientes repetidos para que el marquee (translate -50%) cierre sin saltos.
-const clientStrip = [...CLIENTS, ...CLIENTS, ...CLIENTS, ...CLIENTS];
+// Logos de clientes repetidos para que el marquee (translate -50%) cierre sin saltos: la
+// pista son dos mitades iguales y cada mitad tiene que ser mas ancha que la pantalla.
+// Con 6 clientes, una tanda mide ~1400px, asi que dos tandas por mitad (24 <img> en total)
+// alcanzan hasta ~2800px de ancho. Antes iban 4 tandas por mitad = 48 <img>: el doble de
+// nodos y una capa de composicion de 9500px de ancho, que en Android de gama baja pesa.
+const clientStrip = [...CLIENTS, ...CLIENTS];
 
 // JSON-LD de FAQ para SEO
 const faqJsonLd = {
