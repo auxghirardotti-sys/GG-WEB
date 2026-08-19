@@ -3,6 +3,7 @@ import { SERVICES } from '../data/services';
 import { waLink } from '../data/site';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
+import Wordmark from './Wordmark.astro';
 
 const links = [
   { href: '/quienes-somos', label: 'Quiénes Somos' },
@@ -28,13 +29,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
   <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-4 transition-all duration-200 sm:px-6">
     <a href="/" class="flex items-center gap-3" aria-label="Ghirardotti & Ghirardotti — Inicio">
       <Logo class="h-8 w-auto shrink-0 text-brand sm:h-9" />
-      <span class="leading-none">
-        <span class="block font-display text-[22px] lowercase text-brand" style="font-weight:800;letter-spacing:-0.02em">ghirardotti</span>
-        {/* El manual (lamina 2.6 "Grilla logotipo") pone la bajada en rojo, en caja normal
-            —no en versalitas— y estirada hasta ocupar el mismo ancho que "ghirardotti".
-            El tracking esta calibrado para que los dos anchos coincidan. */}
-        <span class="mt-0.5 block text-[9px] font-semibold tracking-[0.075em] text-brand">Tax and business advisors</span>
-      </span>
+      <Wordmark class="text-[28px] text-brand" />
     </a>
 
     <nav class="hidden items-center gap-7 lg:flex" aria-label="Navegación principal">

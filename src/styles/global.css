@@ -805,3 +805,37 @@ html.lenis body { height: auto; }
 .hero-in-1 .kicker {
   text-shadow: inherit;
 }
+
+/* ---- Logotipo (lámina 2.6 del manual): "ghirardotti" con la bajada metida en el hueco
+   que deja la cola de la g. Ver src/components/Wordmark.astro para las reglas.
+   Todo en em: el font-size del contenedor fija el cuerpo de "ghirardotti" y el resto va
+   detrás. Los em de __tag se resuelven contra SU propio cuerpo (0.362), por eso los
+   valores llevan el factor 1/0.362 ya aplicado. */
+.gg-wordmark {
+  display: block;
+  line-height: 1;
+}
+.gg-wordmark__name {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1em;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+}
+.gg-wordmark__tag {
+  display: block;
+  /* del manual: el alto de tinta de la bajada es 0,31 del ascendente del nombre */
+  font-size: 0.295em;
+  font-weight: 600;
+  white-space: nowrap;
+  /* el avance de la "g" (0.704em del nombre): la bajada arranca recién en la "h" */
+  margin-left: 2.385em;
+  /* la sube hasta que su techo queda 0,149 del ascendente por debajo de la línea de
+     base, que es donde lo pone el manual: ahí la cola de la g le pasa por al lado */
+  margin-top: -0.35em;
+  /* calibrado para que la bajada cierre a la derecha junto con "ghirardotti":
+     25 caracteres, así que cada 0.01em corre el borde derecho ~2px. El manual
+     también la lleva visiblemente espaciada, por el mismo motivo. */
+  letter-spacing: 0.122em;
+}

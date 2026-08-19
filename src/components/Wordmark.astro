@@ -1,0 +1,30 @@
+---
+/**
+ * Logotipo "ghirardotti / Tax and business advisors" según la lámina 2.6 del manual
+ * ("Grilla logotipo"). Lo que define la composición y no se puede improvisar:
+ *   · la bajada arranca alineada con la "h", no con la "g": la cola de la g le pasa por
+ *     al lado y ocupa ese hueco
+ *   · las dos líneas cierran parejas a la derecha
+ *   · la bajada va en el mismo color que el nombre, en caja normal (no versalitas)
+ *   · el cuerpo de la bajada es ~0,36 del cuerpo del nombre
+ *
+ * Todo está en em dentro de .gg-wordmark, así que el único parámetro es el font-size
+ * del contenedor: fija el cuerpo de "ghirardotti" y el resto lo sigue.
+ * Los valores están calibrados sobre Montserrat ExtraBold; si se cambia la tipografía
+ * hay que volver a medirlos (el tracking de la bajada sobre todo).
+ */
+interface Props {
+  /** Clases del contenedor. El font-size manda: es el cuerpo de "ghirardotti". */
+  class?: string;
+  /** Punto final en otro color, como lo usa el pie. */
+  punto?: boolean;
+}
+const { class: className = '', punto = false } = Astro.props;
+---
+
+<span class:list={['gg-wordmark', className]}>
+  <span class="gg-wordmark__name"
+    >ghirardotti{punto && <span class="text-brand-bright">.</span>}</span
+  >
+  <span class="gg-wordmark__tag">Tax and business advisors</span>
+</span>
