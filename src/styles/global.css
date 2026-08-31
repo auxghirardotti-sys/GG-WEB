@@ -867,3 +867,19 @@ html.lenis body { height: auto; }
     mask-size: 300px 100%;
   }
 }
+
+/* Marquesina de prensa: misma mecánica que la de clientes, pero con tarjetas.
+   La velocidad está igualada a la de los logos, MEDIDA en cada breakpoint. Ojo que los
+   logos NO van a la misma velocidad en los dos: su duración es fija en 40s y su pista
+   cambia de ancho, así que van a 59 px/s en celular y a 69 en escritorio. Igualamos eso:
+     celular    logos 2.375px / 40s = 59,4 px/s   ·  prensa 5.236px  ->  88s
+     ≥1024px    logos 2.759px / 40s = 69,0 px/s   ·  prensa 6.756px  ->  98s
+   Si se agregan o quitan notas hay que recalcular, o la velocidad se corre. */
+.marquee__track--prensa {
+  animation-duration: 88s;
+}
+@media (min-width: 1024px) {
+  .marquee__track--prensa {
+    animation-duration: 98s;
+  }
+}

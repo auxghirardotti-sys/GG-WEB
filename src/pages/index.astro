@@ -45,10 +45,9 @@ const posts = (await getCollection('novedades'))
   .filter((p) => p.data.date.getFullYear() >= DESDE_ANIO)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// Con muchas tarjetas, un punto por tarjeta es una hilera ilegible. Los puntos son un
-// indicador de posición, no un índice: con seis alcanza. initCarouselDots() mapea el
-// scroll sobre la cantidad de puntos que haya, así que no hace falta que coincidan.
-const dots = Math.min(posts.length, 6);
+// La marquesina gira igual que la de logos: el track lleva las notas DUPLICADAS y la
+// animación lo corre -50%, así que al llegar a la mitad la vista es idéntica al inicio y
+// el bucle no tiene costura.
 
 const stats = [
   { value: 60, suffix: '+', label: 'años de trayectoria' },
@@ -378,15 +377,18 @@ const faqJsonLd = {
         <a href="/novedades" class="underline-grow text-[13px] font-semibold text-brand-ink sm:text-sm">Ver todas →</a>
       </div>
 
-      <div class="mt-4 sm:mt-6" data-carousel>
-        <div class="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3" data-carousel-track data-reveal-stagger>
-          {posts.map((p) => <NovedadCard post={p} />)}
-        </div>
-        <div class="mt-3 flex justify-center gap-2 sm:mt-5">
-          {Array.from({ length: dots }).map(() => (
-            <span data-carousel-dot class="h-2 w-2 rounded-full bg-line transition-colors"></span>
+      {/* Marquesina: gira sola, como la de clientes. Pierde el swipe manual a cambio de
+          que las notas pasen solas; el que quiera navegar a su ritmo tiene "Ver todas".
+          Se frena al pasar el mouse (solo en dispositivos con hover real: en touch el
+          :hover queda pegado tras un tap y dejaría la marquesina detenida) y el bloque
+          global de prefers-reduced-motion la detiene por completo. */}
+      <div class="marquee mt-4 sm:mt-6">
+        <div class="marquee__track marquee__track--prensa gap-4">
+          {[...posts, ...posts].map((p, i) => (
+            <NovedadCard post={p} ancho="w-[260px] lg:w-[340px]" duplicado={i >= posts.length} />
           ))}
         </div>
+      </div>
       </div>
     </div>
   </section>

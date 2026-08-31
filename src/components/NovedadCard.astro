@@ -28,8 +28,21 @@ interface Props {
   as?: 'h2' | 'h3';
   /** El excerpt solo en /novedades: en la home estiraría la tarjeta sin necesidad. */
   showExcerpt?: boolean;
+  /** Clases de ancho. Por defecto basis-% para el carrusel con scroll; la marquesina
+   *  necesita ancho FIJO, porque dentro de un track width:max-content un basis en
+   *  porcentaje no tiene contra qué resolverse. */
+  ancho?: string;
+  /** true en la copia que la marquesina usa para cerrar el bucle: es la misma nota otra
+   *  vez, así que no debe leerla el lector de pantalla ni recibir foco al tabular. */
+  duplicado?: boolean;
 }
-const { post: p, as: Heading = 'h3', showExcerpt = false } = Astro.props;
+const {
+  post: p,
+  as: Heading = 'h3',
+  showExcerpt = false,
+  ancho = 'basis-[70%] sm:basis-[46%] lg:basis-[31.5%]',
+  duplicado = false,
+} = Astro.props;
 
 const foto = fotoPrensa(p.id);
 const colorMedio = colorDeMedio(p.data.source);
@@ -39,7 +52,9 @@ const colorMedio = colorDeMedio(p.data.source);
   href={p.data.externalUrl ?? `/novedades/${p.id}`}
   target={p.data.externalUrl ? '_blank' : undefined}
   rel={p.data.externalUrl ? 'noopener' : undefined}
-  class="surface-card lift group flex shrink-0 basis-[70%] snap-start flex-col overflow-hidden rounded-2xl sm:basis-[46%] sm:rounded-lg lg:basis-[31.5%]"
+  aria-hidden={duplicado ? 'true' : undefined}
+  tabindex={duplicado ? -1 : undefined}
+  class:list={['surface-card lift group flex shrink-0 snap-start flex-col overflow-hidden rounded-2xl sm:rounded-lg', ancho]}
 >
   {foto && (
     <div class="aspect-[16/9] overflow-hidden bg-paper-2">
