@@ -17,19 +17,23 @@ import { PROCESS, waLinkFor } from '../data/site';
       </h2>
     </div>
 
-    {/* En mobile va 2x2 (mitad de scroll); en lg vuelve a 4 columnas */}
+    {/* En mobile va 2x2 (mitad de scroll); en lg vuelve a 4 columnas.
+        Aire de las tarjetas recortado: padding 24 -> 20, icono 48 -> 40 y los dos textos
+        a interlineado ajustado. Eran 214px de alto para tres renglones.
+        OJO: el comentario va aca y no adentro del map — un {/* */} dentro de la
+        expresion de retorno rompe el build con "Expected ) but found $$render". */}
     <ol class="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-md sm:mt-8 lg:grid-cols-4" data-reveal-stagger>
       {
         PROCESS.map((p) => (
-          <li class="relative bg-ink-2/60 p-3 text-left sm:p-6">
+          <li class="relative bg-ink-2/60 p-3 text-left sm:p-5">
             <span class="absolute right-3 top-3 font-display text-[11px] text-brand-bright/70 sm:right-5 sm:top-5 sm:text-sm" style="font-weight:800" aria-hidden="true">
               {parseInt(p.step, 10)}
             </span>
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-bright/15 text-brand-bright sm:h-12 sm:w-12 sm:rounded-md">
-              <Icon name={p.icon as any} class="h-5 w-5 sm:h-7 sm:w-7" />
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-bright/15 text-brand-bright sm:h-10 sm:w-10 sm:rounded-md">
+              <Icon name={p.icon as any} class="h-5 w-5 sm:h-6 sm:w-6" />
             </span>
-            <h3 class="mt-2 font-display text-[15px] leading-snug text-white sm:mt-4 sm:text-lg sm:leading-7" style="font-weight:700">{p.title}</h3>
-            <p class="mt-1.5 hidden text-[13px] leading-relaxed text-white/80 sm:block sm:text-sm">{p.text}</p>
+            <h3 class="mt-2 font-display text-[15px] leading-snug text-white sm:mt-3 sm:text-lg sm:leading-snug" style="font-weight:700">{p.title}</h3>
+            <p class="mt-1.5 hidden text-[13px] leading-snug text-white/80 sm:block sm:text-sm">{p.text}</p>
           </li>
         ))
       }
