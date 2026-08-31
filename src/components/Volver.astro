@@ -21,25 +21,28 @@ interface Props {
 const { href = '/', label = 'Volver', class: className = '' } = Astro.props;
 ---
 
-<a
-  href={href}
-  data-volver
-  class:list={[
-    'group inline-flex items-center gap-1.5 text-[13px] font-bold text-brand-ink transition-colors hover:text-brand sm:text-sm',
-    className,
-  ]}
->
-  <svg
-    class="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-    aria-hidden="true"
+{/* El <a> va envuelto en un bloque: como es inline-flex, si se lo deja suelto el
+    elemento siguiente —el Kicker, que también es inline-flex— se le pega en la misma
+    línea y el filete rojo del kicker aparece al lado de la flecha. El wrapper además
+    es quien lleva el margen, para que separe de verdad. */}
+<div class:list={['block', className]}>
+  <a
+    href={href}
+    data-volver
+    class="group inline-flex items-center gap-1.5 text-[13px] font-bold text-brand-ink transition-colors hover:text-brand sm:text-sm"
   >
-    <path
-      fill-rule="evenodd"
-      d="M17 10a.75.75 0 0 1-.75.75H5.65l4.15 3.95a.75.75 0 1 1-1.1 1.02l-5.5-5.25a.75.75 0 0 1 0-1.04l5.5-5.25a.75.75 0 1 1 1.1 1.02L5.65 9.25h10.6A.75.75 0 0 1 17 10Z"
-      clip-rule="evenodd"
-    />
-  </svg>
-  {label}
-</a>
+    <svg
+      class="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M17 10a.75.75 0 0 1-.75.75H5.65l4.15 3.95a.75.75 0 1 1-1.1 1.02l-5.5-5.25a.75.75 0 0 1 0-1.04l5.5-5.25a.75.75 0 1 1 1.1 1.02L5.65 9.25h10.6A.75.75 0 0 1 17 10Z"
+        clip-rule="evenodd"
+      />
+    </svg>
+    {label}
+  </a>
+</div>

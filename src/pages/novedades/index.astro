@@ -36,7 +36,13 @@ const posts = (await getCollection('novedades')).sort(
           en escritorio. */}
       <div class="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3" data-reveal-stagger>
         {posts.map((p) => (
-          <NovedadCard post={p} as="h2" showExcerpt ancho="w-full" />
+          <NovedadCard
+            post={p}
+            as="h2"
+            showExcerpt
+            ancho="w-full"
+            sizes="(min-width: 1024px) 360px, (min-width: 640px) 46vw, 92vw"
+          />
         ))}
       </div>
       </div>

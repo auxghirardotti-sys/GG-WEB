@@ -37,13 +37,10 @@ const heroDesktop = await getImage({
   quality: 82,
 });
 
-// El carrusel de prensa muestra TODAS las notas recientes, no un recorte: se deslizan.
-// Las tres viejas (2016, 2022 y 2023) quedan solo en /novedades — no tienen link externo
-// ni foto, y como cierre de un carrusel de fotos desentonan.
-const DESDE_ANIO = 2024;
-const posts = (await getCollection('novedades'))
-  .filter((p) => p.data.date.getFullYear() >= DESDE_ANIO)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// La marquesina muestra todas las notas: se deslizan solas, no hace falta recortar.
+const posts = (await getCollection('novedades')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
 
 // La marquesina gira igual que la de logos: el track lleva las notas DUPLICADAS y la
 // animación lo corre -50%, así que al llegar a la mitad la vista es idéntica al inicio y

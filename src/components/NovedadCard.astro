@@ -35,6 +35,9 @@ interface Props {
   /** true en la copia que la marquesina usa para cerrar el bucle: es la misma nota otra
    *  vez, así que no debe leerla el lector de pantalla ni recibir foco al tabular. */
   duplicado?: boolean;
+  /** Ancho real del hueco de la foto, para que el navegador elija bien del srcset.
+   *  El default es el de la marquesina; la grilla de /novedades pasa el suyo. */
+  sizes?: string;
 }
 const {
   post: p,
@@ -42,6 +45,7 @@ const {
   showExcerpt = false,
   ancho = 'basis-[70%] sm:basis-[46%] lg:basis-[31.5%]',
   duplicado = false,
+  sizes = '(min-width: 1024px) 340px, 260px',
 } = Astro.props;
 
 const foto = fotoPrensa(p.id);
@@ -62,10 +66,17 @@ const colorMedio = colorDeMedio(p.data.source);
         src={foto}
         alt=""
         aria-hidden="true"
-        widths={[380, 760]}
-        sizes="(min-width: 1024px) 350px, 70vw"
+        {/* El paso intermedio no es decorativo: con devicePixelRatio 1,25 —lo típico en
+            Windows— un hueco de 353px necesita 441, y si solo existen 380 y 760 el
+            navegador salta al de 760 y baja el doble de lo que precisa. Con 520 en el
+            medio elige ese y la foto pesa menos de la mitad. */}
+        widths={[380, 520, 760]}
+        sizes={sizes}
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         loading="lazy"
+        {/* Las fotos nunca son lo importante de la pantalla: que no le compitan la banda
+            al hero ni a la primera tanda de texto. */}
+        fetchpriority="low"
         decoding="async"
       />
     </div>
