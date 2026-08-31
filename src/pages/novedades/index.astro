@@ -3,8 +3,8 @@ import { getCollection } from 'astro:content';
 import NovedadCard from '../../components/NovedadCard.astro';
 import Base from '../../layouts/Base.astro';
 import Kicker from '../../components/Kicker.astro';
+import Volver from '../../components/Volver.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { fmtDate } from '../../data/format';
 
 const posts = (await getCollection('novedades')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -17,6 +17,7 @@ const posts = (await getCollection('novedades')).sort(
 >
   <section class="masthead-top grid-paper border-b border-line">
     <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-10" data-reveal>
+      <Volver href="/" label="Volver al inicio" class="mb-5" />
       <Kicker text="Novedades" />
       <h1 class="font-display mt-5 text-3xl leading-[1.05] text-brand sm:text-[2.5rem] lg:text-[3rem]" style="font-weight:800">
         El estudio en los medios
@@ -30,21 +31,14 @@ const posts = (await getCollection('novedades')).sort(
 
   <section>
     <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
-      <div data-carousel>
-        <div class="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3" data-carousel-track data-reveal-stagger>
-          {
-            posts.map((p) => (
-              <NovedadCard post={p} as="h2" showExcerpt />
-            ))
-          }
-        </div>
-        <div class="mt-5 flex justify-center gap-2">
-          {/* Tope de 6: un punto por nota serían 22, una hilera ilegible. Son un indicador
-              de posición, no un índice, e initCarouselDots mapea el scroll sobre los que haya. */}
-          {Array.from({ length: Math.min(posts.length, 6) }).map(() => (
-            <span data-carousel-dot class="h-2 w-2 rounded-full bg-line transition-colors"></span>
-          ))}
-        </div>
+      {/* Grilla, no tira scrolleable: con 22 notas conviene barrer con la vista de
+          arriba a abajo y no deslizar de a una. 1 columna en celular, 2 en tablet y 3
+          en escritorio. */}
+      <div class="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3" data-reveal-stagger>
+        {posts.map((p) => (
+          <NovedadCard post={p} as="h2" showExcerpt ancho="w-full" />
+        ))}
+      </div>
       </div>
     </div>
   </section>

@@ -216,6 +216,36 @@ function initMagnetic() {
   });
 }
 
+// Flecha "Volver": si venimos de otra página del sitio, retrocedemos en el historial —que es
+// lo que uno espera: vuelve a donde estabas, con el scroll donde lo dejaste—. Si se entró
+// directo (desde Google, un link compartido), no hay a dónde retroceder y dejamos que el
+// href del <a> lleve a la sección padre. Se re-bindea por página: los <a> son nuevos en cada
+// navegación con view transitions.
+function bindVolver() {
+  document.querySelectorAll('a[data-volver]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      // Respetamos ctrl/cmd+clic y el botón del medio: ahí el usuario quiere otra pestaña.
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      // Con view transitions la navegación es pushState, así que document.referrer NO se
+      // actualiza: mirarlo solo daría falsos negativos. Por eso contamos las páginas que
+      // pasaron por initPage. Más de una = hubo navegación dentro del sitio y hay a dónde
+      // volver. El referrer sirve igual para la navegación clásica (sin ClientRouter).
+      let interno = paginasVistas > 1;
+      if (!interno) {
+        try {
+          interno = !!document.referrer && new URL(document.referrer).origin === location.origin;
+        } catch {
+          interno = false;
+        }
+      }
+      if (interno && history.length > 1) {
+        e.preventDefault();
+        history.back();
+      }
+    });
+  });
+}
+
 // Footer: en celular las columnas arrancan plegadas; en ≥640px siempre abiertas.
 // El markup las trae con [open] para que sin JS se vea como antes (todo visible).
 function initFooterAccordion() {
@@ -231,6 +261,9 @@ function initFooterAccordion() {
 // En la carga inicial nos llaman dos veces (DOMContentLoaded y después astro:page-load),
 // así que lleva guard. Con view transitions el guard se suelta antes de cada swap.
 let paginaLista = false;
+// Cuántas páginas pasaron por initPage en esta sesión. Sirve para saber si hay historial
+// propio del sitio: con view transitions es la única señal fiable (ver bindVolver).
+let paginasVistas = 0;
 document.addEventListener('astro:before-swap', () => {
   paginaLista = false;
 });
@@ -238,6 +271,7 @@ document.addEventListener('astro:before-swap', () => {
 function initPage() {
   if (paginaLista) return;
   paginaLista = true;
+  paginasVistas++;
   // El swap de las view transitions reemplaza los atributos de <html>, así que la clase 'js'
   // que puso el script inline del <head> se pierde en cada navegación interna: hay que reponerla
   // o el CSS deja de ocultar y se pierde el revelado. 'reveal-on' desarma la red del <head>.
@@ -255,7 +289,7 @@ function initPage() {
   parallaxEls = Array.from(document.querySelectorAll('[data-parallax]')).filter(
     (el) => !(sdSupported && el.classList.contains('sd-parallax'))
   );
-  for (const fn of [initCarouselDots, initFooterAccordion, initMagnetic, bindAnchors, updateScrollFx]) {
+  for (const fn of [initCarouselDots, initFooterAccordion, initMagnetic, bindAnchors, bindVolver, updateScrollFx]) {
     try {
       fn();
     } catch (err) {

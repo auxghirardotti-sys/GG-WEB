@@ -1,0 +1,45 @@
+---
+/**
+ * Flecha de "Volver" para las páginas internas.
+ *
+ * El problema que resuelve: se entra a una nota o a un servicio y para retroceder había que
+ * ir hasta Inicio y buscar de nuevo. Ahora hay una flecha arriba de todo, siempre en el
+ * mismo lugar.
+ *
+ * Va como <a> con un href real —no como <button>— para que funcione sin JS, se pueda abrir
+ * en otra pestaña y los buscadores la sigan. Si hay historial dentro del sitio, reveal.js
+ * intercepta el clic y hace history.back(), que es lo que uno espera: vuelve a la pantalla
+ * anterior y a la posición donde estabas. Si entraste directo desde Google, no hay historial
+ * y el href hace su trabajo llevándote a la sección padre.
+ */
+interface Props {
+  /** A dónde ir cuando NO hay historial del sitio (entrada directa). */
+  href?: string;
+  label?: string;
+  class?: string;
+}
+const { href = '/', label = 'Volver', class: className = '' } = Astro.props;
+---
+
+<a
+  href={href}
+  data-volver
+  class:list={[
+    'group inline-flex items-center gap-1.5 text-[13px] font-bold text-brand-ink transition-colors hover:text-brand sm:text-sm',
+    className,
+  ]}
+>
+  <svg
+    class="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M17 10a.75.75 0 0 1-.75.75H5.65l4.15 3.95a.75.75 0 1 1-1.1 1.02l-5.5-5.25a.75.75 0 0 1 0-1.04l5.5-5.25a.75.75 0 1 1 1.1 1.02L5.65 9.25h10.6A.75.75 0 0 1 17 10Z"
+      clip-rule="evenodd"
+    />
+  </svg>
+  {label}
+</a>

@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Volver from '../../components/Volver.astro';
 import Icon from '../../components/Icon.astro';
 import Kicker from '../../components/Kicker.astro';
 import ServiceIndex from '../../components/ServiceIndex.astro';
@@ -44,6 +45,7 @@ const heroPhoto = service.heroImage ?? service.cardImage;
       <Icon name={service.icon} class="h-64 w-64" />
     </span>
     <div class="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-10">
+      <Volver href="/#servicios" label="Volver a servicios" class="mb-4 !text-white/80 hover:!text-white" />
       <nav class="text-xs font-medium uppercase tracking-[0.16em] text-white/65" aria-label="Migas de pan">
         <a href="/" class="hover:text-white">Inicio</a>
         <span class="mx-2">/</span>
