@@ -884,3 +884,25 @@ html.lenis body { height: auto; }
     animation-duration: 98s;
   }
 }
+
+/* Portada en celular: halo oscuro detrás del título.
+   Medido sobre la foto de la catedral: la palabra en rojo (#e23b3b) cruza tres fondos
+   —techo oscuro 2,86:1, sombra 3,58:1 y cielo con nubes 1,93:1— y el mínimo para texto
+   grande es 3:1. Sobre las nubes era ilegible. En vez de cambiarle el color a la marca o
+   de oscurecer la foto entera, el texto lleva su propio fondo: un halo negro ceñido que
+   le da contra qué recortarse, sea lo que sea que tenga detrás. Va solo en celular; en
+   escritorio la foto es otra y el título no cruza cielo claro. */
+@media (max-width: 639px) {
+  .cine--hero h1 {
+    text-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.95),
+      0 0 10px rgba(0, 0, 0, 0.75);
+  }
+  /* La acentuada necesita más: es la más oscura de las dos y la que peor contrasta. */
+  .cine--hero h1 .accent {
+    text-shadow:
+      0 0 3px rgba(0, 0, 0, 0.98),
+      0 0 7px rgba(0, 0, 0, 0.92),
+      0 1px 2px rgba(0, 0, 0, 0.95);
+  }
+}

@@ -135,7 +135,9 @@ const faqJsonLd = {
             </Fragment>
           ))}
         </h1>
-        <p class="hero-in hero-in-3 hero-legible mt-3 max-w-xl text-[15px] leading-[1.55] text-white sm:mt-6 sm:text-lg sm:leading-[1.6] sm:text-white/85">
+        {/* Oculto en celular: en una pantalla angosta el parrafo se comia cuatro renglones y
+            empujaba los botones fuera de la vista. En ≥640px vuelve. */}
+        <p class="hero-in hero-in-3 hero-legible mt-3 hidden max-w-xl text-[15px] leading-[1.55] text-white sm:mt-6 sm:block sm:text-lg sm:leading-[1.6] sm:text-white/85">
           Acompañamos a empresas y grupos —locales e internacionales— con criterio estratégico, no
           solo para cumplir vencimientos.
         </p>
