@@ -285,14 +285,14 @@ const faqJsonLd = {
   <!-- NUESTROS CLIENTES (logos en marquee continuo, estilo Cloudflare).
        Solo el titulo: el kicker "Confian en nosotros" y la bajada salieron a pedido.
        Decian lo mismo que el h2 y los logos, y costaban 70px de alto. -->
-  <section class="surface-paper-soft overflow-hidden py-4 sm:py-6 lg:py-6">
+  <section class="surface-paper-soft overflow-hidden py-6 sm:py-8 lg:py-8">
     <div class="mx-auto max-w-6xl px-4 sm:px-6" data-reveal>
       <h2 class="title-clip max-w-2xl font-display text-2xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
         Nuestros <em class="accent" style="font-style:italic">clientes</em>
       </h2>
     </div>
 
-    <div class="mt-3 border-y border-line py-3 sm:mt-4 sm:py-4">
+    <div class="mt-4 border-y border-line py-3 sm:mt-6 sm:py-4">
       <div class="marquee">
         <div class="marquee__track marquee__track--fast">
           {clientStrip.concat(clientStrip).map((c) => (
@@ -316,26 +316,26 @@ const faqJsonLd = {
   <Separador />
   <section id="equipo" class="surface-paper-soft scroll-mt-20 overflow-hidden">
     <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
-      <div class="max-w-2xl" data-reveal>
+      <div class="max-w-3xl" data-reveal>
         <Kicker text="El equipo" />
         <h2 class="title-clip mt-2 font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">
           Tres generaciones, un mismo estudio
         </h2>
       </div>
-      <div class="mt-4 grid items-start gap-2.5 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3" data-reveal-stagger>
+      <div class="mt-4 grid items-start gap-2.5 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3" data-reveal-stagger>
         {TEAM.map((m) => (
           <details class="group lift surface-card overflow-hidden rounded-2xl">
             {/* En mobile la ficha es horizontal y compacta (foto chica a la izquierda); en sm+ vuelve a columna centrada */}
-            <summary class="flex cursor-pointer list-none items-center gap-3 p-3 sm:flex-col sm:gap-0 sm:p-6 sm:text-center">
+            <summary class="flex cursor-pointer list-none items-center gap-3 p-3 sm:flex-col sm:gap-0 sm:p-5 sm:text-center">
               {m.photo ? (
                 <img
                   src={m.photo}
                   alt={m.name}
                   loading="lazy"
-                  class="h-14 w-14 shrink-0 rounded-full object-cover ring-1 ring-line shadow-[0_8px_22px_-8px_rgba(20,23,31,0.22)] sm:h-28 sm:w-28"
+                  class="h-14 w-14 shrink-0 rounded-full object-cover ring-1 ring-line shadow-[0_8px_22px_-8px_rgba(20,23,31,0.22)] sm:h-24 sm:w-24"
                 />
               ) : (
-                <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-bright to-brand-ink font-display text-base text-white shadow-[0_10px_24px_-8px_rgba(205,51,51,0.75)] ring-1 ring-white/40 sm:h-28 sm:w-28 sm:text-2xl" style="font-weight:800">
+                <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-bright to-brand-ink font-display text-base text-white shadow-[0_10px_24px_-8px_rgba(205,51,51,0.75)] ring-1 ring-white/40 sm:h-24 sm:w-24 sm:text-2xl" style="font-weight:800">
                   {m.initials}
                 </span>
               )}
@@ -359,7 +359,7 @@ const faqJsonLd = {
           </details>
         ))}
       </div>
-      <a href="/quienes-somos" class="underline-grow mt-5 inline-block text-sm font-semibold text-brand-ink sm:mt-8">
+      <a href="/quienes-somos" class="underline-grow mt-5 inline-block text-sm font-semibold text-brand-ink sm:mt-6">
         Conocé al equipo →
       </a>
     </div>
