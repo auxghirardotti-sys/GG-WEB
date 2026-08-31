@@ -28,7 +28,7 @@ const { post: p, as: Heading = 'h3', showExcerpt = false } = Astro.props;
 // Corre la veta del filete según el título: ninguna tarjeta repite la misma pincelada, y la
 // misma nota muestra siempre la suya, igual en la home que en /novedades.
 const brushX = (p.data.title.length * 13) % 240;
-// El nombre va en el color del diario; el filete y el isotipo siguen en rojo G&G.
+// El color del diario va SOLO en el filete; el nombre queda en tinta.
 const colorMedio = colorDeMedio(p.data.source);
 ---
 
@@ -50,15 +50,16 @@ const colorMedio = colorDeMedio(p.data.source);
     {fmtDate(p.data.date)}
   </time>
 
-  {/* En caja normal, no en versalitas: "iProfesional" y "La Nación" se escriben así y
-      "IPROFESIONAL" le rompe la i minúscula, que es parte de su marca. Además la fecha de
-      arriba ya va en versalitas, y dos bloques en mayúscula apilados se pisan.
+  {/* El nombre va en tinta, no en el color del medio: con ocho colores fuertes el carrusel
+      se volvía un semáforo. El color del diario queda en el filete de abajo, que es chico.
+      En caja normal, no en versalitas: "iProfesional" y "La Nación" se escriben así y
+      "IPROFESIONAL" le rompe la i minúscula, que es parte de su marca.
       El tracking va inline a propósito: .font-display está fuera de @layer con
       letter-spacing:-0.02em fijo, y le gana a las utilidades tracking-*. */}
   {p.data.source && (
     <span
-      class="font-display mt-1 block text-[22px] leading-[0.92] lg:mt-1.5 lg:text-[28px]"
-      style={`letter-spacing:-0.035em;color:${colorMedio}`}
+      class="font-display mt-1 block text-[22px] leading-[0.92] text-ink lg:mt-1.5 lg:text-[28px]"
+      style="letter-spacing:-0.035em"
     >
       {p.data.source}
     </span>
@@ -68,7 +69,7 @@ const colorMedio = colorDeMedio(p.data.source);
       Si algún día cambia ese padding, hay que cambiarlos acá también. */}
   <div
     class="brush-band brush-rule -mx-4 mt-3 sm:-mx-5 lg:mt-3.5"
-    style={`--brush-x:-${brushX}px`}
+    style={`--brush-x:-${brushX}px;--color-medio:${colorMedio}`}
     aria-hidden="true"
   >
   </div>

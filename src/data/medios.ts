@@ -1,29 +1,27 @@
 /**
- * Color de cada medio para las tarjetas de prensa.
+ * Color de cada medio para el filete de las tarjetas de prensa.
  *
- * De dónde salen: los tomé del CSS y del favicon de cada sitio, no de memoria.
- * Varios están apenas más oscuros que el original de marca, y eso es a propósito:
- * el nombre se muestra sobre blanco a 22-28px en peso 800, o sea "texto grande"
- * para WCAG, que pide 3:1 como mínimo. Los naranjas de Infobae (#f68e01, 2,39:1) e
- * iProfesional (#ef7300, 2,95:1) y el cian de El Economista (#10a3c9, 2,96:1) no
- * llegaban, así que van bajados hasta 3,2:1 —lo justo para que se lean sin dejar de
- * ser su color—. Forzarlos hasta 4,5:1 los convertía en marrón y dejaban de
- * reconocerse.
+ * De dónde salen: los saqué del CSS y del favicon de cada sitio, no de memoria. Son los
+ * colores de marca tal cual, sin retocar.
  *
- * Es uso nominativo: el nombre escrito en NUESTRA tipografía y en su color. Nunca
- * el logotipo del medio ni su lettering. El filete dry-brush y el isotipo de agua
- * de la tarjeta siguen en el rojo del estudio: son el hilo que mantiene las 14
- * tarjetas como una serie de G&G.
+ * Antes estaban oscurecidos porque el nombre del medio iba escrito en su color y algunos
+ * (los naranjas de Infobae e iProfesional, el cian de El Economista) no llegaban al
+ * contraste que pide el texto. Ahora el nombre va en tinta y el color quedó solo en el
+ * filete, que es decorativo: el dato lo da el nombre escrito justo encima, así que no hay
+ * umbral de contraste que cumplir y podemos usar el color real.
  *
- * Un medio que no esté acá cae en el rojo del estudio, que es lo correcto para los
- * que no son diarios (AAEF es la asociación donde Mariano dio un curso).
+ * Es uso nominativo: el nombre en NUESTRA tipografía y un filete de su color. Nunca el
+ * logotipo del medio ni su lettering.
+ *
+ * Un medio que no esté acá cae en el rojo del estudio, que es lo correcto para los que no
+ * son diarios (AAEF es la asociación donde Mariano dio un curso).
  */
 export const COLOR_MEDIO: Record<string, string> = {
-  Infobae: '#d37a01', // marca #f68e01
+  Infobae: '#f68e01',
   'El Cronista': '#ed1a3b',
   'La Nación': '#0250c9',
-  iProfesional: '#e56e00', // marca #ef7300
-  'El Economista': '#0f9cc0', // marca #10a3c9
+  iProfesional: '#ef7300',
+  'El Economista': '#10a3c9',
   Clarín: '#cc001b',
   Chequeado: '#f72d54',
 };

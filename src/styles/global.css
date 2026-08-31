@@ -840,18 +840,30 @@ html.lenis body { height: auto; }
   letter-spacing: 0.122em;
 }
 
-/* Filete dry-brush de las tarjetas de prensa: la misma textura del manual, achatada a
-   filete. Las estrías son verticales, así que aplastarla no la deforma, la afina.
+/* Filete dry-brush de las tarjetas de prensa. Acá vive el color del medio: es el unico
+   elemento de color de la tarjeta, para que el nombre pueda ir sobrio en tinta.
+   No es la textura roja de .brush-band pintada encima: es un bloque del color del medio
+   RECORTADO con la pincelada usada como máscara. Así la textura del manual se conserva
+   exacta y se puede teñir de cualquier color sin ensuciarse. La máscara usa el canal alfa
+   del mismo feTurbulence, con los mismos parámetros que .brush-band.
    --brush-x lo pone cada tarjeta según su título, para que ninguna repita la veta.
-   Sin @layer, igual que .brush-band, o las utilidades de Tailwind le ganan. */
+   Sin @layer, o las utilidades de Tailwind le ganan. */
 .brush-rule {
-  height: 5px;
-  background-size: 240px 5px;
-  background-position: var(--brush-x, 0px) center;
+  height: 6px;
+  background-color: var(--color-medio, var(--color-brand));
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='20'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85 0.03' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='360' height='20' filter='url(%23m)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='20'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85 0.03' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='360' height='20' filter='url(%23m)'/%3E%3C/svg%3E");
+  -webkit-mask-size: 240px 100%;
+  mask-size: 240px 100%;
+  -webkit-mask-position: var(--brush-x, 0px) center;
+  mask-position: var(--brush-x, 0px) center;
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
 }
 @media (min-width: 1024px) {
   .brush-rule {
-    height: 6px;
-    background-size: 300px 6px;
+    height: 8px;
+    -webkit-mask-size: 300px 100%;
+    mask-size: 300px 100%;
   }
 }
