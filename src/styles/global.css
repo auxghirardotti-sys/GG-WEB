@@ -940,10 +940,10 @@ html.lenis body { height: auto; }
   gap: 16px;
   max-width: 72rem;
   margin-inline: auto;
-  padding: 28px 16px;
+  padding: 14px 16px;
 }
 @media (min-width: 640px) {
-  .separador { gap: 22px; padding: 40px 24px; }
+  .separador { gap: 22px; padding: 20px 24px; }
 }
 .separador__filete {
   flex: 1;
