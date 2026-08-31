@@ -781,14 +781,37 @@ html.lenis body { height: auto; }
    los costados (17% del ancho en un celular de 390px). En celular no hay parallax
    que justifique ese costo, así que el contenedor va a ras y la foto entra completa. */
 @media (max-width: 639px) {
-  /* La foto ocupa una caja con SU proporcion (3:4), anclada arriba: asi entra
-     completa en cualquier ancho de celular, sin importar cuanto crezca el texto.
-     Si el contenido pide mas alto que la foto, lo que sobra abajo queda en tinta
-     y el velo en gradiente lo funde sin costura. */
+  /* La foto ocupa una caja con SU proporcion, anclada arriba: asi entra completa en
+     cualquier ancho de celular, sin importar cuanto crezca el texto. Si el contenido
+     pide mas alto que la foto, lo que sobra abajo queda en tinta y el velo en gradiente
+     lo funde sin costura.
+
+     === LAS TRES PERILLAS DEL ENCUADRE (celular) ===
+     Se tocan SOLO aca. Hay una herramienta para probarlas moviendo sliders y ver el
+     resultado antes de tocar el codigo; los tres valores que tira se pegan aca.
+
+       --hero-ratio  proporcion de la ventana. 3/4 muestra la foto entera (es su
+                     proporcion nativa). Mas alto que ancho -> mas foto; mas bajo ->
+                     recorta arriba y abajo. Ej: 4/5 recorta un poco, 1/1 recorta mucho.
+       --hero-zoom   acercamiento. 1 = foto entera. 1.2 = 20% mas cerca.
+       --hero-y      que parte se ve al acercar. 0% = arriba (la aguja), 50% = centro,
+                     100% = abajo (el cantero). */
   .cine--hero .cine__media {
+    --hero-ratio: 3 / 4;
+    --hero-zoom: 1;
+    --hero-y: 50%;
+
     inset: 0 0 auto 0;
     height: auto;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: var(--hero-ratio);
+    /* recorta el zoom a la ventana de la foto: sin esto, al acercar la imagen se
+       derramaria sobre la banda de tinta de abajo */
+    overflow: hidden;
+  }
+  .cine--hero .cine__media img {
+    object-position: 50% var(--hero-y);
+    transform: scale(var(--hero-zoom));
+    transform-origin: 50% var(--hero-y);
   }
   .cine--hero .cine__media.sd-parallax {
     animation: none !important;
