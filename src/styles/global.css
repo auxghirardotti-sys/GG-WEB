@@ -840,15 +840,18 @@ html.lenis body { height: auto; }
   letter-spacing: 0.122em;
 }
 
-
-/* Velo dry-brush BLANCO para la banda de color de las tarjetas de prensa.
-   Es la misma textura del manual (mismo feTurbulence y mismos parámetros que
-   .brush-band), pero pintada en blanco: la roja se ensuciaría sobre el azul de
-   La Nación o el naranja de Infobae. Va muy sutil, es una veladura, no un dibujo. */
-.brush-veil {
-  opacity: 0.16;
-  background-repeat: repeat-x;
+/* Filete dry-brush de las tarjetas de prensa: la misma textura del manual, achatada a
+   filete. Las estrías son verticales, así que aplastarla no la deforma, la afina.
+   --brush-x lo pone cada tarjeta según su título, para que ninguna repita la veta.
+   Sin @layer, igual que .brush-band, o las utilidades de Tailwind le ganan. */
+.brush-rule {
+  height: 5px;
+  background-size: 240px 5px;
   background-position: var(--brush-x, 0px) center;
-  background-size: 360px 100%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='120'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85 0.03' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='360' height='120' filter='url(%23v)'/%3E%3C/svg%3E");
+}
+@media (min-width: 1024px) {
+  .brush-rule {
+    height: 6px;
+    background-size: 300px 6px;
+  }
 }
