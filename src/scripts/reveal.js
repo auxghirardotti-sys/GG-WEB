@@ -62,13 +62,34 @@ function initReveal() {
         obs.unobserve(el);
       });
     },
-    { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+    // threshold 0, NO 0.15. Con 0.15 el revelado dependía del ALTO del elemento: hay que
+    // ver el 15% de su área, así que un contenedor mucho más alto que la pantalla nunca
+    // llega. Paso de verdad en /novedades: la grilla mide 3.291px, al cargar se ve 420 y
+    // eso es el 12,8% — por debajo del 15%, así que las 19 tarjetas quedaban invisibles
+    // hasta scrollear. Con 0 alcanza que asome un píxel, y deja de importar cuán alto sea.
+    { threshold: 0, rootMargin: '0px 0px -8% 0px' }
   );
 
   revealTargets.forEach((el) => observer.observe(el));
   countTargets.forEach((el) => {
     if (!el.closest('[data-reveal], [data-reveal-stagger]')) observer.observe(el);
   });
+
+  // Red de seguridad del revelado. La del <head> cubre "el JS no llegó", pero no cubre
+  // este otro caso, que ya pasó dos veces: el JS corre bien y el observer igual no
+  // revela. Al segundo y medio, cualquier cosa que esté en pantalla y siga invisible se
+  // muestra. Si el observer funcionó —el caso normal— la animación ya ocurrió y esto no
+  // hace nada: por eso no le come la entrada a nadie.
+  window.setTimeout(() => {
+    revealTargets.forEach((el) => {
+      if (el.classList.contains('is-visible')) return;
+      const r = el.getBoundingClientRect();
+      if (r.height > 0 && r.top < window.innerHeight && r.bottom > 0) {
+        el.classList.add('is-visible');
+        observer.unobserve(el);
+      }
+    });
+  }, 1500);
 }
 
 function updateScrollFx() {
