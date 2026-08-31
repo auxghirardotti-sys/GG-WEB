@@ -37,9 +37,18 @@ const heroDesktop = await getImage({
   quality: 82,
 });
 
+// El carrusel de prensa muestra TODAS las notas recientes, no un recorte: se deslizan.
+// Las tres viejas (2016, 2022 y 2023) quedan solo en /novedades — no tienen link externo
+// ni foto, y como cierre de un carrusel de fotos desentonan.
+const DESDE_ANIO = 2024;
 const posts = (await getCollection('novedades'))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 6);
+  .filter((p) => p.data.date.getFullYear() >= DESDE_ANIO)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Con muchas tarjetas, un punto por tarjeta es una hilera ilegible. Los puntos son un
+// indicador de posición, no un índice: con seis alcanza. initCarouselDots() mapea el
+// scroll sobre la cantidad de puntos que haya, así que no hace falta que coincidan.
+const dots = Math.min(posts.length, 6);
 
 const stats = [
   { value: 60, suffix: '+', label: 'años de trayectoria' },
@@ -374,7 +383,7 @@ const faqJsonLd = {
           {posts.map((p) => <NovedadCard post={p} />)}
         </div>
         <div class="mt-3 flex justify-center gap-2 sm:mt-5">
-          {posts.map(() => (
+          {Array.from({ length: dots }).map(() => (
             <span data-carousel-dot class="h-2 w-2 rounded-full bg-line transition-colors"></span>
           ))}
         </div>
