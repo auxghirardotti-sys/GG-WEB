@@ -12,6 +12,7 @@ import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import NovedadCard from '../components/NovedadCard.astro';
+import Separador from '../components/Separador.astro';
 import { SITE, waLink, waLinkFor, TEAM, INDUSTRIES, DIFFERENTIALS, FAQ, CLIENTS } from '../data/site';
 import { fmtDate } from '../data/format';
 import { Image, getImage } from 'astro:assets';
@@ -190,7 +191,7 @@ const faqJsonLd = {
           Nuestros <em class="accent" style="font-style:italic">servicios</em>
         </h2>
         <p class="mt-2 hidden text-[13px] leading-snug text-body sm:mt-4 sm:block sm:text-base sm:leading-relaxed">
-          Asesoramiento fiscal, contable, societario y patrimonial —con especialización en el agro— para tu empresa, bajo un mismo techo.
+          Asesoramiento fiscal, contable, societario y patrimonial, con especialización en el agro.
         </p>
       </div>
 
@@ -362,8 +363,8 @@ const faqJsonLd = {
     </div>
   </section>
 
-  <!-- NOVEDADES (2 más recientes) -->
-  <div class="brush-band" aria-hidden="true"></div>
+  <!-- NOVEDADES -->
+  <Separador />
   <section class="surface-paper-soft">
     <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
       <div class="flex flex-wrap items-end justify-between gap-3" data-reveal>

@@ -929,3 +929,41 @@ html.lenis body { height: auto; }
       0 1px 2px rgba(0, 0, 0, 0.95);
   }
 }
+
+/* ---- Separador de secciones (ver src/components/Separador.astro) ----
+   El isotipo centrado entre dos filetes que se dibujan desde el centro hacia afuera.
+   Los filetes van en gradiente: nacen del rojo junto a la marca y se desvanecen en los
+   extremos, para que no queden dos líneas cortadas a cuchillo contra el borde. */
+.separador {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: 28px 16px;
+}
+@media (min-width: 640px) {
+  .separador { gap: 22px; padding: 40px 24px; }
+}
+.separador__filete {
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+}
+.separador__filete--izq {
+  background: linear-gradient(90deg, transparent, var(--color-brand));
+  transform-origin: right;
+}
+.separador__filete--der {
+  background: linear-gradient(90deg, var(--color-brand), transparent);
+  transform-origin: left;
+}
+.separador__marca {
+  height: 18px;
+  width: auto;
+  flex-shrink: 0;
+  color: var(--color-brand);
+}
+@media (min-width: 640px) {
+  .separador__marca { height: 22px; }
+}

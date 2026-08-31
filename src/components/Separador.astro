@@ -1,0 +1,29 @@
+---
+/**
+ * Separador entre secciones: el isotipo centrado entre dos filetes que se dibujan.
+ *
+ * Reemplaza a la banda dry-brush, que repetía un mosaico de 360px a lo ancho y por eso
+ * se leía como código de barras en vez de como pincelada: el ojo veía el patrón, no la
+ * textura. Acá el separador es un elemento de marca —el isotipo, que además son los dos
+ * ojos de "sus ojos donde usted no ve"— y no una trama.
+ *
+ * Los filetes usan .rule-draw, que ya existe en el sitio: entran dibujándose desde el
+ * centro cuando la sección se revela. Si el JS no corre, la red de seguridad los deja
+ * dibujados y el separador se ve igual, sin animación.
+ */
+import Logo from './Logo.astro';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+{/* data-reveal no es solo para la entrada: .rule-draw arranca en scaleX(0) y solo se
+    dibuja cuando un ancestro recibe .is-visible. Sin esto los filetes quedaban en cero
+    y solo se veia el isotipo suelto. */}
+<div class:list={['separador', className]} data-reveal aria-hidden="true">
+  <span class="separador__filete separador__filete--izq rule-draw"></span>
+  <Logo class="separador__marca" />
+  <span class="separador__filete separador__filete--der rule-draw"></span>
+</div>

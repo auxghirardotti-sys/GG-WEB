@@ -9,7 +9,10 @@ import { PROCESS, waLinkFor } from '../data/site';
   <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
     <div data-reveal>
       <Kicker text="Cómo trabajamos" light />
-      <h2 class="mt-2 max-w-2xl font-display text-2xl leading-tight text-white sm:mt-4 sm:text-4xl" style="font-weight:700">
+      {/* text-3xl y no 4xl: es el unico titulo de la pagina que caia en dos lineas (90px
+          contra los 45 de todos los demas) y por eso pesaba de mas. Al mismo cuerpo que
+          el de prensa. El max-w sube a 3xl para que no siga partiendose igual. */}
+      <h2 class="mt-2 max-w-3xl font-display text-xl leading-tight text-white sm:mt-4 sm:text-3xl" style="font-weight:700">
         Empezar es simple. Y la primera charla <span class="text-brand-bright">no tiene costo</span>.
       </h2>
     </div>
