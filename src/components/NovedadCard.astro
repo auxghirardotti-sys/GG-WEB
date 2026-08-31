@@ -1,19 +1,25 @@
 ---
 /**
- * Tarjeta de prensa ("El estudio en los medios").
+ * Tarjeta de prensa ("El estudio en los medios"): la foto de la nota arriba, y abajo el
+ * medio en su color, la fecha y el titular.
  *
- * La idea: en una sección que se llama así, el nombre del medio era lo MÁS chico de la
- * tarjeta (11px gris) cuando en realidad es lo que impresiona. Va al revés: el medio en
- * grande y en rojo de marca es el ancla visual, con un filete dry-brush del manual debajo
- * y el isotipo como marca de agua, para que la tarjeta siga leyéndose como de G&G aunque
- * lo más grande diga INFOBAE.
+ * La foto sale del <meta og:image> de la nota, que es la imagen que el propio medio publica
+ * para que la muestre quien enlaza a ella. La baja y la optimiza scripts/fotos-prensa.mjs
+ * en una sola pasada y quedan versionadas en src/assets/prensa, así el build no depende de
+ * la red ni de que los sitios de los medios estén arriba. Al agregar una nota se corre
+ * `npm run prensa:fotos` y listo: no hay que elegir ni recortar nada a mano.
  *
- * No necesita ningún campo nuevo: usa date, source, title, excerpt y externalUrl, que ya
- * están en las 14 notas. Nadie tiene que cargar un dato extra al publicar la próxima.
+ * (Nota para el que venga después: si al bajar una og:image te da 400, revisá que hayas
+ * decodificado los &amp; de la URL. Los medios sobre Arc —Infobae, La Nación, El Cronista—
+ * llevan un token en el query string y sin decodificar parece que estuvieran bloqueando.)
+ *
+ * Las tres notas viejas (2016, 2022, 2023) no tienen link externo y por lo tanto no tienen
+ * foto: la tarjeta se dibuja sin imagen. No salen en la portada, que muestra las 6 últimas.
  */
 import type { CollectionEntry } from 'astro:content';
-import Logo from './Logo.astro';
+import { Image } from 'astro:assets';
 import { fmtDate } from '../data/format';
+import { fotoPrensa } from '../data/images';
 import { colorDeMedio } from '../data/medios';
 
 interface Props {
@@ -25,72 +31,70 @@ interface Props {
 }
 const { post: p, as: Heading = 'h3', showExcerpt = false } = Astro.props;
 
-// Corre la veta del filete según el título: ninguna tarjeta repite la misma pincelada, y la
-// misma nota muestra siempre la suya, igual en la home que en /novedades.
-const brushX = (p.data.title.length * 13) % 240;
-// El color del diario va SOLO en el filete; el nombre queda en tinta.
+const foto = fotoPrensa(p.id);
 const colorMedio = colorDeMedio(p.data.source);
 ---
 
-{/* El `relative` es necesario, no decorativo: .surface-card solo recibe position:relative
-    dentro de @media (pointer: fine), así que en celular la marca de agua se posicionaría
-    contra el <body>. */}
 <a
   href={p.data.externalUrl ?? `/novedades/${p.id}`}
   target={p.data.externalUrl ? '_blank' : undefined}
   rel={p.data.externalUrl ? 'noopener' : undefined}
-  class="surface-card lift group relative flex shrink-0 basis-[70%] snap-start flex-col rounded-2xl p-4 sm:basis-[46%] sm:rounded-lg sm:p-5 lg:basis-[31.5%]"
+  class="surface-card lift group flex shrink-0 basis-[70%] snap-start flex-col overflow-hidden rounded-2xl sm:basis-[46%] sm:rounded-lg lg:basis-[31.5%]"
 >
-  <Logo class="pointer-events-none absolute bottom-3 right-3 h-7 w-auto text-brand/10 lg:h-8" />
+  {foto && (
+    <div class="aspect-[16/9] overflow-hidden bg-paper-2">
+      <Image
+        src={foto}
+        alt=""
+        aria-hidden="true"
+        widths={[380, 760]}
+        sizes="(min-width: 1024px) 350px, 70vw"
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  )}
 
-  <time
-    datetime={p.data.date.toISOString()}
-    class="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted lg:text-[11px]"
-  >
-    {fmtDate(p.data.date)}
-  </time>
+  <div class="flex flex-1 flex-col p-4 sm:p-5">
+    {/* El nombre va en el color del diario. En caja normal, no en versalitas:
+        "IPROFESIONAL" le rompe la i minúscula, que es parte de su marca.
+        El tracking va inline: .font-display está fuera de @layer con letter-spacing
+        -0.02em fijo y le gana a las utilidades tracking-*. */}
+    {p.data.source && (
+      <span
+        class="font-display block text-[15px] leading-none lg:text-[17px]"
+        style={`letter-spacing:-0.02em;color:${colorMedio}`}
+      >
+        {p.data.source}
+      </span>
+    )}
 
-  {/* El nombre va en tinta, no en el color del medio: con ocho colores fuertes el carrusel
-      se volvía un semáforo. El color del diario queda en el filete de abajo, que es chico.
-      En caja normal, no en versalitas: "iProfesional" y "La Nación" se escriben así y
-      "IPROFESIONAL" le rompe la i minúscula, que es parte de su marca.
-      El tracking va inline a propósito: .font-display está fuera de @layer con
-      letter-spacing:-0.02em fijo, y le gana a las utilidades tracking-*. */}
-  {p.data.source && (
-    <span
-      class="font-display mt-1 block text-[22px] leading-[0.92] text-ink lg:mt-1.5 lg:text-[28px]"
-      style="letter-spacing:-0.035em"
+    <time
+      datetime={p.data.date.toISOString()}
+      class="mt-1.5 block text-[10px] font-semibold uppercase tracking-[0.16em] text-muted lg:text-[11px]"
     >
-      {p.data.source}
+      {fmtDate(p.data.date)}
+    </time>
+
+    <Heading
+      class="font-display mt-2 text-balance text-[16px] leading-[1.22] text-ink transition-colors group-hover:text-brand-ink lg:mt-2.5 lg:text-[18px]"
+      style="font-weight:700"
+    >
+      {p.data.title}
+    </Heading>
+
+    {showExcerpt && (
+      <p class="mt-2.5 text-[13px] leading-snug text-body line-clamp-3 lg:text-sm">
+        {p.data.excerpt}
+      </p>
+    )}
+
+    <span class="mt-auto inline-flex items-center gap-1 pt-4 text-xs font-bold text-brand-ink lg:text-sm">
+      Leer más
+      <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.6L10.2 5.3a.75.75 0 1 1 1.1-1.02l5.5 5.25a.75.75 0 0 1 0 1.04l-5.5 5.25a.75.75 0 1 1-1.1-1.02l4.15-3.95H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
+      </svg>
     </span>
-  )}
-
-  {/* Los -mx-* espejan el p-4/sm:p-5 de la tarjeta para que el filete vaya a sangre.
-      Si algún día cambia ese padding, hay que cambiarlos acá también. */}
-  <div
-    class="brush-band brush-rule -mx-4 mt-3 sm:-mx-5 lg:mt-3.5"
-    style={`--brush-x:-${brushX}px;--color-medio:${colorMedio}`}
-    aria-hidden="true"
-  >
   </div>
-
-  <Heading
-    class="font-display mt-3 text-balance text-[16px] leading-[1.22] text-ink transition-colors group-hover:text-brand-ink lg:mt-4 lg:text-[19px]"
-    style="font-weight:700"
-  >
-    {p.data.title}
-  </Heading>
-
-  {showExcerpt && (
-    <p class="mt-3 border-l-2 border-brand-soft pl-3 text-[13px] leading-snug text-body line-clamp-3 lg:text-sm">
-      {p.data.excerpt}
-    </p>
-  )}
-
-  <span class="relative mt-auto inline-flex items-center gap-1 pt-4 text-xs font-bold text-brand-ink lg:text-sm">
-    Leer más
-    <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-      <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.6L10.2 5.3a.75.75 0 1 1 1.1-1.02l5.5 5.25a.75.75 0 0 1 0 1.04l-5.5 5.25a.75.75 0 1 1-1.1-1.02l4.15-3.95H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
-    </svg>
-  </span>
 </a>
