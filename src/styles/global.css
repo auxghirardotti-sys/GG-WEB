@@ -839,3 +839,19 @@ html.lenis body { height: auto; }
      también la lleva visiblemente espaciada, por el mismo motivo. */
   letter-spacing: 0.122em;
 }
+
+/* Filete dry-brush de las tarjetas de prensa: la misma textura del manual, achatada a
+   filete. Las estrías son verticales, así que aplastarla no la deforma, la afina.
+   --brush-x lo pone cada tarjeta según su título, para que ninguna repita la veta.
+   Sin @layer, igual que .brush-band, o las utilidades de Tailwind le ganan. */
+.brush-rule {
+  height: 5px;
+  background-size: 240px 5px;
+  background-position: var(--brush-x, 0px) center;
+}
+@media (min-width: 1024px) {
+  .brush-rule {
+    height: 6px;
+    background-size: 300px 6px;
+  }
+}
