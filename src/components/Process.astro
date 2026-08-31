@@ -20,8 +20,11 @@ import { PROCESS, waLinkFor } from '../data/site';
     {/* En mobile va 2x2 (mitad de scroll); en lg vuelve a 4 columnas.
         Aire de las tarjetas recortado: padding 24 -> 20, icono 48 -> 40 y los dos textos
         a interlineado ajustado. Eran 214px de alto para tres renglones.
-        OJO: el comentario va aca y no adentro del map — un {/* */} dentro de la
-        expresion de retorno rompe el build con "Expected ) but found $$render". */}
+        OJO: el comentario va aca y no adentro del map — un comentario JSX dentro de la
+        expresion de retorno rompe el build con "Expected ) but found $$render". Y OJO tambien con esto:
+        la secuencia que cierra un comentario NO se puede escribir dentro del texto
+        del comentario, porque lo cierra ahi mismo y el resto sale impreso en la
+        pagina. Por eso esta descripta con palabras y no con los simbolos. */}
     <ol class="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-md sm:mt-8 lg:grid-cols-4" data-reveal-stagger>
       {
         PROCESS.map((p) => (
