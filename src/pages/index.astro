@@ -311,42 +311,12 @@ const faqJsonLd = {
     </div>
   </section>
 
-  <!-- PRENSA. Va arriba de Equipo: primero donde nos publican, despues quienes somos.
-       El Separador queda ACA y no con Equipo. Esta seccion y la de Clientes, que ahora
-       le cae justo arriba, comparten el fondo surface-paper-soft: sin el corte las dos
-       se leen como un solo bloque largo. Contra Equipo no hace falta, ahi el fondo ya
-       cambia a mesh y el limite se ve solo. -->
+  <!-- EQUIPO. El separador del isotipo abre esta seccion.
+       Clientes viene justo arriba y ni ella ni esta pintan fondo propio
+       (surface-paper-soft es transparent), asi que sin el corte del isotipo
+       las dos se leen como un solo bloque largo. -->
   <Separador />
-  <section class="surface-paper-soft">
-    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
-      <div class="flex flex-wrap items-end justify-between gap-3" data-reveal>
-        <div>
-          <Kicker text="Prensa" />
-          <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-3 sm:text-3xl" style="font-weight:700">
-            El estudio en los <em class="accent" style="font-style:italic">medios</em>
-          </h2>
-        </div>
-        <a href="/novedades" class="underline-grow shrink-0 text-[15px] font-bold text-brand-ink sm:text-base">Ver todos los artículos →</a>
-      </div>
-
-      {/* Marquesina: gira sola, como la de clientes. Pierde el swipe manual a cambio de
-          que las notas pasen solas; el que quiera navegar a su ritmo tiene "Ver todos los artículos".
-          Se frena al pasar el mouse (solo en dispositivos con hover real: en touch el
-          :hover queda pegado tras un tap y dejaría la marquesina detenida) y el bloque
-          global de prefers-reduced-motion la detiene por completo. */}
-      <div class="marquee mt-4 sm:mt-6">
-        <div class="marquee__track marquee__track--prensa gap-4">
-          {[...posts, ...posts].map((p, i) => (
-            <NovedadCard post={p} ancho="w-[260px] lg:w-[340px]" duplicado={i >= posts.length} />
-          ))}
-        </div>
-      </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EQUIPO (más presencia: monograma + nombre + rol) -->
-  <section id="equipo" class="mesh scroll-mt-20 overflow-hidden">
+  <section id="equipo" class="surface-paper-soft scroll-mt-20 overflow-hidden">
     <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
       <div class="max-w-2xl" data-reveal>
         <Kicker text="El equipo" />
@@ -394,6 +364,37 @@ const faqJsonLd = {
       <a href="/quienes-somos" class="underline-grow mt-5 inline-block text-sm font-semibold text-brand-ink sm:mt-8">
         Conocé al equipo →
       </a>
+    </div>
+  </section>
+
+  <!-- PRENSA. Se queda con el fondo rojizo: .mesh son tres glows radiales rojos al
+       8-10% con una deriva de 16s. Es el unico lugar del sitio que lo usa; antes
+       vivia en Equipo. Va con overflow-hidden porque .mesh::before se extiende
+       inset:-20% y sin el se derrama sobre las secciones vecinas. -->
+  <section class="mesh overflow-hidden">
+    <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
+      <div class="flex flex-wrap items-end justify-between gap-3" data-reveal>
+        <div>
+          <Kicker text="Prensa" />
+          <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-3 sm:text-3xl" style="font-weight:700">
+            El estudio en los <em class="accent" style="font-style:italic">medios</em>
+          </h2>
+        </div>
+        <a href="/novedades" class="underline-grow shrink-0 text-[15px] font-bold text-brand-ink sm:text-base">Ver todos los artículos →</a>
+      </div>
+
+      {/* Marquesina: gira sola, como la de clientes. Pierde el swipe manual a cambio de
+          que las notas pasen solas; el que quiera navegar a su ritmo tiene "Ver todos los artículos".
+          Se frena al pasar el mouse (solo en dispositivos con hover real: en touch el
+          :hover queda pegado tras un tap y dejaría la marquesina detenida) y el bloque
+          global de prefers-reduced-motion la detiene por completo. */}
+      <div class="marquee mt-4 sm:mt-6">
+        <div class="marquee__track marquee__track--prensa gap-4">
+          {[...posts, ...posts].map((p, i) => (
+            <NovedadCard post={p} ancho="w-[260px] lg:w-[340px]" duplicado={i >= posts.length} />
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 
