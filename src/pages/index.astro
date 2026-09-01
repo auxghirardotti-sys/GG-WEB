@@ -248,11 +248,18 @@ const faqJsonLd = {
     veil="soft"
   />
 
-  <!-- DIAGNÓSTICO EXPRESS (simulador interactivo -> WhatsApp prellenado) -->
-  <Diagnostico />
+  <!-- UNA PANTALLA: arriba las preguntas del diagnostico sobre claro, abajo los 4 pasos
+       sobre negro. Son los dos bloques que ya iban uno detras del otro; ahora comparten
+       una sola pantalla partida por la mitad.
 
-  <!-- CÓMO TRABAJAMOS (movido arriba: empezar es simple, primera charla sin costo) -->
-  <Process />
+       El alto completo va SOLO en lg: en celular meter las tres preguntas mas los cuatro
+       pasos en 100svh los dejaria ilegibles, asi que ahi se apilan como siempre.
+       flex-1 reparte el alto en mitades; como los items flex no bajan de su contenido,
+       si algo no entra la seccion crece en vez de recortarse. -->
+  <section class="lg:flex lg:min-h-svh lg:flex-col">
+    <Diagnostico class="lg:flex lg:flex-1 lg:flex-col lg:justify-center" />
+    <Process class="lg:flex lg:flex-1 lg:flex-col lg:justify-center" />
+  </section>
 
   <!-- DIFERENCIALES -->
   <section>

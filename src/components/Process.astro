@@ -3,9 +3,13 @@
 import Kicker from './Kicker.astro';
 import Icon from './Icon.astro';
 import { PROCESS, waLinkFor } from '../data/site';
+// La home las fusiona en una sola pantalla y le pasa flex-1 a cada una para que
+// se repartan el alto. Por eso el <section> acepta clases desde afuera.
+interface Props { class?: string }
+const { class: className = '' } = Astro.props;
 ---
 
-<section id="como-trabajamos" class="surface-ink grid-ink scroll-mt-20">
+<section id="como-trabajamos" class:list={['surface-ink grid-ink scroll-mt-20', className]}>
   <div class="mx-auto max-w-pagina px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
     <div data-reveal>
       <Kicker text="Cómo trabajamos" light />
