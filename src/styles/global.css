@@ -40,7 +40,16 @@
   --color-wsp: #25d366;
   --color-wsp-dark: #1eb958;
 
+  /* Ancho de la columna de contenido: LA PERILLA UNICA del ancho de pagina.
+     Tailwind 4 convierte --container-* en utilidades max-w-*, asi que esto habilita
+     "max-w-pagina" en el markup y ademas se puede leer desde CSS con var().
+     Antes eran 72rem repetidos en 32 lugares del markup MAS tres a mano en este
+     archivo (.marquee--columna dos veces y .separador). Tocarlo en un solo lado
+     dejaba los carruseles y el separador desalineados sin que se notara. */
+  --container-pagina: 84rem;
+
   /* Movimiento */
+
   --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -389,19 +398,19 @@ body::before {
    Sin esto la pista ocupa todo el ancho de la pantalla y el difuminado de .marquee cae
    en el borde del monitor y no en el margen, asi que los items se ven cortados al ras.
    Medido a 1280px: se pasaban 83px por lado. El carrusel de prensa ya estaba bien porque
-   vive dentro del contenedor max-w-6xl; esta clase le da lo mismo a los que van a sangre.
-   Los numeros replican "max-w-6xl + px-4 (px-6 en sm+)": 72rem menos los dos margenes.
+   vive dentro del contenedor max-w-pagina; esta clase le da lo mismo a los que van a sangre.
+   Los numeros replican "max-w-pagina + px-4 (px-6 en sm+)": el ancho de pagina menos los dos margenes.
    NO se la pongas al de prensa: su padre YA es la columna y le descontaria el margen
    dos veces, dejandolo mas angosto que el resto. */
 .marquee--columna {
   width: calc(100% - 2rem);
-  max-width: calc(72rem - 2rem);
+  max-width: calc(var(--container-pagina) - 2rem);
   margin-inline: auto;
 }
 @media (min-width: 640px) {
   .marquee--columna {
     width: calc(100% - 3rem);
-    max-width: calc(72rem - 3rem);
+    max-width: calc(var(--container-pagina) - 3rem);
   }
 }
 
@@ -953,7 +962,7 @@ html {
   display: flex;
   align-items: center;
   gap: 16px;
-  max-width: 72rem;
+  max-width: var(--container-pagina);
   margin-inline: auto;
   padding: 14px 16px;
 }

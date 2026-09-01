@@ -26,7 +26,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
   id="site-header"
   class="sticky top-0 z-40 border-b-2 border-brand bg-paper/90 backdrop-blur transition-all duration-200"
 >
-  <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-4 transition-all duration-200 sm:px-6">
+  <div class="mx-auto flex h-[72px] max-w-pagina items-center justify-between gap-4 px-4 transition-all duration-200 sm:px-6">
     <a href="/" class="flex items-center gap-3" aria-label="Ghirardotti & Ghirardotti — Inicio">
       <Logo class="h-8 w-auto shrink-0 text-brand sm:h-9" />
       <Wordmark class="text-[28px] text-brand" />
@@ -124,7 +124,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
   </div>
 
   <div id="mobile-menu" class="hidden border-t border-line bg-paper lg:hidden">
-    <nav class="mx-auto max-w-6xl space-y-1 px-4 py-4 sm:px-6" aria-label="Navegación móvil">
+    <nav class="mx-auto max-w-pagina space-y-1 px-4 py-4 sm:px-6" aria-label="Navegación móvil">
       <a href="/" class="block py-2.5 font-display text-lg text-ink" style="font-weight:700">Inicio</a>
       <details class="group border-t border-line/70">
         <summary class="flex cursor-pointer list-none items-center justify-between py-3 font-display text-lg text-ink" style="font-weight:700">
