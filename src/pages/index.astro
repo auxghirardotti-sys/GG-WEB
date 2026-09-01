@@ -215,7 +215,7 @@ const faqJsonLd = {
     </div>
 
     <div class="mt-4 flex flex-col gap-4 border-y border-line py-3 sm:mt-6 sm:py-4">
-      <div class="marquee">
+      <div class="marquee marquee--columna">
         <div class="marquee__track">
           {[...INDUSTRIES, ...INDUSTRIES].map((i) => (
             <span class="mx-4 flex items-center gap-2.5 whitespace-nowrap font-display text-base text-ink/85 sm:mx-6 sm:gap-3 sm:text-2xl" style="font-weight:700">
@@ -226,7 +226,7 @@ const faqJsonLd = {
         </div>
       </div>
       {/* La segunda fila solo en pantallas grandes: en mobile alcanza con una y ahorra scroll */}
-      <div class="marquee hidden sm:block">
+      <div class="marquee marquee--columna hidden sm:block">
         <div class="marquee__track marquee__track--reverse">
           {[...[...INDUSTRIES].reverse(), ...[...INDUSTRIES].reverse()].map((i) => (
             <span class="mx-6 flex items-center gap-3 whitespace-nowrap font-display text-xl text-ink/85 sm:text-2xl" style="font-weight:700">
@@ -293,7 +293,7 @@ const faqJsonLd = {
     </div>
 
     <div class="mt-4 border-y border-line py-3 sm:mt-6 sm:py-4">
-      <div class="marquee">
+      <div class="marquee marquee--columna">
         <div class="marquee__track marquee__track--fast">
           {clientStrip.concat(clientStrip).map((c) => (
             <span class="client-logo mx-6 flex h-14 shrink-0 items-center whitespace-nowrap sm:mx-10 sm:h-16">

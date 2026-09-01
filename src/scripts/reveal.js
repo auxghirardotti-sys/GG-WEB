@@ -1,5 +1,8 @@
 // Movimiento del sitio:
-// - Lenis: scroll suave premium (respeta prefers-reduced-motion).
+// - El scroll es el NATIVO del navegador. Lo manejaba Lenis, que interceptaba la rueda
+//   y la aceleraba: se sentia disparado. Al sacarlo, el "scroll-behavior: smooth" que ya
+//   estaba en el CSS vuelve a aplicar y las anclas del menu siguen deslizando suave, con el
+//   desfase del header resuelto por las clases scroll-mt-20 de cada seccion.
 // - [data-reveal] / [data-reveal-stagger]: .is-visible al entrar en viewport.
 // - [data-countup]: cuenta de 0 a data-target al entrar en viewport.
 // - [data-parallax]: desplazamiento suave según scroll (factor en el atributo).
@@ -8,14 +11,12 @@
 // Con View Transitions (ClientRouter) el módulo carga UNA vez y el DOM se swapea
 // en cada navegación: los listeners de window/document se registran una sola vez
 // y todo lo que apunta a elementos se re-consulta en cada astro:page-load.
-import Lenis from 'lenis';
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Si el browser soporta scroll-driven animations, el parallax .sd-parallax lo hace CSS puro.
 const sdSupported =
   typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()');
 
-let lenis = null;
 let parallaxEls = [];
 let progressBar = null;
 
@@ -119,42 +120,6 @@ function initScrollFxOnce() {
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
-}
-
-function initSmoothScrollOnce() {
-  if (reduce) return;
-  lenis = new Lenis({
-    duration: 1.1,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-  });
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-}
-
-// Anclas internas con scroll suave (#... y /#... en la misma página).
-// Los <a> son nuevos en cada navegación, así que se re-bindea por página.
-function bindAnchors() {
-  if (!lenis) return;
-  document.querySelectorAll('a[href*="#"]').forEach((a) => {
-    const href = a.getAttribute('href') || '';
-    const hashIndex = href.indexOf('#');
-    if (hashIndex < 0) return;
-    const path = href.slice(0, hashIndex);
-    if (path && path !== '/' && path !== location.pathname) return; // link a otra página
-    const id = href.slice(hashIndex);
-    if (id.length < 2) return;
-    const target = document.querySelector(id);
-    if (!target) return;
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      lenis.scrollTo(target, { offset: -76 });
-      history.pushState(null, '', id);
-    });
-  });
 }
 
 // Vibración háptica sutil en elementos con [data-haptic] (Android/Chrome; iOS lo ignora).
@@ -310,7 +275,7 @@ function initPage() {
   parallaxEls = Array.from(document.querySelectorAll('[data-parallax]')).filter(
     (el) => !(sdSupported && el.classList.contains('sd-parallax'))
   );
-  for (const fn of [initCarouselDots, initFooterAccordion, initMagnetic, bindAnchors, bindVolver, updateScrollFx]) {
+  for (const fn of [initCarouselDots, initFooterAccordion, initMagnetic, bindVolver, updateScrollFx]) {
     try {
       fn();
     } catch (err) {
@@ -319,7 +284,7 @@ function initPage() {
   }
 }
 
-// Los listeners van ANTES de los init globales: si Lenis explota, el revelado igual queda enganchado.
+// Los listeners van ANTES de los init globales: si alguno explota, el revelado igual queda enganchado.
 // after-swap: en una navegación interna el DOM nuevo ya está en pantalla pero Astro todavía no
 // corrió los <script> de la página entrante, y recién después emite page-load. Revelando en el
 // swap no queda ni un frame de cuerpo vacío. El guard de initPage absorbe el disparo duplicado.
@@ -327,7 +292,7 @@ document.addEventListener('astro:after-swap', initPage);
 document.addEventListener('astro:page-load', initPage);
 
 // Cada init global va aislado: ninguno puede dejar la página en blanco si tira una excepción.
-for (const fn of [initScrollFxOnce, initSmoothScrollOnce, initHapticsOnce, initSpotlightOnce]) {
+for (const fn of [initScrollFxOnce, initHapticsOnce, initSpotlightOnce]) {
   try {
     fn();
   } catch (err) {
