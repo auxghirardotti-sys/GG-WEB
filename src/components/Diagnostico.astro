@@ -42,15 +42,15 @@ const { class: className = '' } = Astro.props;
 ---
 
 <section class:list={['scroll-mt-20', className]}>
-  <div class="mx-auto max-w-pagina px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
+  <div class="mx-auto max-w-pagina px-4 py-6 sm:px-6 sm:py-8 lg:py-6">
     <div class="max-w-2xl" data-reveal>
       <Kicker text="Diagnóstico express" />
-      <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">
+      <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl lg:mt-2" style="font-weight:700">
         ¿Por dónde te conviene <em class="accent" style="font-style:italic">empezar</em>?
       </h2>
     </div>
 
-    <div id="diag" data-wa={SITE.whatsappNumber} data-total={total} class="surface-card mt-5 flex min-h-[20rem] max-w-3xl flex-col rounded-2xl p-4 sm:mt-8 sm:min-h-[24rem] sm:rounded-lg sm:p-8" data-reveal>
+    <div id="diag" data-wa={SITE.whatsappNumber} data-total={total} class="surface-card mt-5 flex min-h-[20rem] max-w-3xl flex-col rounded-2xl p-4 sm:mt-8 sm:min-h-[24rem] sm:rounded-lg sm:p-8 lg:mt-6 lg:min-h-[21rem] lg:p-6" data-reveal>
       <div class="flex items-center justify-between gap-4">
         <span id="diag-counter" class="text-[11px] font-bold uppercase tracking-[0.16em] text-muted sm:text-xs">Paso 1 de {total}</span>
         <div class="h-1.5 w-32 overflow-hidden rounded-full bg-line sm:w-40">
@@ -59,16 +59,16 @@ const { class: className = '' } = Astro.props;
       </div>
 
       {steps.map((s, idx) => (
-        <div data-diag-step={idx} data-diag-key={s.key} class:list={['mt-4 sm:mt-6', idx !== 0 && 'hidden']}>
+        <div data-diag-step={idx} data-diag-key={s.key} class:list={['mt-4 sm:mt-6 lg:mt-4', idx !== 0 && 'hidden']}>
           <h3 class="font-display text-base text-ink sm:text-2xl" style="font-weight:700">{s.q}</h3>
-          <div class="mt-4 grid grid-cols-2 gap-2 sm:mt-5 sm:grid-cols-2 sm:gap-3">
+          <div class="mt-4 grid grid-cols-2 gap-2 sm:mt-5 sm:grid-cols-2 sm:gap-3 lg:mt-4 lg:gap-2.5">
             {s.options.map((o) => (
               <button
                 type="button"
                 data-diag-opt
                 data-haptic
                 data-value={o.v}
-                class="flex min-h-[44px] items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2.5 text-left text-[13px] font-semibold leading-snug text-ink transition-all hover:border-brand hover:bg-brand/5 active:scale-[0.98] sm:min-h-0 sm:gap-3 sm:rounded-md sm:px-5 sm:py-4 sm:text-base sm:leading-normal"
+                class="flex min-h-[44px] items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2.5 text-left text-[13px] font-semibold leading-snug text-ink transition-all hover:border-brand hover:bg-brand/5 active:scale-[0.98] sm:min-h-0 sm:gap-3 sm:rounded-md sm:px-5 sm:py-4 sm:text-base sm:leading-normal lg:py-2.5"
               >
                 {'i' in o && o.i && <span class="shrink-0 text-brand sm:shrink"><Icon name={o.i as any} class="h-4 w-4 sm:h-5 sm:w-5" /></span>}
                 <span>{o.v}</span>
