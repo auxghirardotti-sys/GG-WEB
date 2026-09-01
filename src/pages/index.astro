@@ -7,7 +7,6 @@ import StatBand from '../components/StatBand.astro';
 import ServiceIndex from '../components/ServiceIndex.astro';
 import Diagnostico from '../components/Diagnostico.astro';
 import Manifesto from '../components/Manifesto.astro';
-import Process from '../components/Process.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -251,9 +250,6 @@ const faqJsonLd = {
   <!-- DIAGNÓSTICO EXPRESS (simulador interactivo -> WhatsApp prellenado) -->
   <Diagnostico />
 
-  <!-- CÓMO TRABAJAMOS (movido arriba: empezar es simple, primera charla sin costo) -->
-  <Process />
-
   <!-- DIFERENCIALES -->
   <section>
     <div class="mx-auto max-w-pagina px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
@@ -399,6 +395,9 @@ const faqJsonLd = {
   <!-- FAQ (pegada al cierre: responde objeciones antes de decidir) -->
   <Faq />
 
-  <CtaBand />
+  <!-- CIERRE. Absorbio la seccion "Como trabajamos": el titular de la primera charla
+       sin costo y el llamado a la accion quedaron en un solo bloque vertical, y las 4
+       tarjetas de pasos salieron de la home. Lleva el id del ancla del menu. -->
+  <CtaBand id="como-trabajamos" kicker="Cómo trabajamos" />
 
 </Base>
