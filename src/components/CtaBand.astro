@@ -4,7 +4,10 @@ import { waLinkFor } from '../data/site';
 import { Image } from 'astro:assets';
 import { img } from '../data/images';
 
+// La home agrupa secciones en pantallas completas y le pasa flex-1 a cada una para
+// que se repartan el alto, por eso el <section> acepta clases desde afuera.
 interface Props {
+  class?: string;
   title?: string;
   accent?: string;
   text?: string;
@@ -12,6 +15,7 @@ interface Props {
 }
 
 const {
+  class: className = '',
   title = 'Tu primera consulta la responde',
   accent = 'un socio.',
   text = 'Contanos tu situación por WhatsApp y te respondemos a la brevedad. Sin compromiso y sin costo.',
@@ -19,7 +23,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="cine masthead-top">
+<section class:list={['cine masthead-top', className]}>
   <div class="cine__media sd-parallax" data-parallax="0.16">
     <Image src={img(image)} alt="" aria-hidden="true" widths={[640, 1024, 1366]} sizes="100vw" format="webp" quality={70} class="kenburns" />
   </div>

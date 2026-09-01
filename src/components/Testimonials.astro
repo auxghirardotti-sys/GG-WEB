@@ -4,9 +4,14 @@
 import Kicker from './Kicker.astro';
 import Icon from './Icon.astro';
 import { TESTIMONIALS } from '../data/site';
+
+// La home agrupa secciones en pantallas completas y le pasa flex-1 a cada una para
+// que se repartan el alto, por eso el <section> acepta clases desde afuera.
+interface Props { class?: string }
+const { class: className = '' } = Astro.props;
 ---
 
-<section class="surface-ink">
+<section class:list={['surface-ink', className]}>
   <div class="mx-auto max-w-pagina px-4 py-6 sm:px-6 sm:py-8">
     <div data-reveal>
       <Kicker text="Casos reales" light />

@@ -3,7 +3,10 @@
 import { Image } from 'astro:assets';
 import { img } from '../data/images';
 
+// La home agrupa secciones en pantallas completas y le pasa flex-1 a cada una para
+// que se repartan el alto, por eso el <section> acepta clases desde afuera.
 interface Props {
+  class?: string;
   pre: string;
   accent: string;
   post?: string;
@@ -14,7 +17,7 @@ interface Props {
   /** Velo oscuro: 'normal' o 'soft' (más claro + imagen con un toque de brillo) */
   veil?: 'normal' | 'soft';
 }
-const { pre, accent, post = '', image, objectPos, veil = 'normal' } = Astro.props;
+const { pre, accent, post = '', image, objectPos, veil = 'normal', class: className = '' } = Astro.props;
 const imgStyle = [
   objectPos && `object-position:${objectPos}`,
   veil === 'soft' && 'filter:brightness(1.12) saturate(1.04)',
@@ -23,7 +26,7 @@ const imgStyle = [
   .join(';');
 ---
 
-<section class="cine masthead-top">
+<section class:list={['cine masthead-top', className]}>
   <div class="cine__media sd-parallax" data-parallax="0.16">
     <Image src={img(image)} alt="" aria-hidden="true" widths={[640, 1024, 1366]} sizes="100vw" format="webp" quality={70} class="kenburns" style={imgStyle || undefined} />
   </div>
