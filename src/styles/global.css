@@ -46,7 +46,7 @@
      Antes eran 72rem repetidos en 32 lugares del markup MAS tres a mano en este
      archivo (.marquee--columna dos veces y .separador). Tocarlo en un solo lado
      dejaba los carruseles y el separador desalineados sin que se notara. */
-  --container-pagina: 84rem;
+  --container-pagina: 74.5rem;
 
   /* Movimiento */
 
