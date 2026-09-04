@@ -960,6 +960,13 @@ html {
    extremos, para que no queden dos líneas cortadas a cuchillo contra el borde. */
 .separador {
   display: flex;
+  /* OJO: sin este width el separador se rompe. Es hijo directo de una seccion
+     "lg:flex lg:flex-col", y ahi el margin-inline:auto anula el align-items:stretch
+     y lo deja en fit-content. Como los dos filetes son spans VACIOS con flex:1, su
+     aporte al ancho es cero: el contenedor colapsaba a 120px (padding + gaps + los
+     28px del isotipo) y los filetes median 0. Se veia el isotipo suelto, sin lineas.
+     Es el mismo caso que .marquee--columna aca abajo, que si declara su width. */
+  width: 100%;
   align-items: center;
   gap: 16px;
   max-width: var(--container-pagina);
