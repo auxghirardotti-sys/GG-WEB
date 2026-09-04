@@ -45,12 +45,12 @@ const { class: className = '' } = Astro.props;
   <div class="mx-auto w-full max-w-pagina px-4 py-6 sm:px-6 sm:py-8 lg:py-6">
     <div class="max-w-2xl" data-reveal>
       <Kicker text="Diagnóstico express" />
-      <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl lg:mt-2" style="font-weight:700">
+      <h2 class="mt-2 font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">
         ¿Por dónde te conviene <em class="accent" style="font-style:italic">empezar</em>?
       </h2>
     </div>
 
-    <div id="diag" data-wa={SITE.whatsappNumber} data-total={total} class="surface-card mt-5 flex min-h-[20rem] max-w-3xl flex-col rounded-2xl p-4 sm:mt-8 sm:min-h-[24rem] sm:rounded-lg sm:p-8 lg:mt-6 lg:min-h-[314px] lg:p-5" data-reveal>
+    <div id="diag" data-wa={SITE.whatsappNumber} data-total={total} class="surface-card mt-4 flex min-h-[20rem] max-w-3xl flex-col rounded-2xl p-4 sm:mt-8 sm:min-h-[24rem] sm:rounded-lg sm:p-8 lg:mt-4 lg:min-h-[314px] lg:p-5" data-reveal>
       <div class="flex items-center justify-between gap-4">
         <span id="diag-counter" class="text-[11px] font-bold uppercase tracking-[0.16em] text-muted sm:text-xs">Paso 1 de {total}</span>
         <div class="h-1.5 w-32 overflow-hidden rounded-full bg-line sm:w-40">
