@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/csp.mjs",
     "preview": "astro preview",
-    "prensa:fotos": "node scripts/fotos-prensa.mjs"
+    "prensa:fotos": "node scripts/fotos-prensa.mjs",
+    "csp:write": "node scripts/csp.mjs --write"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
