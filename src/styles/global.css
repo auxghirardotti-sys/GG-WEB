@@ -646,9 +646,6 @@ html {
     filter: none !important;
   }
   .rule-draw, .kicker::before { transform: scaleX(1) !important; }
-  /* Sin movimiento la marquesina queda quieta: se desliza a mano para ver el resto. */
-  .marquee { overflow-x: auto; scrollbar-width: none; }
-  .marquee::-webkit-scrollbar { display: none; }
   .surface-ink::after { animation: none !important; }
   .title-clip { clip-path: none !important; }
   .btn-shine::before { display: none; }

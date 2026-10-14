@@ -128,11 +128,13 @@ function initScrollFx() {
 // La pista lleva el contenido DUPLICADO: al correrse media pista la vista es idéntica al
 // inicio y el bucle no tiene costura. Se frena con el mouse encima o el foco adentro, solo
 // con puntero real: en touch el :hover y el foco quedan pegados tras un tap.
-// Con "reducir movimiento" no arranca y el CSS la deja deslizable a mano.
-const VELOCIDAD = 60; // px por segundo
+// Con "reducir movimiento" (iPhone: Ajustes > Accesibilidad > Movimiento) NO se detiene: va
+// a media velocidad. Detenida se veían 2 de los 6 logos y parecía rota; reducir no es
+// eliminar, y un desplazamiento lento y parejo no es el zoom o parallax que ese ajuste evita.
+const VELOCIDAD = reduce ? 30 : 60; // px por segundo
 function initMarquees() {
   const pistas = Array.from(document.querySelectorAll('.marquee__track'));
-  if (reduce || !pistas.length) return;
+  if (!pistas.length) return;
   const frenable = window.matchMedia('(hover: hover)').matches;
   const pos = new Map(pistas.map((p) => [p, 0]));
   let antes = performance.now();
@@ -148,6 +150,27 @@ function initMarquees() {
     }
     requestAnimationFrame(cuadro);
   });
+}
+
+// ponytail: diagnóstico temporal para ver qué pasa en un teléfono real (ggasoc.com/?diag).
+// Sacarlo cuando las marquesinas queden confirmadas en el iPhone.
+function initDiag() {
+  if (!new URLSearchParams(location.search).has('diag')) return;
+  const caja = document.createElement('pre');
+  caja.style.cssText = 'position:fixed;left:8px;right:8px;top:90px;z-index:99;margin:0;padding:10px;background:#111;color:#4ade80;font:12px/1.45 monospace;white-space:pre-wrap;border-radius:8px';
+  document.body.append(caja);
+  let cuadros = 0;
+  requestAnimationFrame(function c() { cuadros++; requestAnimationFrame(c); });
+  setInterval(() => {
+    caja.textContent = [
+      'version ' + import.meta.url.split('/').pop(),
+      'reducir movimiento: ' + (reduce ? 'SI' : 'no'),
+      'cuadros por segundo: ' + cuadros,
+      'marquesinas (px): ' + Array.from(document.querySelectorAll('.marquee__track'), (p) => (p.style.transform.match(/\((-?\d+)/) || [0, 'quieta'])[1]).join(' / '),
+      navigator.userAgent,
+    ].join('\n');
+    cuadros = 0;
+  }, 1000);
 }
 
 // Vibración háptica sutil en elementos con [data-haptic] (Android/Chrome; iOS lo ignora).
@@ -273,7 +296,7 @@ try {
 }
 
 // Cada init va aislado: ninguno puede dejar la página en blanco si tira una excepción.
-for (const fn of [initScrollFx, initMarquees, initHaptics, initSpotlight, initCarouselDots, initMagnetic, bindVolver, initFooterAccordion]) {
+for (const fn of [initScrollFx, initMarquees, initDiag, initHaptics, initSpotlight, initCarouselDots, initMagnetic, bindVolver, initFooterAccordion]) {
   try {
     fn();
   } catch (err) {
