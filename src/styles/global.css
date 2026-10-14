@@ -443,6 +443,10 @@ body::before {
     animation-play-state: paused;
   }
 }
+/* Con teclado: si una nota de prensa tiene el foco, la marquesina se frena para no
+   llevársela de la pantalla. :focus-visible y no :focus-within, porque en Android el
+   link tocado queda con foco al volver atrás y dejaría la marquesina frenada. */
+.marquee:has(:focus-visible) .marquee__track { animation-play-state: paused; }
 .marquee__track--reverse {
   animation-direction: reverse;
   animation-duration: 46s;
@@ -647,6 +651,12 @@ html:not(.js) .rule-draw,       html.sin-reveal .rule-draw { transform: scaleX(1
     radial-gradient(70% 60% at 80% 0%, rgba(205, 51, 51, 0.2), transparent 70%);
 }
 
+/* La palabra en rojo de las bandas con foto (frase de marca y cierre) cae sobre zonas
+   claras de la imagen y ahí no llegaba al 3:1 de texto grande. Mismo halo que la portada. */
+.cine em {
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9), 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
 /* Zoom sutil de imagen al hover (tarjetas/figuras con foto) */
 .zoom-host { overflow: hidden; }
 .zoom-host img { transition: transform 0.7s var(--ease-editorial); }
@@ -730,6 +740,10 @@ html {
   outline: 2px solid var(--color-brand);
   outline-offset: 3px;
 }
+/* Las tarjetas plegables (servicios, diferenciales) son <details> con overflow:hidden y el
+   <summary> las llena de borde a borde: el anillo de 3px hacia afuera quedaba recortado
+   y con teclado no se veía cuál tenía el foco. Adentro, se ve entero. */
+.overflow-hidden > summary:focus-visible { outline-offset: -3px; }
 
 /* Parallax nativo por scroll-driven animation (CSS puro, corre en el compositor).
    Donde hay soporte, reveal.js deja de mover estos elementos por JS. */

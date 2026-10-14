@@ -60,7 +60,7 @@ const { class: className = '' } = Astro.props;
 
       {steps.map((s, idx) => (
         <div data-diag-step={idx} data-diag-key={s.key} class:list={['mt-4 sm:mt-6 lg:mt-4', idx !== 0 && 'hidden']}>
-          <h3 class="font-display text-base text-ink sm:text-2xl" style="font-weight:700">{s.q}</h3>
+          <h3 tabindex="-1" class="font-display text-base text-ink sm:text-2xl" style="font-weight:700">{s.q}</h3>
           <div class="mt-4 grid grid-cols-2 gap-2 sm:mt-5 sm:grid-cols-2 sm:gap-3 lg:mt-4 lg:gap-2">
             {s.options.map((o) => (
               <button
@@ -92,7 +92,7 @@ const { class: className = '' } = Astro.props;
         <span class="inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-brand-ink sm:text-xs">
           <Icon name="check" class="h-4 w-4" /> Diagnóstico listo
         </span>
-        <h3 class="mt-3 font-display text-base text-ink sm:mt-4 sm:text-2xl" style="font-weight:700">
+        <h3 tabindex="-1" class="mt-3 font-display text-base text-ink sm:mt-4 sm:text-2xl" style="font-weight:700">
           Un socio puede ayudarte con <span id="diag-area" class="text-brand-ink">tu consulta</span>.
         </h3>
         <p id="diag-detail" class="mt-2 text-[13px] leading-snug text-body sm:text-base sm:leading-relaxed">
@@ -121,9 +121,12 @@ const { class: className = '' } = Astro.props;
 
 <script>
   // Con View Transitions el DOM se renueva en cada navegación: re-bindear por página.
-  document.addEventListener('astro:page-load', () => {
+  // Y además ya mismo: en la carga inicial astro:page-load recién llega con window.load
+  // (espera todas las imágenes) y hasta entonces los botones no respondían.
+  function initDiag() {
   const root = document.getElementById('diag');
-  if (root) {
+  if (root && !root.dataset.bound) {
+    root.dataset.bound = '1';
     const wa = root.dataset.wa || '';
     const total = parseInt(root.dataset.total || '3', 10);
     const stepsEls = Array.from(root.querySelectorAll('[data-diag-step]'));
@@ -144,6 +147,9 @@ const { class: className = '' } = Astro.props;
       stepsEls.forEach((el, i) => el.classList.toggle('hidden', i !== n));
       if (counter) counter.textContent = `Paso ${n + 1} de ${total}`;
       if (bar) bar.style.width = `${Math.round(((n + 1) / total) * 100)}%`;
+      // El botón tocado acaba de ocultarse y el foco se iba al <body>: con teclado o lector
+      // de pantalla había que volver a recorrer la página desde arriba. Va a la pregunta nueva.
+      stepsEls[n]?.querySelector('h3')?.focus({ preventScroll: true });
     }
 
     function finish() {
@@ -184,6 +190,7 @@ const { class: className = '' } = Astro.props;
         const msg = `¡Hola! Hice el diagnóstico de la web. ${resumen.charAt(0).toUpperCase()}${resumen.slice(1)}. ¿Coordinamos una charla?`;
         if (waA) waA.setAttribute('href', `https://wa.me/${wa}?text=${encodeURIComponent(msg)}`);
         result?.classList.remove('hidden');
+        result?.querySelector('h3')?.focus({ preventScroll: true });
       };
       if (reduce) {
         reveal();
@@ -214,5 +221,7 @@ const { class: className = '' } = Astro.props;
       showStep(0);
     });
   }
-  });
+  }
+  document.addEventListener('astro:page-load', initDiag);
+  initDiag();
 </script>

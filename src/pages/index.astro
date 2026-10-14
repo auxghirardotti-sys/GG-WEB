@@ -313,7 +313,7 @@ const faqJsonLd = {
           {clientStrip.concat(clientStrip).map((c) => (
             <span class="client-logo mx-6 flex h-14 shrink-0 items-center whitespace-nowrap sm:mx-10 sm:h-16">
               {c.logo ? (
-                <img src={c.logo} alt={c.name} class:list={[c.imgClass ?? 'h-10 w-auto']} loading="eager" decoding="async" />
+                <img src={c.logo} alt={c.name} width={c.size?.[0]} height={c.size?.[1]} class:list={[c.imgClass ?? 'h-10 w-auto']} loading="eager" decoding="async" />
               ) : (
                 <span class="font-display text-xl tracking-tight sm:text-3xl" style="font-weight:800">{c.name}</span>
               )}

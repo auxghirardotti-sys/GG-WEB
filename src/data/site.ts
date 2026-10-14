@@ -22,6 +22,10 @@ export interface Client {
   /** Override de alto del logo en el marquee. Los logos cuadrados/apilados (ej. emblemas) necesitan más alto
    *  para tener presencia pareja junto a los wordmarks anchos. Default: 'h-10 w-auto'. */
   imgClass?: string;
+  /** Tamaño intrínseco del archivo [ancho, alto]. OBLIGATORIO si hay logo: sin esto el
+   *  <img> mide 0 hasta que baja, y Safari (iPhone) calcula el -50% del marquee con la
+   *  pista vacía y no lo recalcula. Resultado: en celular los logos casi no se movían. */
+  size?: [number, number];
 }
 
 /** Clientes / empresas que confían en el estudio — se muestran en el marquee de la home.
@@ -30,14 +34,14 @@ export interface Client {
 // y sin cambiarle el nombre al archivo quien ya visito el sitio se queda una semana con
 // la version vieja y mas pesada. Si se vuelve a optimizar un logo, subirle el numero.
 export const CLIENTS: Client[] = [
-  { name: 'Tandanor', logo: '/clients/tandanor-v2.png', imgClass: 'h-14 w-auto' },
-  { name: 'OCA', logo: '/clients/oca-v2.svg' },
-  { name: 'ICBC', logo: '/clients/icbc-v2.svg' },
-  { name: 'Ocutech', logo: '/clients/ocutech-v2.png' },
+  { name: 'Tandanor', logo: '/clients/tandanor-v2.png', imgClass: 'h-14 w-auto', size: [112, 120] },
+  { name: 'OCA', logo: '/clients/oca-v2.svg', size: [448, 97] },
+  { name: 'ICBC', logo: '/clients/icbc-v2.svg', size: [120, 40] },
+  { name: 'Ocutech', logo: '/clients/ocutech-v2.png', size: [300, 49] },
   // Cambre es un logo apilado (emblema arriba + palabra): con h-10 la palabra queda
   // la mitad de alta que los wordmarks de al lado, así que va con h-14 como Tandanor.
-  { name: 'Cambre', logo: '/clients/cambre-v2.png', imgClass: 'h-14 w-auto' },
-  { name: 'Lentax', logo: '/clients/lentax-v2.svg' },
+  { name: 'Cambre', logo: '/clients/cambre-v2.png', imgClass: 'h-14 w-auto', size: [355, 140] },
+  { name: 'Lentax', logo: '/clients/lentax-v2.svg', size: [350, 90] },
 ];
 
 export interface TeamMember {

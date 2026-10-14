@@ -7,6 +7,7 @@
 // - [data-countup]: cuenta de 0 a data-target al entrar en viewport.
 // - [data-parallax]: desplazamiento suave según scroll (factor en el atributo).
 // - #scroll-progress: barra roja de progreso de lectura.
+// - .marquee__track: se reinician con las fuentes cargadas (arreglo para Safari, ver initMarquees).
 //
 // Con View Transitions (ClientRouter) el módulo carga UNA vez y el DOM se swapea
 // en cada navegación: los listeners de window/document se registran una sola vez
@@ -243,6 +244,21 @@ function initFooterAccordion() {
   wide.addEventListener('change', sync);
 }
 
+// Safari (iPhone) resuelve el -50% del marquee UNA vez, al arrancar la animación, y no lo
+// recalcula si la pista cambia de ancho después. La pista cambia cuando entra la fuente web
+// (la fila de rubros) o bajan los logos (por eso los <img> llevan width/height): el
+// recorrido quedaba calculado sobre la pista a medio armar y en celular casi no se movía.
+// Con las fuentes listas se reinicia, para que tome el ancho real.
+function initMarquees() {
+  const tracks = document.querySelectorAll('.marquee__track');
+  if (reduce || !tracks.length || !document.fonts) return;
+  document.fonts.ready.then(() => tracks.forEach((t) => {
+    t.style.animation = 'none';
+    void t.offsetWidth; // fuerza el reflow: sin esto el navegador junta los dos cambios y no reinicia
+    t.style.animation = '';
+  }));
+}
+
 // Se ejecuta en cada navegación (y en la carga inicial): re-consulta el DOM nuevo.
 // En la carga inicial nos llaman dos veces (DOMContentLoaded y después astro:page-load),
 // así que lleva guard. Con view transitions el guard se suelta antes de cada swap.
@@ -275,7 +291,7 @@ function initPage() {
   parallaxEls = Array.from(document.querySelectorAll('[data-parallax]')).filter(
     (el) => !(sdSupported && el.classList.contains('sd-parallax'))
   );
-  for (const fn of [initCarouselDots, initFooterAccordion, initMagnetic, bindVolver, updateScrollFx]) {
+  for (const fn of [initCarouselDots, initFooterAccordion, initMagnetic, initMarquees, bindVolver, updateScrollFx]) {
     try {
       fn();
     } catch (err) {

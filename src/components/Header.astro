@@ -186,7 +186,9 @@ const isActive = (href: string) => current === href || current.startsWith(href +
   function initHeader() {
     const btn = document.getElementById('menu-btn');
     const menu = document.getElementById('mobile-menu');
-    btn?.addEventListener('click', () => setMenu(menu?.classList.contains('hidden') ?? false));
+    if (!btn || btn.dataset.bound) return;
+    btn.dataset.bound = '1';
+    btn.addEventListener('click', () => setMenu(menu?.classList.contains('hidden') ?? false));
     // Cerrar el menú mobile al tocar cualquier link
     menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
     onScroll();
@@ -215,4 +217,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
   window.addEventListener('scroll', onScroll, { passive: true });
 
   document.addEventListener('astro:page-load', initHeader);
+  // Y ya mismo: en la carga inicial page-load recién llega con window.load (espera todas
+  // las imágenes) y hasta entonces la hamburguesa del celular no abría.
+  initHeader();
 </script>
