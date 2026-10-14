@@ -57,6 +57,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Transición entre páginas: el fundido NATIVO del navegador. Reemplaza al ClientRouter de
+   Astro (ver Base.astro). Donde no hay soporte, la navegación es la de siempre. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
 body {
   font-family: var(--font-sans);
   font-weight: 400;
@@ -156,10 +162,8 @@ body::before {
 }
 
 /* Título del hero: entrada letra por letra (estilo VEX).
-   CSS puro a propósito. Antes la disparaba un <script> colgado de astro:page-load, que en la
-   carga inicial el ClientRouter emite recién en window.load: lo más grande de la pantalla se
-   quedaba invisible hasta que bajaba la última imagen. El escalonado por letra va en
-   animation-delay inline (index.astro). */
+   CSS puro a propósito: lo más grande de la pantalla no espera a ningún script. El
+   escalonado por letra va en animation-delay inline (index.astro). */
 .hero-char {
   display: inline-block;
   opacity: 0;
@@ -178,31 +182,6 @@ body::before {
     opacity: 1 !important;
     transform: none !important;
   }
-}
-
-/* Resaltador rojo que se "pinta" detrás de una frase clave (texto blanco encima) */
-.hl-mark {
-  position: relative;
-  isolation: isolate;
-  display: inline-block;
-  color: #fff;
-  padding-inline: 0.14em;
-}
-.hl-mark::before {
-  content: "";
-  position: absolute;
-  inset: 0.06em -0.04em;
-  z-index: -1;
-  border-radius: 0.16em;
-  background: var(--color-brand-bright);
-  box-shadow: 0 6px 24px -6px rgba(226, 59, 59, 0.7);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.7s cubic-bezier(0.7, 0, 0.25, 1) 0.25s;
-}
-.is-visible .hl-mark::before,
-.hl-mark.is-visible::before {
-  transform: scaleX(1);
 }
 
 /* Kicker / eyebrow con filete rojo que se dibuja */
@@ -270,12 +249,6 @@ body::before {
   border-top: 3px solid var(--color-brand-bright);
 }
 
-/* Retícula editorial desactivada a pedido (se quitaron las líneas verticales) */
-.grid-paper,
-.grid-ink {
-  background-image: none;
-}
-
 /* Superficie oscura con glow rojo ANIMADO (respira) */
 .surface-ink {
   position: relative;
@@ -297,38 +270,11 @@ body::before {
   to { opacity: 1; transform: translate3d(4%, -2%, 0); }
 }
 
-/* Banda roja protagonista (CTA / acentos) con textura sutil */
-.surface-brand {
-  position: relative;
-  background-color: var(--color-brand);
-  background-image:
-    radial-gradient(60% 80% at 90% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
-    radial-gradient(80% 100% at 0% 100%, rgba(0, 0, 0, 0.18), transparent 70%);
-}
-
-/* Secciones de contenido: transparentes para dejar ver el canvas + orbes de fondo */
-.surface-paper-soft {
-  background: transparent;
-}
-
 /* Tarjeta blanca elevada sobre el gris — profundidad sin pesadez */
 .surface-card {
   background-color: var(--color-surface);
   border: 1px solid var(--color-line);
   box-shadow: 0 1px 2px rgba(20, 23, 31, 0.04), 0 18px 40px -28px rgba(20, 23, 31, 0.25);
-}
-
-/* Textura de marca: pinceladas rojas (dry-brush) — sello gráfico del manual.
-   Streaks verticales generadas con feTurbulence en rojo #CD3333. */
-.brush-band {
-  height: 20px;
-  background-repeat: repeat-x;
-  background-position: center;
-  background-size: 360px 20px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='20'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85 0.03' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.804 0 0 0 0 0.2 0 0 0 0 0.2 0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='360' height='20' filter='url(%23b)'/%3E%3C/svg%3E");
-}
-.brush-band--flip {
-  transform: scaleY(-1);
 }
 
 /* Anillos decorativos "öö" — eco del isotipo, acento de marca en zonas con aire */
@@ -338,14 +284,6 @@ body::before {
   border-style: solid;
   pointer-events: none;
 }
-.ring-float {
-  animation: ringFloat 7s ease-in-out infinite alternate;
-}
-@keyframes ringFloat {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(0, -16px, 0); }
-}
-
 /* Malla de gradiente animada (efecto visual de fondo, sutil y con marca) */
 .mesh {
   position: relative;
@@ -365,26 +303,6 @@ body::before {
 @keyframes meshDrift {
   from { transform: translate3d(-2%, -1%, 0) scale(1); }
   to { transform: translate3d(2%, 1%, 0) scale(1.08); }
-}
-
-/* Duotono rojo/tinta para imágenes — unifica fotos genéricas con la marca */
-.duotone {
-  position: relative;
-  background-color: var(--color-ink);
-  overflow: hidden;
-}
-.duotone img {
-  filter: grayscale(1) contrast(1.06);
-  mix-blend-mode: luminosity;
-  opacity: 0.92;
-}
-.duotone::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(150deg, rgba(237, 28, 36, 0.42), rgba(20, 23, 31, 0.55) 70%);
-  mix-blend-mode: multiply;
 }
 
 /* ---- Marquee (dinamismo: industrias / banda en movimiento) ---- */
@@ -414,55 +332,17 @@ body::before {
   }
 }
 
+/* La pista de una marquesina. La mueve reveal.js (initMarquees): velocidad en px/s y
+   recorrido medido en vivo, cosas que un @keyframes no puede. */
 .marquee__track {
   display: flex;
   width: max-content;
-  animation: marquee 38s linear infinite;
   will-change: transform;
-}
-
-/* Logos de clientes en el marquee: SIEMPRE a color y a full opacidad.
-   (Antes iban en grayscale al 60% y solo tomaban color al hover: en mobile no hay hover,
-   así que se veían apagados hasta que el usuario los tocaba.)
-   El nombre se muestra como wordmark si no hay logo real cargado. */
-.client-logo {
-  color: var(--color-brand);
-}
-.client-logo img {
-  filter: none;
-  opacity: 1;
 }
 
 /* Ocultar scrollbar (carrusel de servicios en mobile) */
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
-/* La pausa al hover solo en dispositivos con puntero real: en touch el :hover queda
-   "pegado" tras un tap y dejaba la marquesina frenada. */
-@media (hover: hover) {
-  .marquee:hover .marquee__track {
-    animation-play-state: paused;
-  }
-}
-/* Con teclado: si una nota de prensa tiene el foco, la marquesina se frena para no
-   llevársela de la pantalla. :focus-visible y no :focus-within, porque en Android el
-   link tocado queda con foco al volver atrás y dejaría la marquesina frenada. */
-.marquee:has(:focus-visible) .marquee__track { animation-play-state: paused; }
-.marquee__track--reverse {
-  animation-direction: reverse;
-  animation-duration: 46s;
-}
-/* Marquesina de clientes: más rápida que la de industrias. */
-.marquee__track--fast { animation-duration: 40s; }
-/* En celular: más lenta para que se lea sin marear */
-@media (max-width: 640px) {
-  .marquee__track { animation-duration: 60s; }
-  .marquee__track--reverse { animation-duration: 72s; }
-  .marquee__track--fast { animation-duration: 40s; }
-}
-@keyframes marquee {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-}
 
 /* FAQ: acordeón con apertura/cierre suave (cortina) + flecha que rota */
 .faq-answer {
@@ -543,7 +423,6 @@ html.js [data-reveal-stagger].is-visible > * {
   animation: heroReveal 0.75s var(--ease-editorial) forwards;
 }
 .hero-in-1 { animation-delay: 0.05s; }
-.hero-in-2 { animation-delay: 0.14s; }
 .hero-in-3 { animation-delay: 0.23s; }
 .hero-in-4 { animation-delay: 0.32s; }
 .hero-in-5 { animation-delay: 0.41s; }
@@ -597,7 +476,6 @@ html.sin-reveal [data-reveal-stagger] > * {
   filter: none !important;
 }
 html:not(.js) .title-clip,     html.sin-reveal .title-clip { clip-path: none !important; }
-html:not(.js) .hl-mark::before, html.sin-reveal .hl-mark::before,
 html:not(.js) .kicker::before,  html.sin-reveal .kicker::before,
 html:not(.js) .rule-draw,       html.sin-reveal .rule-draw { transform: scaleX(1) !important; }
 
@@ -656,11 +534,6 @@ html:not(.js) .rule-draw,       html.sin-reveal .rule-draw { transform: scaleX(1
 .cine em {
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.9), 0 1px 8px rgba(0, 0, 0, 0.7);
 }
-
-/* Zoom sutil de imagen al hover (tarjetas/figuras con foto) */
-.zoom-host { overflow: hidden; }
-.zoom-host img { transition: transform 0.7s var(--ease-editorial); }
-.zoom-host:hover img { transform: scale(1.06); }
 
 /* ---- Micro-interacciones premium ---- */
 
@@ -773,7 +646,9 @@ html {
     filter: none !important;
   }
   .rule-draw, .kicker::before { transform: scaleX(1) !important; }
-  .marquee__track { animation: none !important; }
+  /* Sin movimiento la marquesina queda quieta: se desliza a mano para ver el resto. */
+  .marquee { overflow-x: auto; scrollbar-width: none; }
+  .marquee::-webkit-scrollbar { display: none; }
   .surface-ink::after { animation: none !important; }
   .title-clip { clip-path: none !important; }
   .btn-shine::before { display: none; }
@@ -900,50 +775,6 @@ html {
      25 caracteres, así que cada 0.01em corre el borde derecho ~2px. El manual
      también la lleva visiblemente espaciada, por el mismo motivo. */
   letter-spacing: 0.122em;
-}
-
-/* Filete dry-brush de las tarjetas de prensa. Acá vive el color del medio: es el unico
-   elemento de color de la tarjeta, para que el nombre pueda ir sobrio en tinta.
-   No es la textura roja de .brush-band pintada encima: es un bloque del color del medio
-   RECORTADO con la pincelada usada como máscara. Así la textura del manual se conserva
-   exacta y se puede teñir de cualquier color sin ensuciarse. La máscara usa el canal alfa
-   del mismo feTurbulence, con los mismos parámetros que .brush-band.
-   --brush-x lo pone cada tarjeta según su título, para que ninguna repita la veta.
-   Sin @layer, o las utilidades de Tailwind le ganan. */
-.brush-rule {
-  height: 6px;
-  background-color: var(--color-medio, var(--color-brand));
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='20'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85 0.03' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='360' height='20' filter='url(%23m)'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='20'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85 0.03' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.35'/%3E%3C/filter%3E%3Crect width='360' height='20' filter='url(%23m)'/%3E%3C/svg%3E");
-  -webkit-mask-size: 240px 100%;
-  mask-size: 240px 100%;
-  -webkit-mask-position: var(--brush-x, 0px) center;
-  mask-position: var(--brush-x, 0px) center;
-  -webkit-mask-repeat: repeat-x;
-  mask-repeat: repeat-x;
-}
-@media (min-width: 1024px) {
-  .brush-rule {
-    height: 8px;
-    -webkit-mask-size: 300px 100%;
-    mask-size: 300px 100%;
-  }
-}
-
-/* Marquesina de prensa: misma mecánica que la de clientes, pero con tarjetas.
-   La velocidad está igualada a la de los logos, MEDIDA en cada breakpoint. Ojo que los
-   logos NO van a la misma velocidad en los dos: su duración es fija en 40s y su pista
-   cambia de ancho, así que van a 59 px/s en celular y a 69 en escritorio. Igualamos eso:
-     celular    logos 2.375px / 40s = 59,4 px/s   ·  prensa 5.236px  ->  88s
-     ≥1024px    logos 2.759px / 40s = 69,0 px/s   ·  prensa 6.756px  ->  98s
-   Si se agregan o quitan notas hay que recalcular, o la velocidad se corre. */
-.marquee__track--prensa {
-  animation-duration: 88s;
-}
-@media (min-width: 1024px) {
-  .marquee__track--prensa {
-    animation-duration: 98s;
-  }
 }
 
 /* Portada en celular: halo oscuro detrás del título.

@@ -10,7 +10,7 @@ import { SITE, waLink } from '../data/site';
   title="Contacto | Ghirardotti & Ghirardotti"
   description="Contactá al estudio Ghirardotti & Ghirardotti: WhatsApp, teléfono, email o visitanos en Chacabuco 511, San Isidro, Buenos Aires."
 >
-  <section class="masthead-top grid-paper border-b border-line">
+  <section class="masthead-top border-b border-line">
     <div class="mx-auto w-full max-w-pagina px-4 py-8 sm:px-6 sm:py-10 lg:py-10" data-reveal>
       <Volver href="/" label="Volver al inicio" class="mb-4" />
       <Kicker text="Contacto" />
@@ -140,15 +140,9 @@ import { SITE, waLink } from '../data/site';
 </Base>
 
 <script>
-  // Con View Transitions el form se renueva en cada navegación: re-bindear por página.
-  // Y además YA MISMO: en la carga inicial astro:page-load recién llega con window.load,
-  // que espera todas las imágenes. Quien enviaba antes (en celular, segundos) disparaba el
-  // envío nativo por GET y su nombre, email y consulta quedaban escritos en la URL
-  // (por eso también el method="post" del form: si este JS no llega, igual no van a la URL).
-  function initForm() {
+  // El form lleva method="post": si este JS no llega, el envío nativo no escribe nombre,
+  // email y consulta en la URL (con GET quedaban en el historial y en los logs).
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  if (!form || form.dataset.bound) return;
-  form.dataset.bound = '1';
   const status = document.getElementById('form-status');
   // El mail de contacto sale de site.json (SITE.email) vía data-attribute, no hardcodeado.
   const contactEmail = form?.dataset.contactEmail ?? 'info@ggasoc.com';
@@ -201,7 +195,4 @@ import { SITE, waLink } from '../data/site';
       btn.textContent = 'Enviar consulta';
     }
   });
-  }
-  document.addEventListener('astro:page-load', initForm);
-  initForm();
 </script>

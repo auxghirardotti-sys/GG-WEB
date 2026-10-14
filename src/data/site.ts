@@ -22,9 +22,8 @@ export interface Client {
   /** Override de alto del logo en el marquee. Los logos cuadrados/apilados (ej. emblemas) necesitan más alto
    *  para tener presencia pareja junto a los wordmarks anchos. Default: 'h-10 w-auto'. */
   imgClass?: string;
-  /** Tamaño intrínseco del archivo [ancho, alto]. OBLIGATORIO si hay logo: sin esto el
-   *  <img> mide 0 hasta que baja, y Safari (iPhone) calcula el -50% del marquee con la
-   *  pista vacía y no lo recalcula. Resultado: en celular los logos casi no se movían. */
+  /** Tamaño intrínseco del archivo [ancho, alto]. Sin esto el <img> mide 0 hasta que baja
+   *  y la pista de logos cambia de ancho mientras carga. */
   size?: [number, number];
 }
 

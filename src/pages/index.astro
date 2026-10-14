@@ -183,7 +183,7 @@ const faqJsonLd = {
   </section>
 
   <!-- SERVICIOS -->
-  <section id="servicios" class="scroll-mt-20 surface-paper-soft lg:flex lg:flex-1 lg:flex-col lg:justify-center lg:min-h-svh">
+  <section id="servicios" class="scroll-mt-20 lg:flex lg:flex-1 lg:flex-col lg:justify-center lg:min-h-svh">
     <div class="mx-auto w-full max-w-pagina px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
       <div class="max-w-3xl" data-reveal>
         <Kicker text="Lo que hacemos" />
@@ -205,7 +205,7 @@ const faqJsonLd = {
        Sueltas median 356 y 151px (0,33 y 0,14 de pantalla); juntas llenan una. -->
   <section class="lg:flex lg:min-h-svh lg:flex-col">
     <!-- INDUSTRIAS (después de servicios) -->
-    <section class="surface-paper-soft overflow-hidden py-6 sm:py-8 lg:py-8 lg:flex lg:flex-1 lg:flex-col lg:justify-center">
+    <section class="overflow-hidden py-6 sm:py-8 lg:py-8 lg:flex lg:flex-1 lg:flex-col lg:justify-center">
     <div class="mx-auto w-full max-w-pagina px-4 sm:px-6" data-reveal>
       <Kicker text="Tu sector" />
       <h2 class="title-clip mt-2 max-w-2xl font-display text-2xl leading-tight text-brand sm:mt-4 sm:text-4xl" style="font-weight:700">
@@ -300,7 +300,7 @@ const faqJsonLd = {
   <!-- NUESTROS CLIENTES (logos en marquee continuo, estilo Cloudflare).
        Solo el titulo: el kicker "Confian en nosotros" y la bajada salieron a pedido.
        Decian lo mismo que el h2 y los logos, y costaban 70px de alto. -->
-    <section class="surface-paper-soft overflow-hidden py-6 sm:py-8 lg:py-8 lg:flex lg:flex-1 lg:flex-col lg:justify-center">
+    <section class="overflow-hidden py-6 sm:py-8 lg:py-8 lg:flex lg:flex-1 lg:flex-col lg:justify-center">
     <div class="mx-auto w-full max-w-pagina px-4 sm:px-6" data-reveal>
       <h2 class="title-clip max-w-2xl font-display text-2xl leading-tight text-brand sm:text-4xl" style="font-weight:700">
         Nuestros <em class="accent" style="font-style:italic">clientes</em>
@@ -309,11 +309,11 @@ const faqJsonLd = {
 
     <div class="mt-4 border-y border-line py-3 sm:mt-8 sm:py-4">
       <div class="marquee marquee--columna">
-        <div class="marquee__track marquee__track--fast">
+        <div class="marquee__track">
           {clientStrip.concat(clientStrip).map((c) => (
-            <span class="client-logo mx-6 flex h-14 shrink-0 items-center whitespace-nowrap sm:mx-10 sm:h-16">
+            <span class="mx-6 flex h-14 shrink-0 items-center whitespace-nowrap text-brand sm:mx-10 sm:h-16">
               {c.logo ? (
-                <img src={c.logo} alt={c.name} width={c.size?.[0]} height={c.size?.[1]} class:list={[c.imgClass ?? 'h-10 w-auto']} loading="eager" decoding="async" />
+                <img src={c.logo} alt={c.name} width={c.size?.[0]} height={c.size?.[1]} class:list={[c.imgClass ?? 'h-10 w-auto']} decoding="async" />
               ) : (
                 <span class="font-display text-xl tracking-tight sm:text-3xl" style="font-weight:800">{c.name}</span>
               )}
@@ -330,10 +330,10 @@ const faqJsonLd = {
   <section class="lg:flex lg:min-h-svh lg:flex-col">
     <!-- EQUIPO. El separador del isotipo abre esta seccion.
        Clientes viene justo arriba y ni ella ni esta pintan fondo propio
-       (surface-paper-soft es transparent), asi que sin el corte del isotipo
+       (las dos son transparentes), asi que sin el corte del isotipo
        las dos se leen como un solo bloque largo. -->
     <Separador class="lg:shrink-0" />
-    <section id="equipo" class="surface-paper-soft scroll-mt-20 overflow-hidden lg:flex lg:flex-1 lg:flex-col lg:justify-center">
+    <section id="equipo" class="scroll-mt-20 overflow-hidden lg:flex lg:flex-1 lg:flex-col lg:justify-center">
     <div class="mx-auto w-full max-w-pagina px-4 py-6 sm:px-6 sm:py-8 lg:py-8">
       <div class="max-w-3xl" data-reveal>
         <Kicker text="El equipo" />
@@ -400,13 +400,10 @@ const faqJsonLd = {
         <a href="/novedades" class="underline-grow shrink-0 text-[15px] font-bold text-brand-ink sm:text-base">Ver todos los artículos →</a>
       </div>
 
-      {/* Marquesina: gira sola, como la de clientes. Pierde el swipe manual a cambio de
-          que las notas pasen solas; el que quiera navegar a su ritmo tiene "Ver todos los artículos".
-          Se frena al pasar el mouse (solo en dispositivos con hover real: en touch el
-          :hover queda pegado tras un tap y dejaría la marquesina detenida) y el bloque
-          global de prefers-reduced-motion la detiene por completo. */}
+      {/* Marquesina: gira sola, como la de clientes (ver initMarquees en reveal.js). El que
+          quiera navegar a su ritmo tiene "Ver todos los artículos". */}
       <div class="marquee mt-4 sm:mt-6">
-        <div class="marquee__track marquee__track--prensa gap-4">
+        <div class="marquee__track gap-4">
           {[...posts, ...posts].map((p, i) => (
             <NovedadCard post={p} ancho="w-[260px] lg:w-[340px]" duplicado={i >= posts.length} />
           ))}

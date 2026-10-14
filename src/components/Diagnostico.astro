@@ -120,13 +120,8 @@ const { class: className = '' } = Astro.props;
 </section>
 
 <script>
-  // Con View Transitions el DOM se renueva en cada navegación: re-bindear por página.
-  // Y además ya mismo: en la carga inicial astro:page-load recién llega con window.load
-  // (espera todas las imágenes) y hasta entonces los botones no respondían.
-  function initDiag() {
   const root = document.getElementById('diag');
-  if (root && !root.dataset.bound) {
-    root.dataset.bound = '1';
+  if (root) {
     const wa = root.dataset.wa || '';
     const total = parseInt(root.dataset.total || '3', 10);
     const stepsEls = Array.from(root.querySelectorAll('[data-diag-step]'));
@@ -221,7 +216,4 @@ const { class: className = '' } = Astro.props;
       showStep(0);
     });
   }
-  }
-  document.addEventListener('astro:page-load', initDiag);
-  initDiag();
 </script>

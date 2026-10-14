@@ -14,6 +14,9 @@ import tailwindcss from '@tailwindcss/vite';
 // y su API se renderizan on-demand (panel de edición de contenido).
 export default defineConfig({
   site: 'https://www.ggasoc.com',
+  // Precarga la página al pasar por un link. Venía incluido con el ClientRouter; sin él hay
+  // que pedirlo, o cada navegación espera la descarga completa.
+  prefetch: { prefetchAll: true },
   integrations: [sitemap(), react(), keystatic()],
   adapter: vercel(),
   vite: {

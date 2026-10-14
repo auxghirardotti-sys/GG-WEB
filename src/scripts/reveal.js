@@ -7,19 +7,15 @@
 // - [data-countup]: cuenta de 0 a data-target al entrar en viewport.
 // - [data-parallax]: desplazamiento suave según scroll (factor en el atributo).
 // - #scroll-progress: barra roja de progreso de lectura.
-// - .marquee__track: se reinician con las fuentes cargadas (arreglo para Safari, ver initMarquees).
+// - .marquee__track: las marquesinas (ver initMarquees).
 //
-// Con View Transitions (ClientRouter) el módulo carga UNA vez y el DOM se swapea
-// en cada navegación: los listeners de window/document se registran una sola vez
-// y todo lo que apunta a elementos se re-consulta en cada astro:page-load.
+// Cada página es una carga normal: este módulo corre una vez por página, con el DOM ya
+// armado (los <script type="module"> son diferidos) y sin esperar a las imágenes.
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Si el browser soporta scroll-driven animations, el parallax .sd-parallax lo hace CSS puro.
 const sdSupported =
   typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()');
-
-let parallaxEls = [];
-let progressBar = null;
 
 function runCountUp(el) {
   const target = parseFloat(el.dataset.countup || '0');
@@ -77,11 +73,8 @@ function initReveal() {
     if (!el.closest('[data-reveal], [data-reveal-stagger]')) observer.observe(el);
   });
 
-  // Red de seguridad del revelado. La del <head> cubre "el JS no llegó", pero no cubre
-  // este otro caso, que ya pasó dos veces: el JS corre bien y el observer igual no
-  // revela. Al segundo y medio, cualquier cosa que esté en pantalla y siga invisible se
-  // muestra. Si el observer funcionó —el caso normal— la animación ya ocurrió y esto no
-  // hace nada: por eso no le come la entrada a nadie.
+  // Red de seguridad: al segundo y medio, lo que esté en pantalla y siga invisible se
+  // muestra. Si el observer funcionó (el caso normal) no hace nada. Contenido > animación.
   window.setTimeout(() => {
     revealTargets.forEach((el) => {
       if (el.classList.contains('is-visible')) return;
@@ -94,37 +87,71 @@ function initReveal() {
   }, 1500);
 }
 
-function updateScrollFx() {
-  const scroll = window.scrollY;
-  const docH = document.documentElement.scrollHeight - window.innerHeight;
-  if (progressBar) progressBar.style.transform = `scaleX(${docH > 0 ? scroll / docH : 0})`;
-  if (reduce) return;
-  const vh = window.innerHeight;
-  parallaxEls.forEach((el) => {
-    const factor = parseFloat(el.dataset.parallax || '0.12');
-    const rect = el.getBoundingClientRect();
-    const center = rect.top + rect.height / 2 - vh / 2;
-    el.style.transform = `translate3d(0, ${(-center * factor).toFixed(1)}px, 0)`;
+// Barra de progreso de lectura + parallax por JS (donde no hay scroll-driven animations).
+function initScrollFx() {
+  const progressBar = document.getElementById('scroll-progress');
+  const parallaxEls = reduce ? [] : Array.from(document.querySelectorAll('[data-parallax]')).filter(
+    (el) => !(sdSupported && el.classList.contains('sd-parallax'))
+  );
+  const update = () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    if (progressBar) progressBar.style.transform = `scaleX(${docH > 0 ? window.scrollY / docH : 0})`;
+    const vh = window.innerHeight;
+    parallaxEls.forEach((el) => {
+      const factor = parseFloat(el.dataset.parallax || '0.12');
+      const rect = el.getBoundingClientRect();
+      const center = rect.top + rect.height / 2 - vh / 2;
+      el.style.transform = `translate3d(0, ${(-center * factor).toFixed(1)}px, 0)`;
+    });
+  };
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      update();
+      ticking = false;
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  update();
+}
+
+// Marquesinas. Van por JS y no con @keyframes por dos cosas que el CSS no resuelve:
+// - VELOCIDAD fija en px/s, la misma para todas. Un keyframe tiene DURACIÓN fija, así que
+//   cada pista iba a otra velocidad según su ancho y había que recalibrarla a mano por
+//   breakpoint cada vez que se agregaba un logo o una nota.
+// - El recorrido se mide en cada cuadro. El -50% de un keyframe Safari (iPhone) lo resuelve
+//   al arrancar, y si la pista crecía después (logos o fuentes que bajan tarde) los logos
+//   quedaban trabados.
+// La pista lleva el contenido DUPLICADO: al correrse media pista la vista es idéntica al
+// inicio y el bucle no tiene costura. Se frena con el mouse encima o el foco adentro, solo
+// con puntero real: en touch el :hover y el foco quedan pegados tras un tap.
+// Con "reducir movimiento" no arranca y el CSS la deja deslizable a mano.
+const VELOCIDAD = 60; // px por segundo
+function initMarquees() {
+  const pistas = Array.from(document.querySelectorAll('.marquee__track'));
+  if (reduce || !pistas.length) return;
+  const frenable = window.matchMedia('(hover: hover)').matches;
+  const pos = new Map(pistas.map((p) => [p, 0]));
+  let antes = performance.now();
+  requestAnimationFrame(function cuadro(ahora) {
+    const dx = (VELOCIDAD * Math.min(ahora - antes, 100)) / 1000; // tope: al volver de otra pestaña no salta
+    antes = ahora;
+    for (const p of pistas) {
+      const mitad = p.scrollWidth / 2; // 0 si está oculta (la 2da fila de rubros en celular)
+      if (!mitad || (frenable && (p.parentElement.matches(':hover') || p.contains(document.activeElement)))) continue;
+      const x = (pos.get(p) + dx) % mitad;
+      pos.set(p, x);
+      p.style.transform = `translate3d(${p.classList.contains('marquee__track--reverse') ? x - mitad : -x}px, 0, 0)`;
+    }
+    requestAnimationFrame(cuadro);
   });
 }
 
-function initScrollFxOnce() {
-  let ticking = false;
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateScrollFx();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
-}
-
 // Vibración háptica sutil en elementos con [data-haptic] (Android/Chrome; iOS lo ignora).
-function initHapticsOnce() {
+function initHaptics() {
   if (reduce || !('vibrate' in navigator)) return;
   document.addEventListener(
     'click',
@@ -167,7 +194,7 @@ function initCarouselDots() {
 
 // Spotlight: la luz de las tarjetas sigue el cursor (setea --mx/--my del CSS).
 // Un solo listener delegado para todas las cards.
-function initSpotlightOnce() {
+function initSpotlight() {
   if (!window.matchMedia('(pointer: fine)').matches) return;
   document.addEventListener(
     'pointermove',
@@ -206,29 +233,19 @@ function initMagnetic() {
 // Flecha "Volver": si venimos de otra página del sitio, retrocedemos en el historial —que es
 // lo que uno espera: vuelve a donde estabas, con el scroll donde lo dejaste—. Si se entró
 // directo (desde Google, un link compartido), no hay a dónde retroceder y dejamos que el
-// href del <a> lleve a la sección padre. Se re-bindea por página: los <a> son nuevos en cada
-// navegación con view transitions.
+// href del <a> lleve a la sección padre.
 function bindVolver() {
+  let interno = false;
+  try {
+    interno = !!document.referrer && new URL(document.referrer).origin === location.origin;
+  } catch {}
+  if (!interno || history.length < 2) return;
   document.querySelectorAll('a[data-volver]').forEach((a) => {
     a.addEventListener('click', (e) => {
       // Respetamos ctrl/cmd+clic y el botón del medio: ahí el usuario quiere otra pestaña.
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-      // Con view transitions la navegación es pushState, así que document.referrer NO se
-      // actualiza: mirarlo solo daría falsos negativos. Por eso contamos las páginas que
-      // pasaron por initPage. Más de una = hubo navegación dentro del sitio y hay a dónde
-      // volver. El referrer sirve igual para la navegación clásica (sin ClientRouter).
-      let interno = paginasVistas > 1;
-      if (!interno) {
-        try {
-          interno = !!document.referrer && new URL(document.referrer).origin === location.origin;
-        } catch {
-          interno = false;
-        }
-      }
-      if (interno && history.length > 1) {
-        e.preventDefault();
-        history.back();
-      }
+      e.preventDefault();
+      history.back();
     });
   });
 }
@@ -244,81 +261,22 @@ function initFooterAccordion() {
   wide.addEventListener('change', sync);
 }
 
-// Safari (iPhone) resuelve el -50% del marquee UNA vez, al arrancar la animación, y no lo
-// recalcula si la pista cambia de ancho después. La pista cambia cuando entra la fuente web
-// (la fila de rubros) o bajan los logos (por eso los <img> llevan width/height): el
-// recorrido quedaba calculado sobre la pista a medio armar y en celular casi no se movía.
-// Con las fuentes listas se reinicia, para que tome el ancho real.
-function initMarquees() {
-  const tracks = document.querySelectorAll('.marquee__track');
-  if (reduce || !tracks.length || !document.fonts) return;
-  document.fonts.ready.then(() => tracks.forEach((t) => {
-    t.style.animation = 'none';
-    void t.offsetWidth; // fuerza el reflow: sin esto el navegador junta los dos cambios y no reinicia
-    t.style.animation = '';
-  }));
+// 'reveal-on' desarma la red de seguridad del <head> (la que muestra todo si este JS no llega).
+document.documentElement.classList.add('reveal-on');
+
+// Lo primero y aislado: el contenido tiene que aparecer aunque falle todo lo demás.
+try {
+  initReveal();
+} catch (err) {
+  console.error('[gg] initReveal falló; se muestra todo sin animación', err);
+  document.documentElement.classList.add('sin-reveal');
 }
 
-// Se ejecuta en cada navegación (y en la carga inicial): re-consulta el DOM nuevo.
-// En la carga inicial nos llaman dos veces (DOMContentLoaded y después astro:page-load),
-// así que lleva guard. Con view transitions el guard se suelta antes de cada swap.
-let paginaLista = false;
-// Cuántas páginas pasaron por initPage en esta sesión. Sirve para saber si hay historial
-// propio del sitio: con view transitions es la única señal fiable (ver bindVolver).
-let paginasVistas = 0;
-document.addEventListener('astro:before-swap', () => {
-  paginaLista = false;
-});
-
-function initPage() {
-  if (paginaLista) return;
-  paginaLista = true;
-  paginasVistas++;
-  // El swap de las view transitions reemplaza los atributos de <html>, así que la clase 'js'
-  // que puso el script inline del <head> se pierde en cada navegación interna: hay que reponerla
-  // o el CSS deja de ocultar y se pierde el revelado. 'reveal-on' desarma la red del <head>.
-  document.documentElement.classList.add('js', 'reveal-on');
-
-  // Lo primero y aislado: el contenido tiene que aparecer aunque falle todo lo demás.
-  try {
-    initReveal();
-  } catch (err) {
-    console.error('[gg] initReveal falló; se muestra todo sin animación', err);
-    document.documentElement.classList.add('sin-reveal');
-  }
-
-  progressBar = document.getElementById('scroll-progress');
-  parallaxEls = Array.from(document.querySelectorAll('[data-parallax]')).filter(
-    (el) => !(sdSupported && el.classList.contains('sd-parallax'))
-  );
-  for (const fn of [initCarouselDots, initFooterAccordion, initMagnetic, initMarquees, bindVolver, updateScrollFx]) {
-    try {
-      fn();
-    } catch (err) {
-      console.error(`[gg] ${fn.name} falló`, err);
-    }
-  }
-}
-
-// Los listeners van ANTES de los init globales: si alguno explota, el revelado igual queda enganchado.
-// after-swap: en una navegación interna el DOM nuevo ya está en pantalla pero Astro todavía no
-// corrió los <script> de la página entrante, y recién después emite page-load. Revelando en el
-// swap no queda ni un frame de cuerpo vacío. El guard de initPage absorbe el disparo duplicado.
-document.addEventListener('astro:after-swap', initPage);
-document.addEventListener('astro:page-load', initPage);
-
-// Cada init global va aislado: ninguno puede dejar la página en blanco si tira una excepción.
-for (const fn of [initScrollFxOnce, initHapticsOnce, initSpotlightOnce]) {
+// Cada init va aislado: ninguno puede dejar la página en blanco si tira una excepción.
+for (const fn of [initScrollFx, initMarquees, initHaptics, initSpotlight, initCarouselDots, initMagnetic, bindVolver, initFooterAccordion]) {
   try {
     fn();
   } catch (err) {
     console.error(`[gg] ${fn.name} falló`, err);
   }
 }
-
-// El ClientRouter emite astro:page-load en cada view transition, pero en la CARGA INICIAL lo
-// emite recién en window.load, que espera a que bajen todas las imágenes. Como el contenido
-// arranca en opacity:0 hasta que lo revelamos, eso dejaba la página medio en blanco varios
-// segundos (y para siempre si alguna imagen se colgaba). Arrancamos con el DOM listo.
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPage);
-else initPage();

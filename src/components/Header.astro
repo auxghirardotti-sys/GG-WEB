@@ -169,12 +169,11 @@ const isActive = (href: string) => current === href || current.startsWith(href +
 </header>
 
 <script>
-  // Con View Transitions el header se swapea en cada navegación: los bindings a
-  // elementos se rehacen en astro:page-load; los listeners de document/window se
-  // registran una vez y consultan el DOM en vivo.
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const header = document.getElementById('site-header');
+
   function setMenu(open: boolean) {
-    const btn = document.getElementById('menu-btn');
-    const menu = document.getElementById('mobile-menu');
     if (!menu || !btn) return;
     menu.classList.toggle('hidden', !open);
     btn.setAttribute('aria-expanded', String(open));
@@ -183,41 +182,23 @@ const isActive = (href: string) => current === href || current.startsWith(href +
     document.getElementById('icon-close')?.classList.toggle('hidden', !open);
   }
 
-  function initHeader() {
-    const btn = document.getElementById('menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    if (!btn || btn.dataset.bound) return;
-    btn.dataset.bound = '1';
-    btn.addEventListener('click', () => setMenu(menu?.classList.contains('hidden') ?? false));
-    // Cerrar el menú mobile al tocar cualquier link
-    menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
-    onScroll();
-  }
+  btn?.addEventListener('click', () => setMenu(menu?.classList.contains('hidden') ?? false));
+  // Cerrar el menú mobile al tocar cualquier link
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
 
   // Escape cierra el menú mobile y suelta el foco del dropdown de servicios
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    const menu = document.getElementById('mobile-menu');
     if (menu && !menu.classList.contains('hidden')) setMenu(false);
     if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
   });
 
   // Shrink + sombra del header al scrollear
   const onScroll = () => {
-    const header = document.getElementById('site-header');
-    if (!header) return;
-    if (window.scrollY > 8) {
-      header.classList.add('shadow-[0_8px_30px_-20px_rgba(20,23,31,0.45)]');
-      header.querySelector('div')?.classList.add('!h-[60px]');
-    } else {
-      header.classList.remove('shadow-[0_8px_30px_-20px_rgba(20,23,31,0.45)]');
-      header.querySelector('div')?.classList.remove('!h-[60px]');
-    }
+    const encogido = window.scrollY > 8;
+    header?.classList.toggle('shadow-[0_8px_30px_-20px_rgba(20,23,31,0.45)]', encogido);
+    header?.querySelector('div')?.classList.toggle('!h-[60px]', encogido);
   };
   window.addEventListener('scroll', onScroll, { passive: true });
-
-  document.addEventListener('astro:page-load', initHeader);
-  // Y ya mismo: en la carga inicial page-load recién llega con window.load (espera todas
-  // las imágenes) y hasta entonces la hamburguesa del celular no abría.
-  initHeader();
+  onScroll();
 </script>
