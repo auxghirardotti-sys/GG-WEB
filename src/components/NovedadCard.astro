@@ -13,8 +13,8 @@
  * decodificado los &amp; de la URL. Los medios sobre Arc —Infobae, La Nación, El Cronista—
  * llevan un token en el query string y sin decodificar parece que estuvieran bloqueando.)
  *
- * Las tres notas viejas (2016, 2022, 2023) no tienen link externo y por lo tanto no tienen
- * foto: la tarjeta se dibuja sin imagen. No salen en la portada, que muestra las 6 últimas.
+ * La nota sin foto propia (las viejas sin link externo, o un medio que no publica
+ * og:image) lleva la foto de San Isidro de la portada: ver fotoPrensa en data/images.ts.
  */
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
@@ -60,7 +60,6 @@ const colorMedio = colorDeMedio(p.data.source);
   tabindex={duplicado ? -1 : undefined}
   class:list={['surface-card lift group flex shrink-0 snap-start flex-col overflow-hidden rounded-2xl sm:rounded-lg', ancho]}
 >
-  {foto && (
     <div class="aspect-[16/9] overflow-hidden bg-paper-2">
       <Image
         src={foto}
@@ -80,7 +79,6 @@ const colorMedio = colorDeMedio(p.data.source);
         decoding="async"
       />
     </div>
-  )}
 
   <div class="flex flex-1 flex-col p-4 sm:p-5">
     {/* El nombre va en el color del diario. En caja normal, no en versalitas:

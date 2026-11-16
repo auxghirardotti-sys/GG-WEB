@@ -21,8 +21,9 @@ export function img(pathOrName: string): ImageMetadata {
 }
 
 // Fotos de prensa: las baja scripts/fotos-prensa.mjs desde la og:image de cada nota y
-// quedan en src/assets/prensa/<slug>.webp. Devuelve undefined si esa nota no tiene foto
-// (las tres viejas no tienen link externo), así la tarjeta se dibuja sin imagen.
+// quedan en src/assets/prensa/<slug>.webp. La nota que no tiene foto (las viejas sin link
+// externo, o un medio que no publica og:image) lleva la de San Isidro, la misma de la
+// portada: una tarjeta sin imagen quedaba con un hueco en blanco al lado de las otras.
 const prensaMods = import.meta.glob<{ default: ImageMetadata }>('../assets/prensa/*.webp', {
   eager: true,
 });
@@ -33,7 +34,7 @@ for (const path in prensaMods) {
   prensaBySlug[slug] = prensaMods[path].default;
 }
 
-/** Foto de portada de una nota de prensa, o undefined si no tiene. */
-export function fotoPrensa(slug: string): ImageMetadata | undefined {
-  return prensaBySlug[slug];
+/** Foto de portada de una nota de prensa, o la del estudio si la nota no tiene. */
+export function fotoPrensa(slug: string): ImageMetadata {
+  return prensaBySlug[slug] ?? img('catedral-lateral.jpg');
 }
